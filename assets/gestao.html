@@ -242,7 +242,7 @@ tr:hover td{background:#faf6ec}
       <h2>Backup</h2>
       <p class="note">Os dados ficam guardados neste navegador (localStorage) <strong>e sincronizados com o servidor do site</strong>.</p>
       <p class="note" id="sync-gestao">Sincronização: a verificar…</p>
-      <p class="note">Gestão ĀTMĀYÂ v2.9 — com cópia de segurança automática no servidor.</p>
+      <p class="note">Gestão ĀTMĀYÂ v2.10 — com cópia de segurança automática no servidor.</p>
       <button class="primary" onclick="exportJSON()">⇩ Exportar backup (JSON)</button>
       <div style="height:10px"></div>
       <label>Restaurar backup</label>
@@ -302,7 +302,7 @@ function seedApply(d){
 }
 let db;
 try{ db=JSON.parse(localStorage.getItem(DBKEY))||null; }catch(e){ db=null; }
-if(!db||!db.settings){ db=defaultDB(); seedApply(db); setTimeout(()=>save(),0); }
+if(!db||!db.settings){ db=defaultDB(); seedApply(db); setTimeout(()=>{try{localStorage.setItem(DBKEY,JSON.stringify(db));}catch(e){}},0); } /* a semente inicial nao carimba data nem vai para o servidor: quem manda e o que vier do servidor */
 const save=()=>{db._v=Date.now();localStorage.setItem(DBKEY,JSON.stringify(db));pushServerDebounced();};
 
 /* ===== SINCRONIZAÇÃO COM O SERVIDOR (Cloudflare) ===== */
