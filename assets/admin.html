@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ĀTMĀYÂ — Painel de Administração</title>
+  <script src="users.js?v=22"></script>
+  <script src="auth.js?v=22"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background-color: #f7f5f0;
+      background-image: url('logo.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #2b2b2b;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(247, 245, 240, 0.88);
+      z-index: -1;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
+
+    h1 { font-size: 1.6rem; letter-spacing: 0.12em; }
+    h1 span { color: #8a6d3b; }
+
+    .sub { font-size: 0.85rem; letter-spacing: 0.25em; text-transform: uppercase; color: #6b6257; margin-top: 0.4rem; }
+
+    main { max-width: 900px; margin: 0 auto; padding: 1rem 1rem 3rem; }
+
+    .card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid #d8cfc0;
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+    }
+
+    h2 { font-size: 1.1rem; margin-bottom: 1rem; color: #514a41; }
+
+    form label { display: block; font-size: 0.85rem; color: #6b6257; margin: 0.6rem 0 0.2rem; }
+
+    form input[type=text], form input[type=password] {
+      width: 100%;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid #cfc5b4;
+      border-radius: 8px;
+      background: #fffdf8;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .apps-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.6rem; }
+
+    .apps-grid label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: 1px solid #d8cfc0;
+      border-radius: 8px;
+      padding: 0.45rem 0.8rem;
+      font-size: 0.9rem;
+      color: #2b2b2b;
+      cursor: pointer;
+      background: #fffdf8;
+    }
+
+    .admin-check, .admin-check label { margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; color: #514a41; font-size: 0.9rem; }
+
+    button {
+      margin-top: 1.2rem;
+      padding: 0.6rem 1.6rem;
+      background: #1a1a1a;
+      color: #f7f5f0;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+    }
+
+    button:hover { background: #8a6d3b; }
+
+    button.secondary { background: none; border: 1px solid #b9ad97; color: #514a41; padding: 0.4rem 1rem; font-size: 0.85rem; }
+    button.secondary:hover { border-color: #a33; color: #a33; background: none; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    th, td { padding: 0.6rem 0.5rem; border-bottom: 1px solid #e3dccd; text-align: left; vertical-align: top; }
+    th { color: #8a6d3b; font-weight: normal; letter-spacing: 0.05em; }
+
+    .user-apps { font-size: 0.8rem; color: #77705f; }
+
+    .top-actions { text-align: center; margin-bottom: 1rem; }
+    .top-actions button { margin: 0 0.3rem; }
+
+    #msg { text-align: center; font-size: 0.9rem; color: #3a7a3a; display: none; margin-bottom: 1rem; }
+
+    @media (max-width: 600px) {
+      .hide-mobile { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>PAINEL DE <span>ADMINISTRAÇÃO</span></h1>
+    <p class="sub">Ātmāyā • Yoga &amp; Therapy Studio</p>
+  </header>
+
+  <main>
+    <div class="top-actions">
+      <button class="secondary" onclick="location.href='index.html'">← Voltar</button>
+      <button class="secondary" id="btn-export">⇩ Descarregar users.js</button>
+      <span id="sync-status" style="font-size:0.8rem;color:#8c8474"></span>
+      <button class="secondary" onclick="AUTH.logout(); location.href='index.html';">Sair</button>
+    </div>
+
+    <p id="msg">Alterações guardadas.</p>
+
+    <!-- Criar / editar utilizador -->
+    <div class="card">
+      <h2 id="form-title">Criar novo utilizador</h2>
+      <form id="user-form">
+        <label>Nome completo</label>
+        <input type="text" id="f-name" required>
+        <label>Nome de utilizador</label>
+        <input type="text" id="f-username" required>
+        <label>Password <span id="f-pass-hint" style="color:#a36">(deixe vazio para manter a atual)</span></label>
+        <input type="password" id="f-pass" autocomplete="new-password">
+
+        <label>Aplicações permitidas</label>
+        <div class="apps-grid" id="f-apps"></div>
+
+        <div class="admin-check">
+          <input type="checkbox" id="f-admin">
+          <label for="f-admin">Administrador (acede a tudo e gere utilizadores)</label>
+        </div>
+
+        <button type="submit" id="f-submit">Criar utilizador</button>
+        <button type="button" class="secondary" id="f-cancel" style="display:none">Cancelar edição</button>
+      </form>
+    </div>
+
+    <!-- Instalar / gerir aplicações -->
+    <div class="card">
+      <h2>Aplicações (instalar novas e gerir existentes)</h2>
+      <p style="font-size:0.85rem;color:#77705f;margin-bottom:1rem">
+        Para instalar uma nova app: envia primeiro o ficheiro .html dela para a pasta do servidor,
+        preenche aqui o nome e o nome exato do ficheiro, e clica em Instalar.
+        O botão aparece automaticamente na página principal para os utilizadores com permissão.
+      </p>
+      <form id="app-form">
+        <label>Nome da aplicação</label>
+        <input type="text" id="fa-name" placeholder="Ex.: Meditações Guiadas" required>
+        <label>Ficheiro no servidor (.html)</label>
+        <input type="text" id="fa-file" placeholder="Ex.: meditacoes.html" required>
+        <label>Ícone (emoji ou símbolo)</label>
+        <input type="text" id="fa-icon" placeholder="Ex.: 座" value="✿">
+        <label>Descrição curta</label>
+        <input type="text" id="fa-desc" placeholder="Ex.: Guias de meditação do studio">
+        <button type="submit">Instalar aplicação</button>
+      </form>
+      <table style="margin-top:1.2rem">
+        <thead>
+          <tr><th>Nome</th><th class="hide-mobile">Ficheiro</th><th></th></tr>
+        </thead>
+        <tbody id="apps-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Lista de utilizadores -->
+    <div class="card">
+      <h2>Utilizadores existentes</h2>
+      <table>
+        <thead>
+          <tr><th>Nome</th><th class="hide-mobile">Utilizador</th><th>Aplicações</th><th></th></tr>
+        </thead>
+        <tbody id="users-tbody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    // Guarda: só administradores
+    if (!AUTH.requireApp('admin-panel')) {
+      const s = AUTH.session();
+      if (!(s && s.admin)) document.body.innerHTML = '<p style="text-align:center;padding:3rem">Acesso restrito. <a href="index.html">Entrar</a></p>';
+    }
+
+    let editingId = null;
+
+    function esc(t) {
+      return String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    function flash() {
+      const m = document.getElementById('msg');
+      m.style.display = 'block';
+      setTimeout(() => m.style.display = 'none', 1500);
+    }
+
+    function buildAppsCheckboxes(selected) {
+      const box = document.getElementById('f-apps');
+      box.innerHTML = '';
+      AUTH.APPS.forEach(a => {
+        const lbl = document.createElement('label');
+        lbl.innerHTML = '<input type="checkbox" value="' + a.id + '"' +
+          (selected && selected.includes(a.id) ? ' checked' : '') + '> ' + esc(a.name);
+        box.appendChild(lbl);
+      });
+    }
+
+    function resetForm() {
+      editingId = null;
+      document.getElementById('form-title').textContent = 'Criar novo utilizador';
+      document.getElementById('f-submit').textContent = 'Criar utilizador';
+      document.getElementById('f-cancel').style.display = 'none';
+      document.getElementById('f-pass-hint').style.display = 'none';
+      document.getElementById('user-form').reset();
+      buildAppsCheckboxes([]);
+    }
+
+    function render() {
+      const users = AUTH.getUsers();
+      const tbody = document.getElementById('users-tbody');
+      tbody.innerHTML = '';
+      users.forEach(u => {
+        const tr = document.createElement('tr');
+        const appNames = u.admin ? 'Todas (administrador)' :
+          (u.apps || []).map(id => (AUTH.app(id) || {}).name).filter(Boolean).join(', ');
+        tr.innerHTML =
+          '<td>' + esc(u.name) + '</td>' +
+          '<td class="hide-mobile">' + esc(u.username) + '</td>' +
+          '<td class="user-apps">' + esc(appNames) + '</td>' +
+          '<td style="white-space:nowrap">' +
+            '<button class="secondary" onclick="editUser(\'' + u.id + '\')">Editar</button> ' +
+            '<button class="secondary" onclick="deleteUser(\'' + u.id + '\')">Apagar</button>' +
+          '</td>';
+        tbody.appendChild(tr);
+      });
+    }
+
+    window.editUser = function (id) {
+      const u = AUTH.getUsers().find(x => x.id === id);
+      if (!u) return;
+      editingId = id;
+      document.getElementById('form-title').textContent = 'Editar utilizador: ' + u.name;
+      document.getElementById('f-submit').textContent = 'Guardar alterações';
+      document.getElementById('f-cancel').style.display = 'inline-block';
+      document.getElementById('f-pass-hint').style.display = 'inline';
+      document.getElementById('f-name').value = u.name;
+      document.getElementById('f-username').value = u.username;
+      document.getElementById('f-pass').value = '';
+      document.getElementById('f-admin').checked = !!u.admin;
+      buildAppsCheckboxes(u.apps || []);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.deleteUser = function (id) {
+      const users = AUTH.getUsers();
+      const u = users.find(x => x.id === id);
+      if (!u) return;
+      if (u.username === 'admin') { alert('A conta "admin" inicial não pode ser apagada aqui.'); return; }
+      if (!confirm('Apagar o utilizador "' + u.name + '"?')) return;
+      AUTH.saveUsers(users.filter(x => x.id !== id));
+      render(); flash();
+    };
+
+    document.getElementById('user-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('f-name').value.trim();
+      const username = document.getElementById('f-username').value.trim();
+      const pass = document.getElementById('f-pass').value;
+      const admin = document.getElementById('f-admin').checked;
+      const apps = Array.from(document.querySelectorAll('#f-apps input:checked')).map(c => c.value);
+      if (!name || !username) return;
+
+      const users = AUTH.getUsers();
+
+      if (editingId) {
+        const u = users.find(x => x.id === editingId);
+        if (!u) return;
+        if (users.some(x => x.id !== editingId && x.username === username)) { alert('Esse nome de utilizador já existe.'); return; }
+        u.name = name; u.username = username; u.admin = admin; u.apps = apps;
+        if (pass) u.passHash = AUTH.sha256(pass);
+      } else {
+        if (users.some(x => x.username === username)) { alert('Esse nome de utilizador já existe.'); return; }
+        if (!pass) { alert('A password é obrigatória para um novo utilizador.'); return; }
+        users.push({
+          id: 'u-' + Date.now() + '-' + Math.floor(Math.random() * 10000),
+          name, username,
+          passHash: AUTH.sha256(pass),
+          admin, apps
+        });
+      }
+
+      AUTH.saveUsers(users);
+      resetForm(); render(); flash();
+    });
+
+    document.getElementById('f-cancel').addEventListener('click', resetForm);
+
+    // Exportar a base de dados para o servidor (users.js)
+    document.getElementById('btn-export').addEventListener('click', () => {
+      const content = '// Base de dados de utilizadores — substituir no servidor\n' + AUTH.exportUsersJs();
+      const blob = new Blob([content], { type: 'application/javascript' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'users.js';
+      a.click();
+      URL.revokeObjectURL(a.href);
+      alert('Ficheiro users.js descarregado.\n\nSubstitui o users.js do servidor por este para que todos os dispositivos (telemóveis incluídos) vejam os mesmos utilizadores.');
+    });
+
+    function renderApps() {
+      const tbody = document.getElementById('apps-tbody');
+      tbody.innerHTML = '';
+      AUTH.getApps().forEach(a => {
+        const tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td>' + esc(a.icon + ' ' + a.name) + '</td>' +
+          '<td class="hide-mobile">' + esc(a.file) + '</td>' +
+          '<td style="white-space:nowrap">' +
+            '<button class="secondary" onclick="removeAppInstaled(\'' + a.id + '\')">Desinstalar</button>' +
+          '</td>';
+        tbody.appendChild(tr);
+      });
+    }
+
+    window.removeAppInstaled = function (id) {
+      const a = AUTH.app(id);
+      if (!a) return;
+      // impedir desinstalar as apps de origem
+      if (['reiki-sabedoria','reiki-25','gestao','oraculo64'].includes(id)) {
+        alert('As 4 aplicações de origem não podem ser desinstaladas.');
+        return;
+      }
+      if (!confirm('Desinstalar "' + a.name + '"? Os utilizadores perderam o acesso, mas o ficheiro permanece no servidor.')) return;
+      AUTH.removeApp(id);
+      renderApps();
+
+    // Estado da sincronização automática com o servidor
+    function atualizaSyncBadge() {
+      const el = document.getElementById('sync-status');
+      const s = AUTH.lastSync;
+      if (s.ok === null) el.textContent = '';
+      else if (s.ok) { el.textContent = '✓ Sincronizado com o servidor'; el.style.color = '#3a7a3a'; }
+      else { el.textContent = '✗ Sem sincronização automática: ' + s.msg; el.style.color = '#a33'; }
+    }
+    document.addEventListener('atmaya-data', function () { render(); renderApps(); });
+    document.addEventListener('atmaya-sync', function () {
+      atualizaSyncBadge();
+      // o servidor acabou de gravar o users.js novo: redesenhar listas
+      render();
+      renderApps();
+    }); flash();
+    };
+
+    document.getElementById('app-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const app = {
+        name: document.getElementById('fa-name').value.trim(),
+        file: document.getElementById('fa-file').value.trim().replace(/^\/+/, ''),
+        icon: document.getElementById('fa-icon').value.trim() || '✿',
+        desc: document.getElementById('fa-desc').value.trim() || 'Aplicação'
+      };
+      if (!app.name || !/\.html$/i.test(app.file)) { alert('Indica o nome e um ficheiro terminado em .html'); return; }
+      const added = AUTH.addApp(app);
+      if (!added) { alert('Já existe uma aplicação com esse ficheiro.'); return; }
+      document.getElementById('app-form').reset();
+      document.getElementById('fa-icon').value = '✿';
+      renderApps();
+      resetForm(); // atualizar as checkboxes de permissões do formulário de utilizadores
+      flash();
+      alert('Aplicação instalada!\n\nLembra-te de: 1) enviar o ficheiro ' + app.file + ' para o servidor e 2) descarregar o users.js e substituí-lo no servidor.');
+    });
+
+    renderApps();
+
+    AUTH.getUsers(); // garante que a conta admin inicial existe
+    resetForm();
+    render();
+  </script>
+
+</body>
+</html>

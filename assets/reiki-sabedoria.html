@@ -1,0 +1,2099 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ĀTMĀYÂ • Oráculo de Reiki & Sabedoria Japonesa</title>
+    <!-- Favicon vetorial ĀTMĀYÂ (Três Luas Crescentes) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23fbf8f1'/%3E%3Cg fill='none' stroke='%231c1917' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M 27 28 A 34 34 0 1 0 73 28 A 28 29 0 1 1 27 28 Z'/%3E%3Cpath d='M 27 28 A 28 29 0 1 0 73 28 A 22 23 0 1 1 27 28 Z'/%3E%3Cpath d='M 33 23 A 22 23 0 1 0 67 23 A 18 17 0 1 1 33 23 Z'/%3E%3C/g%3E%3C/svg%3E">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond, Cinzel, Noto Serif JP & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        display: ['"Cinzel"', 'serif'],
+                        jp: ['"Noto Serif JP"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Perspetiva 3D rigorosa para o baralho (sem textos espelhados) */
+        .perspective-1200 {
+            perspective: 1400px;
+            -webkit-perspective: 1400px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+            transform: rotateY(0deg);
+            cursor: pointer;
+        }
+
+        .card-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-inner.no-transition {
+            transition: none !important;
+        }
+
+        .card-face {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            transform-style: flat;
+        }
+
+        .card-back {
+            transform: rotateY(0deg) translateZ(1px);
+            z-index: 2;
+        }
+
+        .card-front {
+            transform: rotateY(180deg) translateZ(1px);
+            z-index: 1;
+        }
+
+        .card-inner.is-flipped .card-back {
+            pointer-events: none;
+        }
+
+        .card-inner:not(.is-flipped) .card-front {
+            pointer-events: none;
+        }
+
+        /* Texturas e padrões de fundo por tema */
+        .theme-meiji {
+            background-color: #f4efe6;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(219, 152, 164, 0.14) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(132, 165, 157, 0.16) 0%, transparent 50%);
+            color: #2b2623;
+        }
+
+        .theme-tecnicas {
+            background-color: #edf2ee;
+            background-image: 
+                radial-gradient(circle at 20% 15%, rgba(45, 106, 79, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 85%, rgba(212, 175, 55, 0.12) 0%, transparent 50%);
+            color: #1b2e25;
+        }
+
+        .theme-mistico {
+            background-color: #111526;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(196, 69, 54, 0.16) 0%, transparent 45%),
+                radial-gradient(circle at 80% 75%, rgba(212, 175, 55, 0.14) 0%, transparent 50%);
+            color: #f3ece0;
+        }
+
+        /* Textura de papel Washi */
+        .washi-texture {
+            background-color: #fbf8f1;
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(160, 145, 125, 0.03) 0px, rgba(160, 145, 125, 0.03) 1px, transparent 1px, transparent 6px),
+                repeating-linear-gradient(-45deg, rgba(160, 145, 125, 0.03) 0px, rgba(160, 145, 125, 0.03) 1px, transparent 1px, transparent 6px);
+        }
+
+        /* Efeito de sombra de baralho empilhado */
+        .deck-stack-shadow {
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.12),
+                0 12px 24px -4px rgba(0, 0, 0, 0.18),
+                4px 4px 0px rgba(0, 0, 0, 0.08),
+                8px 8px 0px rgba(0, 0, 0, 0.05);
+        }
+
+        .theme-mistico .deck-stack-shadow {
+            box-shadow: 
+                0 10px 30px -5px rgba(0, 0, 0, 0.65),
+                0 0 25px rgba(212, 175, 55, 0.15),
+                4px 4px 0px rgba(212, 175, 55, 0.18),
+                8px 8px 0px rgba(212, 175, 55, 0.1);
+        }
+
+        /* Animação subtil de baralhar */
+        @keyframes shufflePulse {
+            0% { transform: translateX(0) rotate(0deg) scale(1); }
+            25% { transform: translateX(-14px) rotate(-2.5deg) scale(0.98); }
+            50% { transform: translateX(14px) rotate(2.5deg) scale(1.01); }
+            75% { transform: translateX(-6px) rotate(-1deg) scale(0.99); }
+            100% { transform: translateX(0) rotate(0deg) scale(1); }
+        }
+
+        .animate-shuffle {
+            animation: shufflePulse 0.55s ease-in-out;
+        }
+
+        /* Scrollbar personalizada dentro da carta para textos longos */
+        .card-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .card-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .card-scroll::-webkit-scrollbar-thumb {
+            background: rgba(150, 140, 130, 0.35);
+            border-radius: 9999px;
+        }
+
+        /* Efeito de elevação subtil no palco da carta sem interferir com o rotateY 3D */
+        .card-stage-hover {
+            transition: transform 0.35s ease;
+        }
+        .card-stage-hover:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Estilos exclusivos para impressão limpa da carta revelada */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #print-area, #print-area * {
+                visibility: visible;
+            }
+            #print-area {
+                position: fixed;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                background: #ffffff !important;
+                padding: 1.5cm;
+                z-index: 9999;
+            }
+            @page {
+                size: auto;
+                margin: 10mm;
+            }
+        }
+    </style>
+<script src="users.js?v=22"></script>
+  <script src="auth.js?v=22"></script>
+<script>/* Protecção: exige sessão com acesso a esta app */
+  if (!AUTH.requireApp('reiki-sabedoria')) document.documentElement.innerHTML = "";
+</script>
+</head>
+<body class="theme-meiji min-h-screen flex flex-col justify-between font-sans selection:bg-amber-500/20">
+
+    <!-- Filtros SVG globais para efeito de aquarela japonesa (Sumi-e / Nihonga) -->
+    <svg width="0" height="0" class="hidden" aria-hidden="true">
+        <defs>
+            <filter id="watercolor-filter" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="4" seed="7" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="11" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+                <feGaussianBlur in="displaced" stdDeviation="1.4" result="blurred" />
+                <feBlend mode="multiply" in="blurred" in2="SourceGraphic" />
+            </filter>
+            <filter id="ink-bleed" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="3" result="turbulence" />
+                <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="4" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Cabeçalho e Seletor de Baralhos -->
+    <header class="w-full max-w-6xl mx-auto px-4 pt-5 pb-3 z-10">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-current/10 pb-4">
+            <!-- Identidade / Título ĀTMĀYÂ -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3.5">
+                    <div id="header-emblem" class="w-12 h-12 rounded-2xl flex items-center justify-center border border-current/25 bg-current/[0.03] shadow-sm transition-colors duration-500 p-1.5 shrink-0">
+                        <!-- Logotipo Vetorial ĀTMĀYÂ (Três Luas Crescentes) -->
+                        <svg viewBox="0 0 100 100" class="w-full h-full" aria-label="Logotipo ĀTMĀYÂ">
+                            <g fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M 27 28 A 34 34 0 1 0 73 28 A 28 29 0 1 1 27 28 Z"/>
+                                <path d="M 27 28 A 28 29 0 1 0 73 28 A 22 23 0 1 1 27 28 Z"/>
+                                <path d="M 33 23 A 22 23 0 1 0 67 23 A 18 17 0 1 1 33 23 Z"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex items-baseline gap-2">
+                            <h1 class="font-display text-lg sm:text-xl font-bold tracking-[0.18em] uppercase">ĀTMĀYÂ</h1>
+                            <span class="text-[9px] uppercase tracking-[0.2em] opacity-65 font-medium hidden sm:inline">Yoga & Therapy Studio</span>
+                        </div>
+                        <p id="header-subtitle" class="text-xs sm:text-sm opacity-80 font-serif italic">Caminho do Reiki • Contemplação & Sabedoria Japonesa</p>
+                    </div>
+                </div>
+
+                <!-- Controlo de Áudio (Mobile) -->
+                <button id="audio-toggle-mobile" onclick="toggleAudio()" title="Ativar/Desativar Som Meditativo" class="md:hidden p-2.5 rounded-full border border-current/20 hover:bg-current/5 transition">
+                    <svg id="audio-icon-mobile" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Navegação dos 3 Baralhos -->
+            <nav aria-label="Escolha de Baralho" class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5 flex-1 max-w-2xl">
+                <button id="btn-deck-meiji" onclick="selectDeck('meiji')" class="deck-tab group relative px-3.5 py-2.5 rounded-xl text-left transition-all duration-300 border shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] uppercase tracking-widest opacity-70 font-semibold">Baralho I • 125 Cartas</span>
+                        <span class="font-jp text-xs opacity-80">御製</span>
+                    </div>
+                    <div class="font-serif font-bold text-base leading-tight mt-0.5">Poemas Imperador Meiji</div>
+                </button>
+
+                <button id="btn-deck-tecnicas" onclick="selectDeck('tecnicas')" class="deck-tab group relative px-3.5 py-2.5 rounded-xl text-left transition-all duration-300 border shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] uppercase tracking-widest opacity-70 font-semibold">Baralho II • 21 Cartas</span>
+                        <span class="font-jp text-xs opacity-80">技法</span>
+                    </div>
+                    <div class="font-serif font-bold text-base leading-tight mt-0.5">21 Técnicas de Reiki</div>
+                </button>
+
+                <button id="btn-deck-mistico" onclick="selectDeck('mistico')" class="deck-tab group relative px-3.5 py-2.5 rounded-xl text-left transition-all duration-300 border shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] uppercase tracking-widest opacity-70 font-semibold">Baralho III • 36 Cartas</span>
+                        <span class="font-jp text-xs opacity-80">神話</span>
+                    </div>
+                    <div class="font-serif font-bold text-base leading-tight mt-0.5">Oráculo Místico</div>
+                </button>
+            </nav>
+
+            <!-- Controlo de Áudio (Desktop) -->
+            <button id="audio-toggle-desktop" onclick="toggleAudio()" title="Ativar/Desativar Som Meditativo" class="hidden md:flex items-center gap-2 px-3.5 py-2 rounded-full border border-current/20 hover:bg-current/5 transition text-xs font-medium">
+                <svg id="audio-icon-desktop" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                </svg>
+                <span id="audio-label">Som Ativo</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Área Principal Interativa -->
+    <main class="flex-1 w-full max-w-6xl mx-auto px-4 py-3 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">
+        
+        <!-- Coluna Esquerda: Contexto do Baralho & Controlos -->
+        <section class="w-full lg:w-80 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1 space-y-4">
+            <div class="space-y-1.5">
+                <span id="deck-badge" class="inline-block px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider uppercase border border-current/20">
+                    Aquarela Japonesa • Gyosei
+                </span>
+                <h2 id="deck-title" class="font-display text-2xl sm:text-3xl font-bold leading-tight">
+                    Os 125 Poemas do Imperador Meiji
+                </h2>
+                <p id="deck-description" class="font-serif text-base sm:text-lg opacity-85 leading-relaxed">
+                    Versos selecionados pelo Mestre Mikao Usui para elevar a consciência, acalmar a mente e nutrir o espírito durante a prática de Reiki.
+                </p>
+            </div>
+
+            <!-- Estado do Baralho / Contador -->
+            <div class="w-full p-3.5 rounded-2xl border border-current/15 bg-current/[0.03] backdrop-blur-sm space-y-2">
+                <div class="flex items-center justify-between text-xs font-medium">
+                    <span class="opacity-75">Cartas reveladas nesta sessão:</span>
+                    <span id="deck-progress-text" class="font-bold">0 / 125</span>
+                </div>
+                <div class="w-full h-1.5 rounded-full bg-current/10 overflow-hidden">
+                    <div id="deck-progress-bar" class="h-full rounded-full transition-all duration-500 bg-current" style="width: 0%"></div>
+                </div>
+                <p id="interaction-hint" class="text-xs italic font-serif opacity-80 pt-1">
+                    ✦ Clica sobre a carta para tirar e revelar uma mensagem aleatória.
+                </p>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 w-full">
+                <button onclick="drawRandomCard()" class="flex-1 sm:flex-none px-5 py-2.5 rounded-xl font-medium text-sm shadow-sm transition-all active:scale-95 flex items-center justify-center gap-2 border border-current/20 bg-current/10 hover:bg-current/15">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    <span>Tirar Carta Aleatória</span>
+                </button>
+
+                <button onclick="shuffleAndResetDeck()" class="px-4 py-2.5 rounded-xl font-medium text-sm transition-all active:scale-95 flex items-center justify-center gap-1.5 border border-current/15 hover:bg-current/5 opacity-85 hover:opacity-100" title="Voltar ao monte e baralhar">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                    </svg>
+                    <span>Baralhar</span>
+                </button>
+
+                <button id="btn-print-card" onclick="printCurrentCard()" class="hidden px-4 py-2.5 rounded-xl font-medium text-sm transition-all active:scale-95 items-center justify-center gap-1.5 border border-current/20 bg-current/5 hover:bg-current/15" title="Imprimir a carta revelada">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+                    </svg>
+                    <span>Imprimir Carta</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Centro: Palco da Carta 3D Interativa -->
+        <section class="order-1 lg:order-2 flex flex-col items-center justify-center my-1">
+            <div id="card-stage" class="perspective-1200 card-stage-hover w-[310px] h-[475px] sm:w-[355px] sm:h-[530px] select-none">
+                <div id="card-inner" onclick="handleCardClick()" class="card-inner deck-stack-shadow rounded-[1.25rem]" role="button" tabindex="0" aria-label="Carta do Oráculo - Clica para virar">
+                    
+                    <!-- VERSO DA CARTA (Costas visíveis a 0deg) -->
+                    <div id="card-back" class="card-face card-back flex flex-col items-center justify-center p-5 border-2">
+                        <!-- Preenchido dinamicamente pelo JS -->
+                    </div>
+
+                    <!-- FRENTE DA CARTA (Conteúdo revelado a 180deg) -->
+                    <div id="card-front" class="card-face card-front flex flex-col justify-between p-5 sm:p-6 border-2">
+                        <!-- Preenchido dinamicamente pelo JS -->
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- Legenda rápida de clique abaixo da carta -->
+            <div class="mt-3 text-center">
+                <span id="card-below-prompt" class="text-xs tracking-wide uppercase opacity-65 font-medium">
+                    Clica na carta para tirar e revelar
+                </span>
+            </div>
+        </section>
+
+        <!-- Coluna Direita: Histórico da Sessão / Leituras Recentes -->
+        <aside class="w-full lg:w-72 order-3 flex flex-col space-y-2.5">
+            <div class="flex items-center justify-between border-b border-current/15 pb-1.5">
+                <h3 class="font-display text-xs font-bold uppercase tracking-wider opacity-80">Cartas da Sessão</h3>
+                <button onclick="clearHistory()" class="text-[11px] opacity-60 hover:opacity-100 underline transition">Limpar</button>
+            </div>
+            <div id="history-list" class="max-h-44 lg:max-h-[380px] overflow-y-auto card-scroll space-y-2 pr-1">
+                <p class="text-xs italic font-serif opacity-60 py-4 text-center">
+                    Ainda nenhuma carta foi tirada neste baralho.
+                </p>
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- Rodapé Contemplativo (Os 5 Princípios do Reiki - Gokai) & Copyright -->
+    <footer class="w-full max-w-6xl mx-auto px-4 py-3.5 border-t border-current/10 text-center space-y-1.5">
+        <p class="font-serif italic text-xs sm:text-sm opacity-80">
+            “Só por hoje, sou calmo, confio, sou grato, trabalho honestamente e sou bondoso”
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-3 text-[11px] opacity-65 tracking-wide">
+            <span class="font-display font-semibold tracking-[0.16em] uppercase">ĀTMĀYÂ — Yoga & Therapy Studio</span>
+            <span class="hidden sm:inline">•</span>
+            <span>© <span id="copyright-year">2026</span> António Almas. Todos os direitos reservados.</span>
+        </div>
+    </footer>
+
+    <!-- Modal de Detalhe (caso o utilizador clique numa carta do histórico) -->
+    <div id="history-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4" onclick="closeModal(event)">
+        <div id="modal-content" class="w-full max-w-md rounded-2xl p-6 shadow-2xl border relative transition-all" onclick="event.stopPropagation()">
+            <!-- Conteúdo preenchido dinamicamente -->
+        </div>
+    </div>
+
+    <!-- Contentor dedicado à impressão limpa da carta -->
+    <div id="print-area" class="hidden" aria-hidden="true"></div>
+
+    <script>
+        // ============================================================================
+        // 1. SINTETIZADOR DE ÁUDIO MEDITATIVO (Web Audio API - Taça Tibetana & Papel)
+        // ============================================================================
+        let audioEnabled = true;
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) {
+                    audioCtx = new AudioContext();
+                }
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            const label = document.getElementById('audio-label');
+            const iconDesktop = document.getElementById('audio-icon-desktop');
+            const iconMobile = document.getElementById('audio-icon-mobile');
+
+            const soundOnPath = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>`;
+            const soundOffPath = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zM17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>`;
+
+            if (label) label.textContent = audioEnabled ? 'Som Ativo' : 'Som Mudo';
+            if (iconDesktop) iconDesktop.innerHTML = audioEnabled ? soundOnPath : soundOffPath;
+            if (iconMobile) iconMobile.innerHTML = audioEnabled ? soundOnPath : soundOffPath;
+
+            if (audioEnabled) {
+                playChimeSound(528);
+            }
+        }
+
+        // Som suave de sino/taça tibetana ao revelar carta
+        function playChimeSound(baseFreq = 432) {
+            if (!audioEnabled) return;
+            try {
+                initAudio();
+                if (!audioCtx) return;
+
+                const now = audioCtx.currentTime;
+                const freqs = [baseFreq, baseFreq * 1.5, baseFreq * 2.01];
+
+                freqs.forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = idx === 0 ? 'sine' : 'triangle';
+                    osc.frequency.setValueAtTime(freq, now);
+
+                    const maxGain = idx === 0 ? 0.08 : 0.025 / idx;
+                    gain.gain.setValueAtTime(0.0001, now);
+                    gain.gain.exponentialRampToValueAtTime(maxGain, now + 0.04);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, now + 2.2 - idx * 0.3);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 2.3);
+                });
+            } catch (e) {
+                // Ignorar erros de áudio caso bloqueado pelo navegador
+            }
+        }
+
+        // Som subtil de papel a deslizar ao baralhar
+        function playPaperSound() {
+            if (!audioEnabled) return;
+            try {
+                initAudio();
+                if (!audioCtx) return;
+
+                const bufferSize = audioCtx.sampleRate * 0.18;
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.4));
+                }
+
+                const noise = audioCtx.createBufferSource();
+                noise.buffer = buffer;
+
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.value = 1100;
+
+                const gain = audioCtx.createGain();
+                gain.gain.value = 0.06;
+
+                noise.connect(filter);
+                filter.connect(gain);
+                gain.connect(audioCtx.destination);
+                noise.start();
+            } catch (e) {}
+        }
+
+        // ============================================================================
+        // 2. BASE DE DADOS COMPLETA DOS 3 BARALHOS
+        // ============================================================================
+
+        // --- BARALHO 1: OS 125 POEMAS DO IMPERADOR MEIJI (GYOSEI) ---
+        // Os 125 Waka tradicionais selecionados por Mikao Usui em Português Europeu (PT-PT)
+        const meijiPoemsData = [
+            { n: 1, t: "O Céu Azul (Asamidori)", p: "O céu da manhã é tão claro e sereno, sem uma única nuvem à vista; pudesse o meu coração ser tão vasto e límpido quanto ele.", s: "Convida a limpar a mente de julgamentos e nuvens emocionais, cultivando a amplitude e a paz interior antes de canalizar Reiki." },
+            { n: 2, t: "A Lua na Água", p: "Mesmo quando as águas do rio se agitam e correm velozes, a lua serena continua a refletir-se intacta na sua superfície.", s: "A tua essência espiritual permanece inabalável mesmo perante as turbulências da vida quotidiana." },
+            { n: 3, t: "O Pinheiro na Neve", p: "Mesmo sob o peso da neve profunda do inverno, o velho pinheiro não muda a cor verde das suas agulhas.", s: "Representa a constância, a resiliência e a fidelidade aos cinco princípios do Reiki em tempos difíceis." },
+            { n: 4, t: "A Rocha e as Ondas", p: "As ondas batem furiosamente contra o rochedo na costa, mas a pedra permanece firme, tranquila e sem se mover.", s: "Mantém o teu enraizamento (Hara/Tanden) firme. Não te deixes arrastar pelas emoções alheias." },
+            { n: 5, t: "O Caminho da Retidão", p: "Mesmo que ninguém esteja a observar, segue sempre pelo caminho reto e verdadeiro do coração humano.", s: "A integridade na prática de Reiki começa no silêncio das nossas próprias intenções e atos." },
+            { n: 6, t: "Gota de Orvalho", p: "Cada pequena gota de orvalho sobre a relva da manhã acolhe e reflete dentro de si a luz inteira do sol.", s: "Cada ser humano, por mais humilde que pareça, contém em si a centelha completa da Energia Universal." },
+            { n: 7, t: "O Espelho Polido", p: "Se não polirmos o espelho todos os dias, a poeira acumular-se-á e ele deixará de refletir a verdade.", s: "A autopurificação diária (Hatsurei-ho e meditação) é indispensável para sermos canais límpidos." },
+            { n: 8, t: "A Brisa da Primavera", p: "A brisa suave da primavera sopra igualmente sobre as flores do jardim e sobre as ervas silvestres do campo.", s: "A compaixão e o Reiki não fazem distinção; fluem incondicionalmente para todos os seres." },
+            { n: 9, t: "A Montanha Distante", p: "Por mais alta e distante que pareça a montanha, quem der um passo de cada vez acabará por alcançar o seu cume.", s: "O crescimento espiritual no Reiki faz-se na perseverança diária do 'Só por hoje', sem pressa nem ansiedade." },
+            { n: 10, t: "O Bambu Flexível", p: "O bambu curva-se humildemente ao sabor do vento forte, e por isso nunca se parte perante a tempestade.", s: "A verdadeira força reside na flexibilidade, na entrega e na ausência de resistência ao fluxo da vida." },
+            { n: 11, t: "A Água que Flui", p: "A água adapta-se à forma de qualquer recipiente, mas tem a força suave para esculpir a pedra mais dura.", s: "Sê como a água: gentil no toque, adaptável às necessidades do outro, mas constante na tua prática." },
+            { n: 12, t: "A Flor de Cerejeira (Sakura)", p: "A desabrochar sem orgulho e a cair sem apego, a flor de cerejeira ensina-nos a beleza do instante presente.", s: "Liberta o apego aos resultados. Entrega a energia com amor e confia na sabedoria do Universo." },
+            { n: 13, t: "O Fogo da Lareira", p: "Uma pequena brasa coberta de cinzas pode voltar a aquecer toda a casa se for soprada com cuidado.", s: "Mesmo nos momentos de cansaço, a chama do Reiki habita no teu interior; basta respirar fundo para a reavivar." },
+            { n: 14, t: "A Voz do Vento nos Pinheiros", p: "Quando o coração está calmo e silencioso, até o som do vento nos pinheiros parece uma música celestial.", s: "Silencia o ruído mental para conseguires ouvir a intuição (Reiji) que te guia durante a sessão." },
+            { n: 15, t: "O Poço Fundo", p: "Quanto mais fundo escavarmos o poço na terra, mais pura e fresca será a água que encontraremos.", s: "Aprofunda a tua prática além da técnica; mergulha na tua própria essência espiritual." },
+            { n: 16, t: "A Luz da Aurora", p: "A escuridão da noite dissipa-se naturalmente assim que os primeiros raios do sol despontam no horizonte.", s: "Não lutes contra a sombra ou a doença; traz apenas mais luz e consciência para a situação." },
+            { n: 17, t: "O Jardim Interior", p: "Se não cuidarmos do jardim do nosso coração, as ervas daninhas da ira e da preocupação crescerão depressa.", s: "Vigiar os próprios pensamentos é o primeiro passo da cura. Cultiva a gratidão e a serenidade." },
+            { n: 18, t: "A Ponte de Madeira", p: "Mesmo uma simples ponte de madeira ajuda inúmeros viajantes a atravessar o rio em segurança.", s: "Como praticante de Reiki, és uma ponte entre a Energia Universal e quem precisa de alívio." },
+            { n: 19, t: "O Sino do Templo", p: "O som profundo do sino do templo ecoa ao entardecer, lembrando-nos da impermanência de todas as coisas.", s: "Solta as mágoas do passado e as preocupações do futuro; apenas o momento presente é real." },
+            { n: 20, t: "A Neblina Matinal", p: "A neblina esconde a paisagem por algum tempo, mas o sol da manhã acaba sempre por revelar a beleza dos montes.", s: "Quando sentires confusão ou dúvida, mantém a calma e espera com confiança; a clareza virá." },
+            { n: 21, t: "O Crisântemo do Outono", p: "Quando todas as outras flores murcham com o frio, o crisântemo abre as suas pétalas com dignidade.", s: "A serenidade espiritual floresce plenamente quando mantemos a paz mesmo no meio das provações." },
+            { n: 22, t: "A Semente Oculta", p: "Debaixo da terra gelada do inverno, a pequena semente prepara em silêncio a vida da próxima primavera.", s: "A cura profunda muitas vezes acontece em silêncio, antes de se tornar visível no corpo físico." },
+            { n: 23, t: "O Horizonte Infinito", p: "Ao olhar para o mar sem fim, percebemos quão pequenas são as nossas queixas e quão grande é a vida.", s: "Alarga a tua perspetiva. Quando o coração se expande, os problemas perdem o seu peso." },
+            { n: 24, t: "A Harmonia das Estações", p: "Primavera, verão, outono e inverno sucedem-se sem pressa, cada um a cumprir a sua missão perfeita.", s: "Respeita os teus próprios ciclos de descanso, renovação, ação e recolhimento." },
+            { n: 25, t: "A Palavra Gentil", p: "Uma única palavra dita com bondade pode aquecer um coração durante todo o rigor do inverno.", s: "A energia do Reiki também se transmite através do olhar, da escuta e da gentileza das palavras." },
+            { n: 26, t: "O Canto do Rouxinol", p: "Sem esperar aplausos nem recompensas, o rouxinol canta a sua mais bela melodia no bosque solitário.", s: "Pratica o bem e partilha energia sem esperar reconhecimento; a própria dádiva é a recompensa." },
+            { n: 27, t: "A Raiz Profunda", p: "Uma árvore com raízes fundas não teme os ventos fortes que abalam os seus ramos mais altos.", s: "Enraíza-te na terra e nos princípios do Reiki para manteres o equilíbrio emocional." },
+            { n: 28, t: "O Reflexo da Gratidão", p: "Quando agradecemos a luz do dia e a água que bebemos, até a refeição mais simples se torna um banquete.", s: "Kansha (Gratidão) é a chave que abre as portas à abundância e eleva a vibração energética." },
+            { n: 29, t: "A Tempestade Passageira", p: "Por mais negra que seja a nuvem de tempestade, ela nunca consegue apagar o sol que brilha acima dela.", s: "A doença e a dor são nuvens passageiras; a tua natureza saudável e luminosa permanece intacta." },
+            { n: 30, t: "O Caminho da Montanha", p: "É ao subir a encosta íngreme que descobrimos a verdadeira força das nossas pernas e do nosso espírito.", s: "Os desafios da vida são mestres disfarçados que fortalecem a nossa compaixão e sabedoria." },
+            { n: 31, t: "A Lua Cheia de Outono", p: "A lua cheia ilumina por igual os palácios dourados e as cabanas humildes cobertas de colmo.", s: "Perante a luz do Reiki todos somos iguais, merecedores de paz, amor e cura." },
+            { n: 32, t: "O Ribeiro Cristalino", p: "O ribeiro que corre sobre as pedras mantém-se sempre puro porque nunca deixa de se mover.", s: "Deixa a energia circular livremente; não retenhas mágoas nem bloqueios emocionais." },
+            { n: 33, t: "A Arte de Ouvir", p: "Antes de falar, aprende a escutar o silêncio entre as palavras do teu semelhante.", s: "Na terapia de Reiki, a escuta empática e silenciosa é metade do processo de harmonização." },
+            { n: 34, t: "O Arco-Íris após a Chuva", p: "É precisamente da união entre a chuva e o sol que nasce a ponte colorida no céu.", s: "Quando aceitamos as lágrimas e a luz em conjunto, nasce a verdadeira cura interior." },
+            { n: 35, t: "O Pássaro em Voo", p: "O pássaro não deixa rasto no céu por onde voa, mas atravessa livremente toda a imensidão.", s: "Age com desprendimento e leveza, sem carregar o peso do passado." },
+            { n: 36, t: "A Lanterna na Noite", p: "Uma pequena lanterna na mão ilumina apenas alguns passos à frente, mas é o suficiente para atravessar a noite.", s: "Não precisas de ver todo o caminho de uma vez; confia no passo que dás 'Só por hoje'." },
+            { n: 37, t: "A Paciência da Terra", p: "A terra acolhe tudo com serenidade e transforma até as folhas secas em alimento para novas flores.", s: "Transmuta as experiências dolorosas em sabedoria e compaixão." },
+            { n: 38, t: "O Perfume do Incenso", p: "O incenso só liberta a sua fragrância mais pura quando se entrega silenciosamente ao calor.", s: "A entrega do ego permite que a nossa verdadeira essência espiritual perfume o mundo." },
+            { n: 39, t: "A Estrela Polar", p: "Enquanto todas as outras estrelas giram no firmamento, a estrela polar permanece firme a indicar o norte.", s: "Mantém o teu propósito espiritual como guia firme no meio das mudanças da vida." },
+            { n: 40, t: "O Orvalho na Folha de Lótus", p: "A folha de lótus cresce na lama, mas a gota de orvalho sobre ela brilha pura como uma pérola.", s: "Podes viver no meio das dificuldades do mundo sem deixar que a negatividade manche o teu coração." },
+            { n: 41, t: "A Calma antes do Amanhecer", p: "No silêncio profundo que antecede a aurora, toda a natureza respira em uníssono.", s: "Reserva momentos diários de silêncio e meditação Gassho para sintonizares com a paz universal." },
+            { n: 42, t: "O Carvalho e o Junco", p: "O junco humilde sobrevive à cheia do rio porque sabe inclinar-se à passagem das águas.", s: "A humildade protege o praticante contra o orgulho espiritual e o desgaste energético." },
+            { n: 43, t: "A Neve que Derrete", p: "Sem barulho nem violência, o calor suave da primavera derrete a neve acumulada nas montanhas.", s: "O calor amoroso das mãos de Reiki dissolve bloqueios antigos de forma natural e suave." },
+            { n: 44, t: "O Caminho Sem Fim", p: "No estudo da sabedoria e do coração humano, nunca podemos dizer que já chegámos ao fim.", s: "Mantém sempre a mente de principiante (Shoshin), aberta a aprender com cada sessão." },
+            { n: 45, t: "A Sombra da Árvore", p: "A árvore oferece a sua sombra fresca a todos os que passam, sem perguntar quem são.", s: "Partilha o Reiki com generosidade e sem julgamentos." },
+            { n: 46, t: "O Espelho da Água", p: "Só quando a superfície do lago acalma completamente é que podemos ver o fundo com clareza.", s: "Acalma a agitação mental (Joshin Kokyu-ho) para compreenderes a raiz de qualquer desequilíbrio." },
+            { n: 47, t: "A Força da União", p: "Um único fio parte-se facilmente, mas muitos fios entrelaçados tornam-se uma corda inquebrável.", s: "A união de corações na prática de Reiki (Reiki Mawashi / Shuchu) multiplica a luz no mundo." },
+            { n: 48, t: "O Canto do Grilo", p: "Na noite fresca de outono, o pequeno grilo canta com toda a alma como se celebrasse a vida inteira.", s: "Dedica-te inteiramente ao que fazes neste momento, com presença plena." },
+            { n: 49, t: "A Pedra Polida", p: "Foi o atrito constante das águas do rio que transformou a pedra áspera num seixo liso e belo.", s: "As provas da vida servem para polir as nossas arestas e despertar a nossa compaixão." },
+            { n: 50, t: "O Sol Invisível", p: "Mesmo num dia de chuva fechada, sabemos com certeza que o sol continua a brilhar acima das nuvens.", s: "Confia na presença constante da Energia Vital, mesmo quando não a sentes com intensidade." },
+            { n: 51, t: "A Harmonia Familiar", p: "Quando a paz e o respeito reinam dentro de casa, a felicidade irradia naturalmente para toda a vizinhança.", s: "A cura do mundo começa na harmonia das nossas relações mais próximas." },
+            { n: 52, t: "O Voo da Garça", p: "A garça branca levanta voo silenciosamente do juncal sem turvar a água onde pousou.", s: "Passa pela vida a deixar paz e leveza, sem causar perturbação desnecessária." },
+            { n: 53, t: "A Sabedoria do Silêncio", p: "Muitas vezes, um coração tranquilo transmite mais verdade do que mil palavras eloquentes.", s: "No Reiki, a presença silenciosa e amorosa cura mais do que longas explicações." },
+            { n: 54, t: "O Despertar da Primavera", p: "Ninguém precisa de puxar as ervas para que cresçam; basta a luz do sol e a água da chuva.", s: "Não forces a cura de ninguém. Oferece a luz do Reiki e deixa a natureza fazer o seu trabalho." },
+            { n: 55, t: "A Gratidão pelos Antepassados", p: "Ao beber a água fresca da fonte, lembra-te sempre daqueles que a abriram na rocha.", s: "Honra a linhagem do Reiki, os mestres e todos os que caminharam antes de nós." },
+            { n: 56, t: "O Vento Livre", p: "O vento não tem casa nem fronteiras; sopra livremente a levar frescura a todos os vales.", s: "Liberta-te de preconceitos e limites mentais; deixa o teu espírito respirar livremente." },
+            { n: 57, t: "A Constância da Maré", p: "Dia após dia, sem nunca falhar, o oceano sobe e desce num ritmo sereno e eterno.", s: "Cria uma rotina diária de autoaplicação de Reiki, ainda que breve, mas constante." },
+            { n: 58, t: "O Sorriso Sincero", p: "Um sorriso que nasce de um coração sem malícia ilumina o rosto como a luz da manhã.", s: "A alegria serena é um poderoso remédio energético para o corpo e para a alma." },
+            { n: 59, t: "A Nuvem Errante", p: "As nuvens mudam de forma a cada instante no céu; não te apegues a nenhuma delas.", s: "Os pensamentos e emoções são passageiros. Observa-os a passar sem te identificares com eles." },
+            { n: 60, t: "O Poema da Natureza", p: "Cada folha que cai, cada onda que rebenta, escreve um poema silencioso sobre a ordem do Universo.", s: "Sintoniza-te com a natureza para reequilibrar o teu campo energético." },
+            { n: 61, t: "A Coragem Tranquila", p: "A verdadeira coragem não faz barulho; permanece serena mesmo diante do inesperado.", s: "Com o coração ancorado no Reiki, enfrentas os desafios sem medo nem raiva." },
+            { n: 62, t: "A Fonte Inesgotável", p: "Quanto mais água tiramos da nascente pura, mais água fresca brota do seio da montanha.", s: "Ao canalizar Reiki para os outros, também tu és nutrido e revitalizado pela fonte universal." },
+            { n: 63, t: "O Olhar Limpo", p: "Se olharmos para o mundo com olhos de bondade, encontraremos beleza até nas coisas mais simples.", s: "Escolhe ver a centelha divina em cada pessoa que cruza o teu caminho." },
+            { n: 64, t: "A Lição do Inverno", p: "Sem o frio rigoroso do inverno, as flores de ameixeira não teriam um perfume tão doce.", s: "Agradece também os períodos de recolhimento e prova, pois preparam o teu florescimento." },
+            { n: 65, t: "O Coração Vasto", p: "Faz do teu peito um céu sem limites, onde cabem tanto o sol radiante como a chuva suave.", s: "Acolhe todas as tuas emoções com compaixão, sem repressão nem julgamento." },
+            { n: 66, t: "A Paz Interior", p: "Não procures a paz nos lugares distantes; ela reside na quietude do teu próprio espírito.", s: "Regressa ao teu centro (Tanden) sempre que o mundo exterior parecer agitado." },
+            { n: 67, t: "O Trabalho Honesto", p: "Cumprir com zelo e dedicação o dever de cada dia é a mais elevada forma de oração.", s: "Honra o quarto princípio do Reiki: trabalha arduamente sobre ti mesmo e nas tuas tarefas." },
+            { n: 68, t: "A Luz da Lua Nova", p: "Mesmo quando a lua parece invisível no céu noturno, ela está inteira, apenas a aguardar o seu tempo.", s: "Confia nos processos invisíveis da tua evolução espiritual." },
+            { n: 69, t: "O Caminho da Humildade", p: "As espigas de arroz mais carregadas de grão são aquelas que mais inclinam a cabeça para a terra.", s: "Quanto maior for a tua sabedoria no Reiki, maior deve ser a tua simplicidade e humildade." },
+            { n: 70, t: "A Chuvinha Mansa", p: "A chuva fina que cai sem pressa penetra profundamente na terra e sacia as raízes sedentas.", s: "A suavidade e a paciência alcançam camadas muito mais profundas do que a força." },
+            { n: 71, t: "O Eco na Montanha", p: "O vale responde exatamente com o mesmo som que lhe enviamos da encosta.", s: "Aquilo que vibras e emanas em pensamento e emoção regressa a ti." },
+            { n: 72, t: "A Liberdade do Espírito", p: "Mesmo dentro de um pequeno quarto, um espírito livre viaja por todo o universo.", s: "A verdadeira liberdade não depende das circunstâncias externas, mas da paz mental." },
+            { n: 73, t: "O Cuidado com os Pequenos", p: "Protege o pequeno rebento hoje, e amanhã ele será uma árvore frondosa que abrigará muitos.", s: "Cuida dos pequenos gestos de autocuidado e bondade no teu dia a dia." },
+            { n: 74, t: "A Serenidade do Lago", p: "O lago da montanha não corre atrás das estrelas; fica quieto e as estrelas vêm pousar nele.", s: "Quando aquietas a mente, a intuição e as respostas chegam naturalmente até ti." },
+            { n: 75, t: "O Domínio da Ira", p: "Um momento de cólera pode queimar a floresta de virtudes cultivada durante muitos anos.", s: "Lembra-te do primeiro princípio: 'Só por hoje, não te zangues'. Respira e dissolve a raiva." },
+            { n: 76, t: "A Beleza da Simplicidade", p: "Uma única flor silvestre num vaso de bambu traz mais paz do que todo o ouro do mundo.", s: "Despoja-te do supérfluo para reencontrares a essência pura do Reiki." },
+            { n: 77, t: "O Caminho Partilhado", p: "Quando dois viajantes se ajudam na subida, a montanha parece muito mais suave.", s: "A partilha fraterna entre praticantes fortalece a caminhada de todos." },
+            { n: 78, t: "A Clareza da Manhã", p: "Cada novo amanhecer oferece-nos uma página em branco para escrevermos com bondade.", s: "'Só por hoje' significa recomeçar agora, livre do peso de ontem." },
+            { n: 79, t: "O Fio Invisível", p: "Todos os seres da terra e do céu estão ligados por um fio invisível de vida e harmonia.", s: "Hon Sha Ze Sho Nen: estamos todos interligados além do tempo e do espaço." },
+            { n: 80, t: "A Calma na Tormenta", p: "No centro do tufão existe um espaço de absoluto silêncio e quietude.", s: "Encontra esse ponto de silêncio dentro de ti mesmo no meio das crises." },
+            { n: 81, t: "A Esperança Renovada", p: "Depois da noite mais longa do ano, a luz do dia começa pacientemente a crescer de novo.", s: "Nunca percas a esperança; a energia vital procura sempre restaurar o equilíbrio." },
+            { n: 82, t: "O Respeito pela Vida", p: "Desde o inseto minúsculo até ao cedro centenário, tudo respira o mesmo sopro sagrado.", s: "Trata todos os seres vivos com reverência e compaixão." },
+            { n: 83, t: "A Mente Desapegada", p: "Segurar a água com força na mão fechada faz com que ela escape por entre os dedos.", s: "Não tentes controlar a energia nem o destino; abre as mãos e confia." },
+            { n: 84, t: "O Valor do Tempo", p: "A gota de água que cai hoje não voltará a passar pelo mesmo ponto do rio.", s: "Vive este instante com gratidão plena e presença consciente." },
+            { n: 85, t: "A Harmonia Interior", p: "Quando o coração e a mente tocam a mesma nota, toda a vida se torna uma melodia.", s: "Alinha os teus pensamentos, palavras e ações com os princípios do Reiki." },
+            { n: 86, t: "A Proteção da Bondade", p: "Aquele que deseja sinceramente o bem dos outros está envolvido numa armadura de luz.", s: "A bondade sincera eleva o teu campo áurico e protege-te de energias densas." },
+            { n: 87, t: "O Aprendizado Contínuo", p: "Até uma criança ou uma folha que cai pode ensinar algo valioso a quem sabe observar.", s: "Mantém o coração aberto às lições subtis que a vida te apresenta hoje." },
+            { n: 88, t: "A Pureza de Intenção", p: "Não importa o tamanho da oferenda, mas a pureza do coração com que é entregue.", s: "No Reiki, a intenção pura e amorosa é mais importante do que qualquer ritual complexo." },
+            { n: 89, t: "O Descanso Merecido", p: "Até o arco mais forte precisa de ser distendido para não perder a sua elasticidade.", s: "Permite-te descansar e receber Reiki; cuidar de ti é essencial para cuidar dos outros." },
+            { n: 90, t: "A Luz da Sabedoria", p: "A verdadeira sabedoria não consiste em acumular factos, mas em compreender o coração humano.", s: "Cultiva a empatia e a compreensão profunda nas tuas relações." },
+            { n: 91, t: "O Perdão Libertador", p: "Guardar ressentimento é como carregar pedras pesadas numa longa caminhada.", s: "Perdoa a ti mesmo e aos outros para libertares o fluxo da energia vital." },
+            { n: 92, t: "A Presença Divina", p: "Não precisas de subir aos céus para encontrar o sagrado; ele habita na tua respiração.", s: "A cada inspiração acolhes Ki; a cada expiração partilhas paz." },
+            { n: 93, t: "O Exemplo Silencioso", p: "As ações justas falam muito mais alto do que os sermões mais eloquentes.", s: "Sê tu mesmo o testemunho vivo da serenidade que o Reiki proporciona." },
+            { n: 94, t: "A Serenidade perante a Crítica", p: "O céu azul não fica manchado quando alguém lhe atira poeira; a poeira cai de volta ao chão.", s: "Não absorvas a negatividade alheia; mantém a tua vibração elevada e serena." },
+            { n: 95, t: "A União com o Todo", p: "Quando a gota de água cai no oceano, deixa de ser pequena e torna-se o próprio oceano.", s: "Na meditação profunda, o eu individual dissolve-se na grande paz do Universo (Dai Ko Myo)." },
+            { n: 96, t: "O Despertar da Compaixão", p: "Sentir a dor do outro como se fosse nossa é o início da verdadeira humanidade.", s: "A compaixão é o combustível espiritual que torna as mãos de Reiki verdadeiramente curativas." },
+            { n: 97, t: "A Calma do Entardecer", p: "Quando o sol se põe, os pássaros regressam em paz aos seus ninhos.", s: "Ao fim do dia, entrega todas as preocupações ao Universo e repousa em gratidão." },
+            { n: 98, t: "A Firmeza Suave", p: "Sê firme nos teus princípios éticos, mas suave e acolhedor no trato com todos.", s: "Equilibra a força da terra com a suavidade do céu no teu agir diário." },
+            { n: 99, t: "O Milagre Quotidiano", p: "Respirar, ver a luz do dia e sentir o calor do sol são milagres que muitas vezes esquecemos.", s: "Desperta o olhar de maravilhamento e gratidão pela simples dádiva de estar vivo." },
+            { n: 100, t: "A Clareza de Propósito", p: "Um barco com leme firme atravessa o mar aberto sem se perder com os ventos contrários.", s: "Define claramente a tua intenção antes de iniciar qualquer prática ou tratamento." },
+            { n: 101, t: "A Generosidade Natural", p: "As flores oferecem o seu néctar às abelhas sem nada perderem da sua beleza.", s: "Dar amor e energia multiplica a luz dentro de nós." },
+            { n: 102, t: "O Silêncio das Montanhas", p: "As grandes montanhas não discutem entre si; permanecem majestosas em silêncio.", s: "Evita discussões estéreis; preserva a tua energia vital para o que edifica." },
+            { n: 103, t: "A Confiança na Vida", p: "Os pássaros do céu não armazenam celeiros, mas encontram sempre alimento a cada manhã.", s: "Liberta a ansiedade (Shinpai suna); confia na providência e no fluxo da vida." },
+            { n: 104, t: "A Transformação Interior", p: "Não podes mudar o curso dos ventos, mas podes ajustar as velas do teu barco.", s: "Não controles os outros; transforma a tua própria atitude interior." },
+            { n: 105, t: "A Pureza do Pensamento", p: "De uma nascente limpa só pode brotar água cristalina.", s: "Purifica os teus pensamentos para que as tuas ações tragam harmonia." },
+            { n: 106, t: "A Alegria Partilhada", p: "Uma vela que acende outra vela não perde nada da sua própria chama.", s: "Partilhar o conhecimento e a luz do Reiki ilumina ainda mais o mundo." },
+            { n: 107, t: "O Ritmo Natural", p: "A natureza nunca se apressa, e no entanto tudo se realiza no tempo certo.", s: "Respeita o tempo de cura de cada pessoa e de cada processo." },
+            { n: 108, t: "A Reverência", p: "Inclina a cabeça com respeito diante da grandeza do céu e da bondade dos seres.", s: "O gesto de Gassho une as duas polaridades no centro do coração em reverência." },
+            { n: 109, t: "A Cura pelo Amor", p: "Onde há amor verdadeiro e desinteressado, o medo desaparece naturalmente.", s: "O Reiki é a expressão prática do Amor Universal em ação." },
+            { n: 110, t: "A Visão Clara", p: "Limpa o vidro da janela e verás que o jardim sempre esteve florido.", s: "Muitas vezes a solução já está presente; basta limpar o olhar da preocupação." },
+            { n: 111, t: "O Enraizamento", p: "Sente a terra firme sob os teus pés e o céu infinito acima da tua cabeça.", s: "És o ponto de encontro entre a energia da Terra e a energia do Céu." },
+            { n: 112, t: "A Perseverança Silenciosa", p: "Gota após gota, a água paciente perfura a rocha mais dura.", s: "A prática constante de Reiki transforma gradualmente até os padrões mais antigos." },
+            { n: 113, t: "A Bondade Incondicional", p: "Sê bondoso não porque os outros são bons, mas porque o teu coração escolheu a luz.", s: "Honra o quinto princípio: 'Só por hoje, sê bondoso com todos os seres'." },
+            { n: 114, t: "O Despertar da Alma", p: "Como a flor de lótus que se abre ao sol da manhã, deixa a tua alma abrir-se à luz.", s: "Permite-te receber a energia curativa sem defesas nem bloqueios." },
+            { n: 115, t: "A Paciência com a Cura", p: "Uma ferida profunda precisa de tempo, limpeza e ar puro para cicatrizar por completo.", s: "Sê paciente contigo mesmo durante as crises de cura e limpeza energética." },
+            { n: 116, t: "A Harmonia dos Opostos", p: "Dia e noite, inspiração e expiração, atividade e repouso formam um único círculo perfeito.", s: "Equilibra o Yin e o Yang na tua vida e na tua prática energética." },
+            { n: 117, t: "O Tesouro Interior", p: "Procuramos fora o tesouro que sempre esteve guardado no santuário do nosso peito.", s: "Todas as respostas e a força de autocura já residem dentro de ti." },
+            { n: 118, t: "A Leveza do Ser", p: "Solta o fardo do passado e caminha leve como a brisa sobre os campos verdes.", s: "Deixa ir o que já cumpriu a sua função na tua vida." },
+            { n: 119, t: "A Gratidão nas Provas", p: "Mesmo na chuva fria, as raízes da árvore agradecem a água que as fortalece.", s: "Encontra a bênção oculta em cada experiência da tua jornada." },
+            { n: 120, t: "A Paz que Irradia", p: "Quando uma pessoa encontra a paz dentro de si, acalma silenciosamente todos ao seu redor.", s: "A tua própria harmonização é o maior presente que podes dar à humanidade." },
+            { n: 121, t: "O Canto da Vida", p: "Cada batimento do coração é um tambor sagrado a celebrar o milagre da existência.", s: "Sintoniza-te com o ritmo vital do teu corpo com amor e respeito." },
+            { n: 122, t: "A Mente Como o Céu", p: "Os pensamentos são como pássaros que atravessam o céu; o céu permanece sempre puro.", s: "Não te prendas aos pensamentos negativos; deixa-os voar para longe." },
+            { n: 123, t: "A Simplicidade do Mestre", p: "O verdadeiro mestre não exibe poderes; apenas vive em paz, humildade e serviço.", s: "Segue o exemplo do Mestre Usui: simplicidade, compaixão e prática diária." },
+            { n: 124, t: "O Reflexo da Verdade", p: "Quando o coração é sincero, até o silêncio brilha com clareza.", s: "Age sempre a partir da verdade do teu coração." },
+            { n: 125, t: "A Grande Paz (Anshin Ritsumei)", p: "Quando entregamos a nossa vida à harmonia do Universo, alcançamos a paz inabalável do espírito.", s: "O propósito último do Reiki: alcançar Anshin Ritsumei, o estado de paz absoluta e confiança na vida." }
+        ];
+
+        // --- BARALHO 2: AS 21 TÉCNICAS DE REIKI (JOÃO MAGALHÃES) ---
+        const reikiTechniquesData = [
+            {
+                n: 1,
+                jp: "合掌",
+                name: "Gassho",
+                subtitle: "Mãos Juntas em Reverência",
+                symbol: "choKuRei",
+                principle: "只今日 (Só por hoje)",
+                desc: "Sentado com a coluna direita, junta as mãos em prece à altura do coração (chakra cardíaco), com os polegares a tocar suavemente o esterno. Foca a atenção no ponto onde os dedos médios se tocam.",
+                meaning: "Acalma a mente, centra a energia no coração, harmoniza os hemisférios cerebrais e prepara o praticante para o estado meditativo do Reiki."
+            },
+            {
+                n: 2,
+                jp: "霊示法",
+                name: "Reiji-ho",
+                subtitle: "Indicação da Energia / Intuição",
+                symbol: "seiHeKi",
+                principle: "感謝して (Sê grato)",
+                desc: "Após Gassho, eleva as mãos juntas até ao terceiro olho (Ajna) e pede à energia Reiki que guie as tuas mãos para onde houver maior necessidade, deixando a intuição conduzir o tratamento.",
+                meaning: "Desenvolve a escuta intuitiva e a entrega do ego, permitindo que a sabedoria do Reiki atue sem interferência racional."
+            },
+            {
+                n: 3,
+                jp: "治療",
+                name: "Chiryo",
+                subtitle: "O Tratamento / Aplicação",
+                symbol: "choKuRei",
+                principle: "親切に (Sê bondoso)",
+                desc: "Coloca as mãos suavemente sobre o corpo ou na aura do recetor, a seguir a intuição despertada no Reiji-ho ou as posições tradicionais, e permanece até sentires que a energia fluiu por completo.",
+                meaning: "É o momento de canalização pura e presença amorosa, onde o praticante serve de ponte para o reequilíbrio físico, emocional e energético."
+            },
+            {
+                n: 4,
+                jp: "乾浴",
+                name: "Kenyoku-ho",
+                subtitle: "Banho Seco / Purificação Energética",
+                symbol: "choKuRei",
+                principle: "怒るな (Não te zangues)",
+                desc: "Desliza a mão direita do ombro esquerdo até à anca direita em diagonal; depois a esquerda do ombro direito à anca esquerda; repete e desliza cada mão ao longo do braço oposto até às pontas dos dedos.",
+                meaning: "Limpa a aura e corta ligações energéticas estagnadas antes e depois de uma sessão, mantendo o campo do praticante límpido e protegido."
+            },
+            {
+                n: 5,
+                jp: "浄心呼吸法",
+                name: "Joshin Kokyu-ho",
+                subtitle: "Respiração de Purificação da Mente",
+                symbol: "daiKoMyo",
+                principle: "心配すな (Não te preocupes)",
+                desc: "Inspira lentamente pelo nariz a visualizar luz branca a entrar pelo topo da cabeça (coroa) e a descer até ao Tanden (abaixo do umbigo). Expira pela boca ao libertar tensões e a irradiar luz por todo o corpo.",
+                meaning: "Fortalece o Tanden, purifica os canais energéticos internos e aumenta a capacidade de canalizar energia vital."
+            },
+            {
+                n: 6,
+                jp: "病腺霊感法",
+                name: "Byosen Reikan-ho",
+                subtitle: "Sentir as Irradiações do Desequilíbrio",
+                symbol: "seiHeKi",
+                principle: "業をはけめ (Trabalha arduamente)",
+                desc: "Passa as mãos lentamente a alguns centímetros do corpo do recetor, a sentir as alterações térmicas, formigueiros, magnetismo ou pulsação (Byosen) que indicam onde há acumulação ou falta de energia.",
+                meaning: "Treina a sensibilidade energética das mãos para localizar a causa profunda dos bloqueios e tratar até o Byosen desaparecer."
+            },
+            {
+                n: 7,
+                jp: "半身交血法",
+                name: "Hanshin Koketsu-ho",
+                subtitle: "Técnica de Circulação Sanguínea",
+                symbol: "choKuRei",
+                principle: "感謝して (Sê grato)",
+                desc: "No final do tratamento nas costas, desliza as mãos firmemente mas com suavidade desde o centro da coluna para os lados e de cima para baixo ao longo das costas, a finalizar com um movimento descendente.",
+                meaning: "Estimula a circulação sanguínea e linfática, enraíza o recetor após o tratamento e sela o campo energético."
+            },
+            {
+                n: 8,
+                jp: "邪気切り浄化法",
+                name: "Jakikiri Joka-ho",
+                subtitle: "Corte e Purificação de Energia Negativa",
+                symbol: "choKuRei",
+                principle: "怒るな (Não te zangues)",
+                desc: "Segura um objeto (cristal, amuleto) numa mão; inspira profundamente, retém a respiração e faz três cortes horizontais rápidos com a outra mão a cerca de 2 cm acima do objeto, a expirar com força no terceiro corte.",
+                meaning: "Transmuta e liberta energias densas ou estagnadas acumuladas em objetos, devolvendo-lhes a sua vibração natural."
+            },
+            {
+                n: 9,
+                jp: "解毒法",
+                name: "Gedoku-ho",
+                subtitle: "Técnica de Desintoxicação",
+                symbol: "choKuRei",
+                principle: "心配すな (Não te preocupes)",
+                desc: "Coloca uma mão no Tanden (abaixo do umbigo) e a outra na parte inferior das costas (zona dos rins/Ming Men), a manter durante 10 a 15 minutos com intenção de limpeza e eliminação.",
+                meaning: "Auxilia o organismo a libertar toxinas físicas, medicamentosas e emocionais, revitalizando os rins e a energia vital."
+            },
+            {
+                n: 10,
+                jp: "臍治療法",
+                name: "Hesso Chiryo-ho",
+                subtitle: "Tratamento pelo Umbigo",
+                symbol: "daiKoMyo",
+                principle: "感謝して (Sê grato)",
+                desc: "Coloca suavemente o dedo médio (ou a palma da mão) sobre o umbigo, a manter uma pressão muito leve até sentires uma pulsação harmoniosa e relaxamento profundo.",
+                meaning: "O umbigo é o centro primordial de ligação à vida. Esta técnica equilibra todo o sistema energético e promove um relaxamento rápido."
+            },
+            {
+                n: 11,
+                jp: "性癖治療法",
+                name: "Seiheki Chiryo-ho",
+                subtitle: "Tratamento de Hábitos e Padrões Mentais",
+                symbol: "seiHeKi",
+                principle: "業をはけめ (Trabalha arduamente)",
+                desc: "Coloca uma mão na testa e a outra na nuca. Envia Reiki acompanhado de uma afirmação positiva, simples e no presente (ex: 'Eu sou sereno e confiante'), depois retira a mão da testa e mantém apenas na nuca.",
+                meaning: "Atua diretamente no subconsciente para dissolver vícios, medos, bloqueios mentais e crenças limitadoras."
+            },
+            {
+                n: 12,
+                jp: "遠隔治療",
+                name: "Enkaku Chiryo",
+                subtitle: "Tratamento à Distância",
+                symbol: "honShaZeShoNen",
+                principle: "親切に (Sê bondoso)",
+                desc: "Ao utilizar o símbolo Hon Sha Ze Sho Nen, uma fotografia, o nome ou um substituto, o praticante envia Reiki para outra pessoa, situação, passado ou futuro, transcendendo o espaço e o tempo.",
+                meaning: "Demonstra a unidade de toda a existência e permite levar conforto e harmonia a qualquer lugar ou momento."
+            },
+            {
+                n: 13,
+                jp: "呼気法",
+                name: "Koki-ho",
+                subtitle: "Técnica de Sopro com Reiki",
+                symbol: "choKuRei",
+                principle: "怒るな (Não te zangues)",
+                desc: "Inspira Reiki pelo nariz, desenha mentalmente os símbolos no céu da boca e sopra suavemente (como uma brisa fresca ou quente consoante a necessidade) sobre a zona a tratar.",
+                meaning: "Permite projetar energia de forma direcionada, especialmente útil em zonas sensíveis onde o toque físico não é recomendado."
+            },
+            {
+                n: 14,
+                jp: "凝視法",
+                name: "Gyoshi-ho",
+                subtitle: "Técnica de Olhar com Reiki",
+                symbol: "seiHeKi",
+                principle: "親切に (Sê bondoso)",
+                desc: "Com o olhar suave, desfocado e cheio de compaixão (sem fixar agressivamente), envia energia através dos olhos para a zona desequilibrada ou para o recetor.",
+                meaning: "Purifica o olhar e canaliza amor incondicional através da visão serena do praticante."
+            },
+            {
+                n: 15,
+                jp: "念達法",
+                name: "Nentatsu-ho",
+                subtitle: "Transmissão de Pensamento Positivo",
+                symbol: "seiHeKi",
+                principle: "心配すな (Não te preocupes)",
+                desc: "Com as mãos colocadas na cabeça (testa e nuca) ou nos ombros, o praticante sintoniza o coração e transmite silenciosamente uma mensagem pura de paz, coragem ou aceitação.",
+                meaning: "Ajuda o recetor a reencontrar a sua força interior e clareza mental sem impor a vontade do terapeuta."
+            },
+            {
+                n: 16,
+                jp: "撫手治療法",
+                name: "Bushu / Nadete Chiryo-ho",
+                subtitle: "Tratamento por Deslizamento / Carícia",
+                symbol: "choKuRei",
+                principle: "親切に (Sê bondoso)",
+                desc: "Desliza suavemente as mãos abertas ao longo dos membros, costas ou ombros do recetor, no sentido descendente, acompanhando o fluxo energético com intenção de alívio.",
+                meaning: "Acalma o sistema nervoso, dispersa energia acumulada em excesso e traz conforto imediato."
+            },
+            {
+                n: 17,
+                jp: "打手治療法",
+                name: "Uchite Chiryo-ho",
+                subtitle: "Tratamento por Percussão Suave",
+                symbol: "choKuRei",
+                principle: "業をはけめ (Trabalha arduamente)",
+                desc: "Com as mãos em concha ou punhos muito relaxados, aplica pequenos toques rítmicos e suaves (como gotas de chuva) nas zonas tensas ou adormecidas, sempre com consciência energética.",
+                meaning: "Desperta zonas com estagnação profunda, ativa a circulação de Ki e revitaliza o corpo físico."
+            },
+            {
+                n: 18,
+                jp: "押手治療法",
+                name: "Oshite Chiryo-ho",
+                subtitle: "Tratamento por Pressão Suave",
+                symbol: "choKuRei",
+                principle: "感謝して (Sê grato)",
+                desc: "Aplica uma pressão ligeira e sustentada com a ponta dos dedos ou com a palma da mão sobre pontos específicos de tensão (como os ombros ou pontos meridianos) enquanto o Reiki flui.",
+                meaning: "Liberta nós musculares e emocionais profundos, permitindo que a energia volte a circular livremente."
+            },
+            {
+                n: 19,
+                jp: "丹田治療法",
+                name: "Tanden Chiryo-ho",
+                subtitle: "Tratamento do Centro Vital (Tanden)",
+                symbol: "daiKoMyo",
+                principle: "心配すな (Não te preocupes)",
+                desc: "Coloca uma mão no Tanden (dois dedos abaixo do umbigo) e a outra na testa. Quando sentires que os dois pontos entram em sintonia, move a mão da testa para o Tanden (ou costas) e permanece em silêncio.",
+                meaning: "Enraíza a energia dispersa da mente para o centro vital, combatendo a ansiedade, o esgotamento e a desorientação."
+            },
+            {
+                n: 20,
+                jp: "集中霊気",
+                name: "Shuchu Reiki",
+                subtitle: "Reiki Concentrado em Grupo",
+                symbol: "daiKoMyo",
+                principle: "親切に (Sê bondoso)",
+                desc: "Vários praticantes colocam simultaneamente as suas mãos num único recetor, mantendo todos a mesma intenção pura de harmonia e cura.",
+                meaning: "Multiplica exponencialmente o fluxo energético e cria um campo de amor fraterno profundo."
+            },
+            {
+                n: 21,
+                jp: "霊気回し",
+                name: "Reiki Mawashi",
+                subtitle: "Círculo de Fluxo de Reiki",
+                symbol: "honShaZeShoNen",
+                principle: "感謝して (Sê grato)",
+                desc: "Em círculo, os praticantes dão as mãos (palma esquerda virada para cima para receber, palma direita virada para baixo para dar), a sentir a onda de Reiki circular continuamente por todos.",
+                meaning: "Une o grupo numa só vibração, ensina a arte de dar e receber em equilíbrio e eleva a energia coletiva."
+            }
+        ];
+
+        // --- BARALHO 3: ORÁCULO MÍSTICO & MITOLOGIA JAPONESA (36 CARTAS) ---
+        const mysticOracleData = [
+            {
+                n: 1,
+                jp: "天照大御神",
+                name: "Amaterasu — A Deusa do Sol",
+                icon: "sun",
+                thought: "Mesmo que te escondas na caverna da dúvida, a tua luz interior nunca deixa de existir; o mundo inteiro aguarda o teu brilho.",
+                meaning: "Momento de sair do recolhimento e expressar a tua verdade. A energia solar dissipa sombras antigas e traz clareza."
+            },
+            {
+                n: 2,
+                jp: "狐",
+                name: "Kitsune — A Raposa Sagrada",
+                icon: "kitsune",
+                thought: "A verdadeira sabedoria vê além das aparências; confia na tua intuição silenciosa antes de dares o próximo passo.",
+                meaning: "Convite ao discernimento, adaptabilidade e agudeza intuitiva. Observa os sinais subtis que o Universo coloca no teu caminho."
+            },
+            {
+                n: 3,
+                jp: "龍神",
+                name: "Ryujin — O Dragão dos Oceanos",
+                icon: "dragon",
+                thought: "A força primordial das águas e dos céus habita em ti; comanda as marés das tuas emoções com serenidade e nobreza.",
+                meaning: "Grande transformação e despertar de poder interior (Kundalini / Ki). Deixa fluir a criatividade e a coragem."
+            },
+            {
+                n: 4,
+                jp: "鳳凰",
+                name: "Ho-oh — A Fénix Imperial",
+                icon: "phoenix",
+                thought: "Das cinzas de tudo o que já cumpriu o seu ciclo ergue-se uma nova consciência, mais leve, luminosa e livre.",
+                meaning: "Renascimento espiritual, cura profunda e elevação vibracional. Aceita o encerramento de uma etapa com gratidão."
+            },
+            {
+                n: 5,
+                jp: "鳥居",
+                name: "Torii — O Portal Sagrado",
+                icon: "torii",
+                thought: "Ao atravessares o limiar do sagrado, deixa fora o ruído do mundo e entra no templo silencioso do teu coração.",
+                meaning: "Estás perante uma passagem importante. Purifica as tuas intenções e entra num novo ciclo com reverência."
+            },
+            {
+                n: 6,
+                jp: "円相",
+                name: "Enso — O Círculo do Infinito",
+                icon: "enso",
+                thought: "Na imperfeição do traço reside a perfeição do instante presente; nada falta e nada sobra no agora.",
+                meaning: "Aceitação radical, plenitude e unidade. Liberta o perfeccionismo e acolhe a beleza do momento tal como ele é."
+            },
+            {
+                n: 7,
+                jp: "鞍馬山",
+                name: "Monte Kurama — A Montanha da Luz",
+                icon: "kurama",
+                thought: "Sobe em silêncio ao cume do teu próprio espírito; lá no alto, o Céu e a Terra encontram-se no teu coração.",
+                meaning: "Ligação direta com a fonte original do Reiki (Sonten). Procura o silêncio, a meditação e o contacto com a natureza."
+            },
+            {
+                n: 8,
+                jp: "鶴",
+                name: "Tsuru — A Grua da Longevidade",
+                icon: "crane",
+                thought: "Abre as asas com elegância e eleva o teu olhar acima das pequenas tempestades do quotidiano.",
+                meaning: "Paz, lealdade, cura e longevidade. Mantém a dignidade e a esperança mesmo quando o horizonte parece distante."
+            },
+            {
+                n: 9,
+                jp: "金継ぎ",
+                name: "Kintsugi — Cicatrizes de Ouro",
+                icon: "kintsugi",
+                thought: "As tuas feridas curadas não são motivo de vergonha, mas linhas de ouro que contam a história da tua superação.",
+                meaning: "Honra a tua história e as tuas cicatrizes emocionais. A cura transforma a dor em sabedoria luminosa."
+            },
+            {
+                n: 10,
+                jp: "天狗",
+                name: "Tengu — O Guardião das Montanhas",
+                icon: "tengu",
+                thought: "Abana com o teu leque de penas os ventos da ilusão e do orgulho, revelando a verdade nua da alma.",
+                meaning: "Proteção espiritual e corte de ilusões. Mantém a disciplina na tua prática e a humildade perante os mistérios da vida."
+            },
+            {
+                n: 11,
+                jp: "月読命",
+                name: "Tsukuyomi — O Espírito da Lua",
+                icon: "moon",
+                thought: "Na quietude prateada da noite, os segredos da alma revelam-se àqueles que sabem contemplar sem pressa.",
+                meaning: "Introspeção, sonhos reveladores e equilíbrio emocional. Respeita a necessidade de recolhimento e descanso."
+            },
+            {
+                n: 12,
+                jp: "鯉の滝登り",
+                name: "Koi — A Carpa que Sobe a Cascata",
+                icon: "koi",
+                thought: "Aquele que persiste com coração puro contra a corrente da adversidade transforma-se num dragão luminoso.",
+                meaning: "Perseverança, coragem e superação de obstáculos. Não desistas agora; a tua determinação será recompensada."
+            },
+            {
+                n: 13,
+                jp: "木霊",
+                name: "Kodama — Os Espíritos da Floresta",
+                icon: "kodama",
+                thought: "A saúde da terra e a saúde da tua alma são um único eco; caminha com respeito por cada folha e cada pedra.",
+                meaning: "Volta a ligar-te à natureza e ao teu corpo físico. O enraizamento traz cura imediata."
+            },
+            {
+                n: 14,
+                jp: "風神",
+                name: "Fujin — O Senhor dos Ventos",
+                icon: "wind",
+                thought: "Deixa o vento fresco da mudança soprar sobre a tua vida e levar para longe tudo o que já estagnou.",
+                meaning: "Renovação energética, liberdade e movimento. Solta o controlo e permite que novas brisas entrem."
+            },
+            {
+                n: 15,
+                jp: "雷神",
+                name: "Raijin — O Tambor do Trovão",
+                icon: "thunder",
+                thought: "O relâmpago rasga o céu num instante para despertar quem dormia na complacência; acorda para a tua verdade.",
+                meaning: "Despertar súbito de consciência, clareza instantânea e libertação de bloqueios antigos."
+            },
+            {
+                n: 16,
+                jp: "観音",
+                name: "Kannon — A Compaixão Infinita",
+                icon: "lotus",
+                thought: "Onde quer que exista uma lágrima silenciosa, mil mãos de compaixão estendem-se para acolher e aliviar.",
+                meaning: "Acolhimento, perdão e amor incondicional. Sê gentil contigo mesmo e com todos os seres."
+            },
+            {
+                n: 17,
+                jp: "狸",
+                name: "Tanuki — A Alegria Desprendida",
+                icon: "tanuki",
+                thought: "Não leves a vida com tanta rigidez; o riso leve e o coração despreocupado dissolvem metade dos males do mundo.",
+                meaning: "Leveza, bom humor e confiança na abundância. Recorda-te: 'Só por hoje, não te preocupes'."
+            },
+            {
+                n: 18,
+                jp: "八咫鏡",
+                name: "Yata no Kagami — O Espelho Sagrado",
+                icon: "mirror",
+                thought: "O mundo exterior apenas devolve a imagem do teu estado interior; limpa o teu coração e verás beleza em tudo.",
+                meaning: "Autoconhecimento, verdade e clareza. Observa o que as situações atuais espelham dentro de ti."
+            },
+            {
+                n: 19,
+                jp: "勾玉",
+                name: "Magatama — A Joia da Alma",
+                icon: "magatama",
+                thought: "A harmonia nasce quando o Yin e o Yang dançam em equilíbrio no centro do teu ser.",
+                meaning: "Equilíbrio entre dar e receber, agir e repousar, razão e intuição."
+            },
+            {
+                n: 20,
+                jp: "須佐之男命",
+                name: "Susanoo — A Tempestade que Purifica",
+                icon: "wave",
+                thought: "Após a tempestade que limpa os céus e os mares, a terra floresce com uma vitalidade renovada.",
+                meaning: "Catarse emocional necessária. Permite que as emoções reprimidas sejam libertadas para dar lugar à paz."
+            },
+            {
+                n: 21,
+                jp: "木花咲耶姫",
+                name: "Konohanasakuya — A Flor Efémera",
+                icon: "sakura",
+                thought: "A beleza da vida reside precisamente na sua delicadeza; floresce plenamente neste instante sem temer o amanhã.",
+                meaning: "Presença plena no agora, criatividade, beleza e celebração da vida."
+            },
+            {
+                n: 22,
+                jp: "弁財天",
+                name: "Benzaiten — A Música das Águas",
+                icon: "water",
+                thought: "Quando a tua alma entra em ressonância com a harmonia do Universo, toda a tua vida flui como uma canção.",
+                meaning: "Inspiração artística, fluidez na comunicação e abundância que nasce da alegria."
+            },
+            {
+                n: 23,
+                jp: "不動明王",
+                name: "Fudo Myo-o — A Firmeza Inabalável",
+                icon: "flame",
+                thought: "Com a espada da sabedoria corta as amarras do medo, e com o fogo da compaixão transmuta toda a negatividade.",
+                meaning: "Proteção energética forte, determinação espiritual e corte de laços tóxicos."
+            },
+            {
+                n: 24,
+                jp: "稲荷",
+                name: "Inari — A Colheita da Gratidão",
+                icon: "rice",
+                thought: "Cada semente de bondade e trabalho sincero que plantas hoje germinará numa colheita generosa.",
+                meaning: "Prosperidade, recompensa pelo esforço honesto e gratidão pelas bênçãos recebidas."
+            },
+            {
+                n: 25,
+                jp: "一期一会",
+                name: "Ichi-go Ichi-e — Um Encontro, Uma Vida",
+                icon: "tea",
+                thought: "Este momento e este encontro nunca mais se repetirão exatamente assim; honra-os com todo o teu coração.",
+                meaning: "Atenção plena nas relações e nos tratamentos de Reiki. Trata cada momento como único e sagrado."
+            },
+            {
+                n: 26,
+                jp: "静寂",
+                name: "Shijima — O Silêncio Primordial",
+                icon: "enso",
+                thought: "No espaço vazio entre dois sons habita a paz eterna onde todas as feridas encontram descanso.",
+                meaning: "Necessidade de silêncio interior, pausa digital e meditação profunda."
+            },
+            {
+                n: 27,
+                jp: "亀",
+                name: "Kame — A Tartaruga Cósmica",
+                icon: "turtle",
+                thought: "Carrega a tua casa de paz dentro de ti; avança sem pressa, com passos firmes e sabedoria ancestral.",
+                meaning: "Estabilidade, paciência, proteção e suporte sólido para os teus projetos."
+            },
+            {
+                n: 28,
+                jp: "虹の橋",
+                name: "Ama-no-Ukihashi — A Ponte Flutuante do Céu",
+                icon: "torii",
+                thought: "Tu és a ponte viva entre o espírito e a matéria; através das tuas mãos, o céu toca suavemente a terra.",
+                meaning: "Alinhamento espiritual e confirmação do teu papel como canal de luz e harmonia."
+            },
+            {
+                n: 29,
+                jp: "侘寂",
+                name: "Wabi-Sabi — A Graça do Simples",
+                icon: "sakura",
+                thought: "A verdadeira paz começa quando deixas de exigir que o mundo seja perfeito e aprendes a amar o que é real.",
+                meaning: "Simplicidade, aceitação do envelhecimento e dos ciclos naturais, libertação da ansiedade."
+            },
+            {
+                n: 30,
+                jp: "火の鳥",
+                name: "Hi no Tori — A Chama Eterna",
+                icon: "flame",
+                thought: "A centelha divina dentro de ti nunca se apaga; mesmo sob as cinzas do cansaço, ela aguarda um sopro de amor.",
+                meaning: "Revitalização energética, entusiasmo renovado e despertar da força vital (Ki)."
+            },
+            {
+                n: 31,
+                jp: "白蛇",
+                name: "Shirohebi — A Serpente Branca da Cura",
+                icon: "wave",
+                thought: "Tal como a serpente troca de pele, liberta-te das velhas identidades que já não servem o teu crescimento.",
+                meaning: "Regeneração celular e energética, cura profunda e renovação de ciclo."
+            },
+            {
+                n: 32,
+                jp: "星祭り",
+                name: "Tanabata — O Encontro das Estrelas",
+                icon: "moon",
+                thought: "O amor verdadeiro atravessa qualquer rio celeste; aquilo que pertence à tua alma encontrará sempre o caminho até ti.",
+                meaning: "Ligação de almas, realização de desejos puros e harmonia nos afetos."
+            },
+            {
+                n: 33,
+                jp: "竹林",
+                name: "Chikurin — O Bosque de Bambu",
+                icon: "kodama",
+                thought: "Esvazia o teu interior do ego para que o sopro do Universo possa tocar através de ti uma música pura.",
+                meaning: "Humildade, esvaziamento mental e capacidade de canalizar energia sem interferência."
+            },
+            {
+                n: 34,
+                jp: "狛犬",
+                name: "Komainu — Os Guardiões do Templo",
+                icon: "tengu",
+                thought: "Guarda as portas da tua mente com discernimento; permite entrar apenas o que nutre a paz e a verdade.",
+                meaning: "Limites energéticos saudáveis, discernimento e proteção do teu espaço sagrado."
+            },
+            {
+                n: 35,
+                jp: "富士",
+                name: "Monte Fuji — A Presença Majestosa",
+                icon: "kurama",
+                thought: "Permanece sereno e elevado acima das nuvens passageiras, testemunhando a vida com compaixão e firmeza.",
+                meaning: "Elevação espiritual, visão ampla da vida e estabilidade inabalável."
+            },
+            {
+                n: 36,
+                jp: "安心立命",
+                name: "Anshin Ritsumei — O Porto da Paz",
+                icon: "sun",
+                thought: "Quando confias plenamente na sabedoria da vida, o medo dissolve-se e o teu espírito repousa em casa.",
+                meaning: "Atingimento da paz interior profunda, entrega confiante ao fluxo do Universo."
+            }
+        ];
+
+        // ============================================================================
+        // 3. GERADORES DE ARTE SVG PROCEDURAL PARA CADA BARALHO
+        // ============================================================================
+
+        // Arte Aquarela Japonesa (Sumi-e / Nihonga) para os Poemas Meiji
+        function generateMeijiSVG(index) {
+            const palettes = [
+                { wash1: '#e6a4b4', wash2: '#f3d7ca', ink: '#4a3f3b', accent: '#c86d7d' }, // Sakura
+                { wash1: '#95b8a6', wash2: '#d8e2dc', ink: '#2f3e36', accent: '#588157' }, // Bambu / Névoa
+                { wash1: '#8da9c4', wash2: '#eef4ed', ink: '#13315c', accent: '#3d5a80' }, // Céu / Água
+                { wash1: '#e0b1cb', wash2: '#f8edeb', ink: '#4a4e69', accent: '#9a8c98' }, // Crepúsculo
+                { wash1: '#dda15e', wash2: '#faedcd', ink: '#582f0e', accent: '#bc6c25' }  // Outono Dourado
+            ];
+            const pal = palettes[index % palettes.length];
+            const motif = index % 4;
+
+            let motifPaths = '';
+            if (motif === 0) {
+                // Montanhas em névoa + Sol nascente
+                motifPaths = `
+                    <circle cx="150" cy="48" r="22" fill="${pal.wash1}" opacity="0.75" filter="url(#watercolor-filter)"/>
+                    <path d="M10 95 Q 75 42, 145 85 T 270 78 L 270 110 L 10 110 Z" fill="${pal.wash2}" opacity="0.85" filter="url(#watercolor-filter)"/>
+                    <path d="M40 105 Q 130 50, 210 92 T 280 95 L 280 110 L 40 110 Z" fill="${pal.accent}" opacity="0.35" filter="url(#watercolor-filter)"/>
+                `;
+            } else if (motif === 1) {
+                // Ramo de Cerejeira (Sakura)
+                motifPaths = `
+                    <ellipse cx="185" cy="45" rx="48" ry="26" fill="${pal.wash1}" opacity="0.55" filter="url(#watercolor-filter)"/>
+                    <path d="M260 22 Q 190 48, 110 62 Q 75 68, 45 58" stroke="${pal.ink}" stroke-width="2.2" fill="none" stroke-linecap="round" filter="url(#ink-bleed)"/>
+                    <circle cx="165" cy="42" r="7" fill="${pal.accent}" opacity="0.7"/>
+                    <circle cx="135" cy="56" r="8.5" fill="${pal.wash1}" opacity="0.85"/>
+                    <circle cx="110" cy="45" r="6" fill="${pal.accent}" opacity="0.65"/>
+                    <circle cx="82" cy="64" r="7.5" fill="${pal.wash1}" opacity="0.8"/>
+                    <circle cx="205" cy="34" r="6.5" fill="${pal.wash1}" opacity="0.75"/>
+                `;
+            } else if (motif === 2) {
+                // Bambu Sumi-e
+                motifPaths = `
+                    <ellipse cx="140" cy="55" rx="65" ry="30" fill="${pal.wash2}" opacity="0.7" filter="url(#watercolor-filter)"/>
+                    <line x1="95" y1="105" x2="105" y2="12" stroke="${pal.ink}" stroke-width="2.5" opacity="0.65"/>
+                    <line x1="94" y1="75" x2="102" y2="75" stroke="${pal.ink}" stroke-width="3"/>
+                    <line x1="97" y1="45" x2="105" y2="45" stroke="${pal.ink}" stroke-width="3"/>
+                    <path d="M103 45 Q 130 35, 148 44 Q 125 48, 103 45 Z" fill="${pal.accent}" opacity="0.75"/>
+                    <path d="M100 72 Q 72 60, 56 68 Q 78 74, 100 72 Z" fill="${pal.accent}" opacity="0.65"/>
+                    <line x1="175" y1="105" x2="170" y2="20" stroke="${pal.ink}" stroke-width="1.8" opacity="0.45"/>
+                    <path d="M171 38 Q 195 26, 212 34 Q 190 40, 171 38 Z" fill="${pal.accent}" opacity="0.55"/>
+                `;
+            } else {
+                // Lua na Água / Ondas
+                motifPaths = `
+                    <circle cx="195" cy="38" r="19" fill="${pal.wash1}" opacity="0.75" filter="url(#watercolor-filter)"/>
+                    <path d="M20 75 Q 80 62, 140 75 T 260 75" stroke="${pal.accent}" stroke-width="2" fill="none" opacity="0.6" filter="url(#ink-bleed)"/>
+                    <path d="M35 88 Q 95 78, 155 88 T 255 88" stroke="${pal.ink}" stroke-width="1.5" fill="none" opacity="0.4"/>
+                    <ellipse cx="195" cy="86" rx="22" ry="4" fill="${pal.wash1}" opacity="0.6"/>
+                `;
+            }
+
+            return `
+                <svg viewBox="0 0 280 108" class="w-full h-24 sm:h-28 rounded-xl overflow-hidden bg-[#f7f3ea]/70 border border-stone-300/50">
+                    ${motifPaths}
+                </svg>
+            `;
+        }
+
+        // Arte Simbologia Reiki & Kanjis para o Baralho 2 (21 Técnicas)
+        function getReikiSymbolParts(symbolType) {
+            const commonProps = `stroke="#1b4332" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"`;
+            let symbolPath = '';
+            let symbolLabel = '';
+
+            switch (symbolType) {
+                case 'choKuRei':
+                    symbolLabel = 'CHO KU REI';
+                    symbolPath = `
+                        <path d="M42 22 L76 22 L54 44 L54 88" ${commonProps}/>
+                        <path d="M54 88 C 32 88, 28 54, 54 50 C 78 46, 84 78, 56 80 C 38 81, 36 60, 54 58 C 66 57, 68 71, 56 71" ${commonProps}/>
+                    `;
+                    break;
+                case 'seiHeKi':
+                    symbolLabel = 'SEI HE KI';
+                    symbolPath = `
+                        <path d="M46 20 C 36 28, 36 40, 48 46 C 34 52, 34 68, 50 76 L 44 88" ${commonProps}/>
+                        <path d="M56 26 C 72 26, 76 42, 60 48 C 76 52, 76 70, 58 76" ${commonProps}/>
+                        <circle cx="66" cy="34" r="2.2" fill="#1b4332"/>
+                        <circle cx="66" cy="62" r="2.2" fill="#1b4332"/>
+                    `;
+                    break;
+                case 'honShaZeShoNen':
+                    symbolLabel = 'HON SHA ZE SHO NEN';
+                    symbolPath = `
+                        <path d="M38 24 L70 24 M54 18 L54 42 M40 34 L68 34" ${commonProps}/>
+                        <rect x="42" y="44" width="24" height="16" rx="2" ${commonProps}/>
+                        <path d="M36 68 L72 68 M54 60 L54 88 M42 78 L34 88 M66 78 L74 88" ${commonProps}/>
+                    `;
+                    break;
+                case 'daiKoMyo':
+                default:
+                    symbolLabel = 'DAI KO MYO';
+                    symbolPath = `
+                        <path d="M54 16 L54 44 M36 28 L72 28 M54 28 L36 46 M54 28 L72 46" ${commonProps}/>
+                        <circle cx="54" cy="66" r="18" stroke="#b58328" stroke-width="2.2" fill="none"/>
+                        <path d="M44 66 L64 66 M54 56 L54 76" stroke="#1b4332" stroke-width="2.6" stroke-linecap="round"/>
+                    `;
+                    break;
+            }
+
+            const parts = { label: symbolLabel, paths: symbolPath };
+            return parts;
+        }
+
+        // Versão do símbolo para impressão: arte grande em moldura (igual aos baralhos I e III)
+        function generateReikiSymbolArtSVG(symbolType) {
+            const { label: symbolLabel, paths: symbolPath } = getReikiSymbolParts(symbolType);
+            return `
+                <svg viewBox="0 0 108 104" class="w-full h-24 sm:h-28 bg-[#f2f8f4]">
+                    <circle cx="54" cy="52" r="46" stroke="#b58328" stroke-width="1" stroke-dasharray="3 3" fill="rgba(255,255,255,0.45)"/>
+                    ${symbolPath}
+                </svg>
+                <div class="text-center py-1.5 border-t border-emerald-800/15 bg-[#f8fbf9]">
+                    <span class="font-display text-[10px] font-bold tracking-widest text-emerald-900 uppercase">${symbolLabel}</span>
+                </div>
+            `;
+        }
+
+        function generateReikiSymbolSVG(symbolType) {
+            const { label: symbolLabel, paths: symbolPath } = getReikiSymbolParts(symbolType);
+            return `
+                <div class="flex items-center justify-between px-3.5 py-2 rounded-xl bg-emerald-900/[0.06] border border-emerald-800/20">
+                    <div class="flex items-center gap-2.5">
+                        <svg viewBox="0 0 108 104" class="w-12 h-12 shrink-0">
+                            <circle cx="54" cy="52" r="46" stroke="#b58328" stroke-width="1" stroke-dasharray="3 3" fill="rgba(255,255,255,0.45)"/>
+                            ${symbolPath}
+                        </svg>
+                        <div>
+                            <div class="text-[9px] uppercase tracking-widest text-emerald-800/70 font-bold">Símbolo de Ressonância</div>
+                            <div class="font-display text-xs font-bold text-emerald-950 tracking-wider">${symbolLabel}</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-[9px] uppercase tracking-wider text-amber-800/80 font-semibold">Gokai</div>
+                        <div class="font-jp text-xs font-bold text-emerald-900">五戒</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Arte Mitologia Japonesa Dourada & Vermelhão para o Baralho 3 (Oráculo Místico)
+        function generateMysticSVG(iconType, svgClass = "w-full h-24 rounded-xl bg-[#0b0e1a]/80 border border-amber-400/25") {
+            const gold = '#e6c27a';
+            const vermilion = '#d94e3f';
+            let art = '';
+
+            switch (iconType) {
+                case 'torii':
+                    art = `
+                        <circle cx="140" cy="52" r="32" fill="${vermilion}" opacity="0.22"/>
+                        <path d="M85 32 Q 140 38, 195 32 L 190 39 Q 140 43, 90 39 Z" fill="${vermilion}" stroke="${gold}" stroke-width="1.2"/>
+                        <rect x="96" y="48" width="88" height="5" fill="${vermilion}" stroke="${gold}" stroke-width="1"/>
+                        <rect x="110" y="38" width="7" height="54" fill="${vermilion}" stroke="${gold}" stroke-width="1"/>
+                        <rect x="163" y="38" width="7" height="54" fill="${vermilion}" stroke="${gold}" stroke-width="1"/>
+                        <rect x="137" y="39" width="6" height="9" fill="${gold}"/>
+                    `;
+                    break;
+                case 'sun':
+                case 'mirror':
+                    art = `
+                        <circle cx="140" cy="52" r="24" fill="none" stroke="${gold}" stroke-width="2.2"/>
+                        <circle cx="140" cy="52" r="16" fill="${vermilion}" opacity="0.45" stroke="${gold}" stroke-width="1.2"/>
+                        <g stroke="${gold}" stroke-width="1.6" stroke-linecap="round">
+                            <line x1="140" y1="14" x2="140" y2="22"/><line x1="140" y1="82" x2="140" y2="90"/>
+                            <line x1="102" y1="52" x2="110" y2="52"/><line x1="170" y1="52" x2="178" y2="52"/>
+                            <line x1="113" y1="25" x2="119" y2="31"/><line x1="161" y1="73" x2="167" y2="79"/>
+                            <line x1="167" y1="25" x2="161" y2="31"/><line x1="119" y1="73" x2="113" y2="79"/>
+                        </g>
+                    `;
+                    break;
+                case 'kitsune':
+                case 'tanuki':
+                    art = `
+                        <circle cx="140" cy="52" r="34" stroke="${gold}" stroke-width="1" stroke-dasharray="2 3" fill="none"/>
+                        <path d="M114 24 L124 44 L140 38 L156 44 L166 24 L162 56 L140 80 L118 56 Z" fill="none" stroke="${gold}" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M124 54 Q 130 50, 135 55 M145 55 Q 150 50, 156 54" stroke="${vermilion}" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <circle cx="140" cy="68" r="2.5" fill="${gold}"/>
+                        <path d="M140 42 L140 49 M136 45 L144 45" stroke="${vermilion}" stroke-width="1.5"/>
+                    `;
+                    break;
+                case 'dragon':
+                case 'koi':
+                case 'wave':
+                    art = `
+                        <path d="M85 65 C 105 30, 135 30, 145 52 C 155 74, 185 74, 198 40" fill="none" stroke="${gold}" stroke-width="2.6" stroke-linecap="round"/>
+                        <path d="M92 74 C 112 44, 136 44, 145 62 C 154 80, 178 80, 192 52" fill="none" stroke="${vermilion}" stroke-width="1.6" stroke-linecap="round"/>
+                        <circle cx="164" cy="34" r="7" fill="${vermilion}" stroke="${gold}" stroke-width="1.5"/>
+                    `;
+                    break;
+                case 'phoenix':
+                case 'crane':
+                    art = `
+                        <path d="M140 24 L145 45 L186 34 L154 56 L168 82 L140 66 L112 82 L126 56 L94 34 L135 45 Z" fill="none" stroke="${gold}" stroke-width="1.9" stroke-linejoin="round"/>
+                        <circle cx="140" cy="52" r="5" fill="${vermilion}"/>
+                    `;
+                    break;
+                case 'kurama':
+                    art = `
+                        <circle cx="140" cy="36" r="14" fill="${vermilion}" opacity="0.55" stroke="${gold}" stroke-width="1.2"/>
+                        <path d="M82 82 L124 36 L140 52 L158 32 L198 82 Z" fill="#182038" stroke="${gold}" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M116 46 L124 36 L132 46 M149 43 L158 32 L167 43" fill="none" stroke="${gold}" stroke-width="1.5"/>
+                    `;
+                    break;
+                case 'kintsugi':
+                    art = `
+                        <circle cx="140" cy="52" r="32" fill="#182038" stroke="${gold}" stroke-width="1.8"/>
+                        <path d="M118 28 L138 48 L128 64 L146 82 M138 48 L164 42 M128 64 L112 70" fill="none" stroke="${gold}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="138" cy="48" r="2.5" fill="${vermilion}"/>
+                    `;
+                    break;
+                case 'enso':
+                default:
+                    art = `
+                        <path d="M140 20 A 32 32 0 1 1 116 30" fill="none" stroke="${gold}" stroke-width="4.2" stroke-linecap="round"/>
+                        <circle cx="140" cy="52" r="4" fill="${vermilion}"/>
+                    `;
+                    break;
+            }
+
+            return `
+                <svg viewBox="0 0 280 104" class="${svgClass}">
+                    ${art}
+                </svg>
+            `;
+        }
+
+        // ============================================================================
+        // 4. ESTADO DA APLICAÇÃO E GESTÃO DOS BARALHOS
+        // ============================================================================
+        let currentDeckId = 'meiji';
+        let isFlipped = false;
+        let currentCard = null;
+        let isAnimating = false;
+
+        // Estado independente para cada baralho (cartas já tiradas para evitar repetição + histórico)
+        const deckStates = {
+            meiji: { drawnIndices: new Set(), history: [] },
+            tecnicas: { drawnIndices: new Set(), history: [] },
+            mistico: { drawnIndices: new Set(), history: [] }
+        };
+
+        const deckMeta = {
+            meiji: {
+                total: meijiPoemsData.length,
+                themeClass: 'theme-meiji',
+                badge: 'Aquarela Japonesa • Gyosei',
+                title: 'Os 125 Poemas do Imperador Meiji',
+                description: 'Versos selecionados pelo Mestre Mikao Usui para elevar a consciência, acalmar a mente e nutrir o espírito durante a prática de Reiki.',
+                chimeFreq: 528
+            },
+            tecnicas: {
+                total: reikiTechniquesData.length,
+                themeClass: 'theme-tecnicas',
+                badge: 'Simbologia & Gokai • João Magalhães',
+                title: 'As 21 Técnicas de Reiki',
+                description: 'Técnicas tradicionais japonesas sistematizadas para purificação energética, intuição (Reiji), tratamento e harmonização.',
+                chimeFreq: 432
+            },
+            mistico: {
+                total: mysticOracleData.length,
+                themeClass: 'theme-mistico',
+                badge: 'Folclore & Filosofia • Shinwa',
+                title: 'Oráculo Místico & Mitologia Japonesa',
+                description: 'Arquétipos sagrados, espíritos da natureza e símbolos milenares do Japão para iluminar as tuas questões e reflexões.',
+                chimeFreq: 396
+            }
+        };
+
+        // ============================================================================
+        // 5. RENDERIZAÇÃO DO VERSO E FRENTE DAS CARTAS
+        // ============================================================================
+
+        function getAtmayaCrescentSVG(sizeClass = "w-7 h-7", strokeWidth = "2.6") {
+            return `
+                <svg viewBox="0 0 100 100" class="${sizeClass}" aria-hidden="true">
+                    <g fill="none" stroke="currentColor" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M 27 28 A 34 34 0 1 0 73 28 A 28 29 0 1 1 27 28 Z"/>
+                        <path d="M 27 28 A 28 29 0 1 0 73 28 A 22 23 0 1 1 27 28 Z"/>
+                        <path d="M 33 23 A 22 23 0 1 0 67 23 A 18 17 0 1 1 33 23 Z"/>
+                    </g>
+                </svg>
+            `;
+        }
+
+        function renderCardBack(deckId) {
+            const backEl = document.getElementById('card-back');
+
+            if (deckId === 'meiji') {
+                backEl.className = 'card-face card-back flex flex-col items-center justify-between p-6 border-2 border-stone-400/50 washi-texture text-stone-800';
+                backEl.innerHTML = `
+                    <div class="w-full flex justify-between items-center text-[10px] tracking-[0.2em] uppercase text-stone-500 font-semibold">
+                        <span>ĀTMĀYÂ • Meiji</span>
+                        <span class="font-jp text-xs">御製 • 一二五</span>
+                    </div>
+                    <div class="relative flex flex-col items-center justify-center my-auto">
+                        <div class="relative flex items-center justify-center w-44 h-44">
+                            <svg viewBox="0 0 180 180" class="absolute inset-0 w-full h-full">
+                                <circle cx="90" cy="90" r="78" fill="none" stroke="#c86d7d" stroke-width="1.2" stroke-dasharray="3 3"/>
+                                <circle cx="90" cy="90" r="64" fill="#e6a4b4" opacity="0.22" filter="url(#watercolor-filter)"/>
+                            </svg>
+                            <div class="relative z-10 flex flex-col items-center text-stone-800">
+                                ${getAtmayaCrescentSVG("w-20 h-20 text-stone-800", "2.4")}
+                                <span class="font-display text-xs tracking-[0.25em] font-bold mt-1">ĀTMĀYÂ</span>
+                                <span class="font-serif text-[10px] tracking-[0.18em] text-stone-600 uppercase mt-0.5">Gyosei • 御製</span>
+                            </div>
+                        </div>
+                        <p class="font-serif italic text-sm text-stone-600 mt-2 text-center max-w-[220px]">
+                            “A sabedoria do coração em 125 aquarelas poéticas”
+                        </p>
+                    </div>
+                    <div class="w-full text-center border-t border-stone-300/70 pt-3">
+                        <span class="text-[11px] uppercase tracking-widest text-rose-900/80 font-semibold">Clica para tirar um poema</span>
+                    </div>
+                `;
+            } else if (deckId === 'tecnicas') {
+                backEl.className = 'card-face card-back flex flex-col items-center justify-between p-6 border-2 border-amber-600/40 bg-gradient-to-br from-[#1b4332] via-[#24553f] to-[#143627] text-amber-50';
+                backEl.innerHTML = `
+                    <div class="w-full flex justify-between items-center text-[10px] tracking-[0.2em] uppercase text-amber-200/80 font-semibold">
+                        <span>ĀTMĀYÂ • Reiki Ho</span>
+                        <span class="font-jp text-xs">霊気技法 • 二一</span>
+                    </div>
+                    <div class="flex flex-col items-center justify-center my-auto space-y-3">
+                        <div class="w-40 h-40 rounded-full border border-amber-400/45 flex flex-col items-center justify-center bg-emerald-950/45 shadow-inner relative p-3">
+                            ${getAtmayaCrescentSVG("w-16 h-16 text-amber-300", "2.5")}
+                            <span class="font-display text-xs tracking-[0.24em] text-amber-200 font-bold mt-1">ĀTMĀYÂ</span>
+                            <span class="text-[9px] uppercase tracking-[0.22em] text-amber-200/75 mt-0.5">21 Técnicas • 霊気</span>
+                        </div>
+                        <!-- Os 5 Princípios em Kanji -->
+                        <div class="flex items-center gap-2 text-[11px] font-jp text-amber-200/75 pt-1">
+                            <span>怒るな</span> • <span>心配すな</span> • <span>感謝して</span> • <span>業をはけめ</span> • <span>親切に</span>
+                        </div>
+                    </div>
+                    <div class="w-full text-center border-t border-amber-400/20 pt-3">
+                        <span class="text-[11px] uppercase tracking-widest text-amber-300 font-semibold">Clica para revelar a técnica</span>
+                    </div>
+                `;
+            } else {
+                backEl.className = 'card-face card-back flex flex-col items-center justify-between p-6 border-2 border-amber-400/45 bg-gradient-to-b from-[#161c33] via-[#101426] to-[#0b0e1b] text-amber-100';
+                backEl.innerHTML = `
+                    <div class="w-full flex justify-between items-center text-[10px] tracking-[0.2em] uppercase text-amber-300/75 font-semibold">
+                        <span>ĀTMĀYÂ • Shinwa</span>
+                        <span class="font-jp text-xs">神話の導き</span>
+                    </div>
+                    <div class="flex flex-col items-center justify-center my-auto">
+                        <div class="relative flex items-center justify-center w-44 h-44">
+                            <svg viewBox="0 0 180 180" class="absolute inset-0 w-full h-full">
+                                <circle cx="90" cy="90" r="78" fill="none" stroke="#d4af37" stroke-width="1" stroke-dasharray="2 4"/>
+                                <circle cx="90" cy="90" r="64" fill="none" stroke="#d94e3f" stroke-width="1.2" opacity="0.65"/>
+                            </svg>
+                            <div class="relative z-10 flex flex-col items-center text-amber-300">
+                                ${getAtmayaCrescentSVG("w-20 h-20 text-amber-300", "2.4")}
+                                <span class="font-display text-xs tracking-[0.25em] font-bold mt-1 text-amber-200">ĀTMĀYÂ</span>
+                                <span class="font-serif text-[9px] tracking-[0.2em] text-amber-300/75 uppercase mt-0.5">Yoga & Therapy</span>
+                            </div>
+                        </div>
+                        <p class="font-serif italic text-sm text-amber-100/80 text-center max-w-[220px] mt-1">
+                            “Arquétipos da Mitologia & Sabedoria do Japão”
+                        </p>
+                    </div>
+                    <div class="w-full text-center border-t border-amber-400/20 pt-3">
+                        <span class="text-[11px] uppercase tracking-widest text-amber-300 font-semibold">Clica para consultar o oráculo</span>
+                    </div>
+                `;
+            }
+        }
+
+        function renderCardFront(deckId, card) {
+            const frontEl = document.getElementById('card-front');
+
+            if (deckId === 'meiji') {
+                frontEl.className = 'card-face card-front flex flex-col justify-between p-5 sm:p-6 border-2 border-stone-400/50 washi-texture text-stone-800';
+                frontEl.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-stone-300/80 pb-2">
+                        <span class="text-[11px] font-bold uppercase tracking-widest text-rose-900">Poema Nº ${card.n} / 125</span>
+                        <span class="font-jp text-xs text-stone-500">明治天皇御製</span>
+                    </div>
+
+                    <div class="my-2">
+                        ${generateMeijiSVG(card.n)}
+                    </div>
+
+                    <div class="flex-1 overflow-y-auto card-scroll pr-1 space-y-2.5 flex flex-col justify-center">
+                        <h3 class="font-display text-base sm:text-lg font-bold text-stone-900 text-center leading-snug">
+                            ${card.t}
+                        </h3>
+                        <blockquote class="font-serif italic text-base sm:text-[17px] text-stone-800 text-center leading-relaxed px-2 border-y border-stone-300/60 py-2.5 bg-white/40 rounded-lg">
+                            “${card.p}”
+                        </blockquote>
+                        <div class="bg-stone-200/50 rounded-xl p-3 border border-stone-300/60">
+                            <div class="text-[10px] uppercase tracking-wider font-bold text-rose-900/80 mb-0.5">Significado & Reflexão Reiki</div>
+                            <p class="text-xs sm:text-[13px] text-stone-700 leading-relaxed">${card.s}</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 text-center text-[10px] uppercase tracking-widest text-stone-500 font-medium">
+                        ĀTMĀYÂ • Clica para tirar outro poema
+                    </div>
+                `;
+            } else if (deckId === 'tecnicas') {
+                frontEl.className = 'card-face card-front flex flex-col justify-between p-5 sm:p-6 border-2 border-emerald-800/30 bg-gradient-to-b from-[#fbfdfb] to-[#eef5f0] text-emerald-950';
+                frontEl.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-emerald-800/15 pb-2">
+                        <span class="text-[11px] font-bold uppercase tracking-widest text-emerald-800">Técnica Nº ${card.n} / 21</span>
+                        <span class="px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-900 font-jp text-xs font-semibold">${card.principle}</span>
+                    </div>
+
+                    <div class="my-2">
+                        ${generateReikiSymbolSVG(card.symbol)}
+                    </div>
+
+                    <div class="flex-1 overflow-y-auto card-scroll pr-1 space-y-2.5 flex flex-col justify-center">
+                        <div class="text-center">
+                            <div class="font-jp text-lg text-emerald-800 font-bold">${card.jp}</div>
+                            <h3 class="font-display text-lg sm:text-xl font-bold text-emerald-950 leading-tight">${card.name}</h3>
+                            <p class="font-serif italic text-sm text-emerald-700">${card.subtitle}</p>
+                        </div>
+
+                        <div class="bg-white/80 rounded-xl p-2.5 border border-emerald-800/15">
+                            <div class="text-[10px] uppercase tracking-wider font-bold text-emerald-800 mb-0.5">Como Praticar</div>
+                            <p class="text-xs text-stone-700 leading-relaxed">${card.desc}</p>
+                        </div>
+
+                        <div class="bg-amber-500/10 rounded-xl p-2.5 border border-amber-600/20">
+                            <div class="text-[10px] uppercase tracking-wider font-bold text-amber-900 mb-0.5">Significado Terapêutico</div>
+                            <p class="text-xs text-stone-800 leading-relaxed">${card.meaning}</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 text-center text-[10px] uppercase tracking-widest text-emerald-800/60 font-medium">
+                        ĀTMĀYÂ • Clica para tirar outra técnica
+                    </div>
+                `;
+            } else {
+                frontEl.className = 'card-face card-front flex flex-col justify-between p-5 sm:p-6 border-2 border-amber-400/45 bg-gradient-to-b from-[#171d35] via-[#111629] to-[#0c101e] text-amber-50';
+                frontEl.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-amber-400/20 pb-2">
+                        <span class="text-[11px] font-bold uppercase tracking-widest text-amber-300">Arcano Nº ${card.n} / 36</span>
+                        <span class="font-jp text-sm text-amber-200/90 font-semibold">${card.jp}</span>
+                    </div>
+
+                    <div class="my-2">
+                        ${generateMysticSVG(card.icon)}
+                    </div>
+
+                    <div class="flex-1 overflow-y-auto card-scroll pr-1 space-y-2.5 flex flex-col justify-center">
+                        <h3 class="font-display text-base sm:text-lg font-bold text-amber-300 text-center leading-snug">
+                            ${card.name}
+                        </h3>
+                        <blockquote class="font-serif italic text-base sm:text-[17px] text-amber-50 text-center leading-relaxed px-2 border-y border-amber-400/20 py-2.5 bg-white/[0.03] rounded-lg">
+                            “${card.thought}”
+                        </blockquote>
+                        <div class="bg-amber-500/[0.08] rounded-xl p-3 border border-amber-400/25">
+                            <div class="text-[10px] uppercase tracking-wider font-bold text-red-400 mb-0.5">Mensagem & Significado</div>
+                            <p class="text-xs sm:text-[13px] text-amber-100/90 leading-relaxed">${card.meaning}</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 text-center text-[10px] uppercase tracking-widest text-amber-300/60 font-medium">
+                        ĀTMĀYÂ • Clica para nova revelação
+                    </div>
+                `;
+            }
+        }
+
+        // ============================================================================
+        // 6. LÓGICA DE INTERAÇÃO, ALEATORIEDADE E SELEÇÃO DE BARALHOS
+        // ============================================================================
+
+        function getDeckArray(deckId) {
+            if (deckId === 'meiji') return meijiPoemsData;
+            if (deckId === 'tecnicas') return reikiTechniquesData;
+            return mysticOracleData;
+        }
+
+        function resetCardToBack(instant = false) {
+            const cardInner = document.getElementById('card-inner');
+            const frontEl = document.getElementById('card-front');
+            const printBtn = document.getElementById('btn-print-card');
+
+            if (printBtn) {
+                printBtn.classList.add('hidden');
+                printBtn.classList.remove('flex');
+            }
+
+            if (instant) {
+                cardInner.classList.add('no-transition');
+            }
+            cardInner.classList.remove('is-flipped');
+            isFlipped = false;
+            currentCard = null;
+
+            if (instant) {
+                // Forçar reflow para aplicar imediatamente sem animação
+                void cardInner.offsetWidth;
+                cardInner.classList.remove('no-transition');
+                frontEl.innerHTML = '';
+            } else {
+                setTimeout(() => {
+                    if (!isFlipped) {
+                        frontEl.innerHTML = '';
+                    }
+                }, 400);
+            }
+        }
+
+        function selectDeck(deckId) {
+            if (isAnimating) return;
+            currentDeckId = deckId;
+
+            // Regressa imediatamente às costas da carta sem textos invertidos
+            resetCardToBack(true);
+
+            // Atualizar tema visual do body
+            document.body.classList.remove('theme-meiji', 'theme-tecnicas', 'theme-mistico');
+            document.body.classList.add(deckMeta[deckId].themeClass);
+
+            // Atualizar estado ativo dos botões do topo
+            ['meiji', 'tecnicas', 'mistico'].forEach(id => {
+                const btn = document.getElementById(`btn-deck-${id}`);
+                if (id === deckId) {
+                    if (id === 'meiji') {
+                        btn.className = 'deck-tab px-3.5 py-2.5 rounded-xl text-left transition-all duration-300 border-2 border-rose-800/50 bg-rose-900/10 shadow-md scale-[1.01]';
+                    } else if (id === 'tecnicas') {
+                        btn.className = 'deck-tab px-3.5 py-2.5 rounded-xl text-left transition-all duration-300 border-2 border-emerald-800/50 bg-emerald-900/10 shadow-md scale-[1.01]';
+                    } else {
+                        btn.className = 'deck-tab px-3.5 py-2.5 rounded-xl text-left transition-all duration-300 border-2 border-amber-400/60 bg-amber-400/15 shadow-md scale-[1.01]';
+                    }
+                } else {
+                    btn.className = 'deck-tab px-3.5 py-2.5 rounded-xl text-left transition-all duration-300 border border-current/15 opacity-70 hover:opacity-100 hover:bg-current/5';
+                }
+            });
+
+            // Atualizar textos informativos da coluna esquerda
+            const meta = deckMeta[deckId];
+            document.getElementById('deck-badge').textContent = meta.badge;
+            document.getElementById('deck-title').textContent = meta.title;
+            document.getElementById('deck-description').textContent = meta.description;
+            document.getElementById('card-below-prompt').textContent = 'Clica na carta para tirar e revelar';
+
+            renderCardBack(deckId);
+            updateProgressUI();
+            renderHistoryUI();
+            playPaperSound();
+        }
+
+        function pickRandomCard(deckId) {
+            const cards = getDeckArray(deckId);
+            const state = deckStates[deckId];
+
+            // Se todas as cartas já saíram, reinicia o ciclo automaticamente
+            if (state.drawnIndices.size >= cards.length) {
+                state.drawnIndices.clear();
+            }
+
+            // Construir lista de índices ainda não tirados
+            const availableIndices = [];
+            for (let i = 0; i < cards.length; i++) {
+                if (!state.drawnIndices.has(i)) {
+                    availableIndices.push(i);
+                }
+            }
+
+            const randomPos = Math.floor(Math.random() * availableIndices.length);
+            const chosenIndex = availableIndices[randomPos];
+
+            state.drawnIndices.add(chosenIndex);
+            const chosenCard = cards[chosenIndex];
+
+            // Adicionar ao histórico (mais recente no topo)
+            state.history.unshift({
+                deckId: deckId,
+                card: chosenCard,
+                timestamp: new Date().toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' })
+            });
+
+            return chosenCard;
+        }
+
+        function handleCardClick() {
+            if (isAnimating) return;
+
+            const cardInner = document.getElementById('card-inner');
+
+            if (!isFlipped) {
+                // Carta está virada para baixo -> tirar carta aleatória e virar para a frente
+                isAnimating = true;
+                currentCard = pickRandomCard(currentDeckId);
+                renderCardFront(currentDeckId, currentCard);
+
+                cardInner.classList.add('is-flipped');
+                isFlipped = true;
+                updatePrintButtonVisibility(true);
+
+                playChimeSound(deckMeta[currentDeckId].chimeFreq);
+                updateProgressUI();
+                renderHistoryUI();
+                document.getElementById('card-below-prompt').textContent = 'Clica na carta para puxar uma nova carta';
+
+                setTimeout(() => {
+                    isAnimating = false;
+                }, 700);
+            } else {
+                // Carta já está revelada -> vira de volta ao monte e tira automaticamente uma nova carta
+                drawRandomCard();
+            }
+        }
+
+        function drawRandomCard() {
+            if (isAnimating) return;
+            const cardInner = document.getElementById('card-inner');
+            isAnimating = true;
+
+            if (isFlipped) {
+                // Vira primeiro para o verso, troca a carta e volta a revelar
+                cardInner.classList.remove('is-flipped');
+                isFlipped = false;
+                updatePrintButtonVisibility(false);
+                playPaperSound();
+
+                setTimeout(() => {
+                    currentCard = pickRandomCard(currentDeckId);
+                    renderCardFront(currentDeckId, currentCard);
+                    cardInner.classList.add('is-flipped');
+                    isFlipped = true;
+                    updatePrintButtonVisibility(true);
+
+                    playChimeSound(deckMeta[currentDeckId].chimeFreq);
+                    updateProgressUI();
+                    renderHistoryUI();
+                    document.getElementById('card-below-prompt').textContent = 'Clica na carta para puxar uma nova carta';
+
+                    setTimeout(() => {
+                        isAnimating = false;
+                    }, 650);
+                }, 460);
+            } else {
+                // Está no verso -> apenas tira e vira
+                currentCard = pickRandomCard(currentDeckId);
+                renderCardFront(currentDeckId, currentCard);
+                cardInner.classList.add('is-flipped');
+                isFlipped = true;
+                updatePrintButtonVisibility(true);
+
+                playChimeSound(deckMeta[currentDeckId].chimeFreq);
+                updateProgressUI();
+                renderHistoryUI();
+                document.getElementById('card-below-prompt').textContent = 'Clica na carta para puxar uma nova carta';
+
+                setTimeout(() => {
+                    isAnimating = false;
+                }, 700);
+            }
+        }
+
+        function updatePrintButtonVisibility(visible) {
+            const printBtn = document.getElementById('btn-print-card');
+            if (!printBtn) return;
+            if (visible) {
+                printBtn.classList.remove('hidden');
+                printBtn.classList.add('flex');
+            } else {
+                printBtn.classList.add('hidden');
+                printBtn.classList.remove('flex');
+            }
+        }
+
+        // Prepara e dispara a impressão de qualquer carta (atual ou do histórico)
+        function printCardData(deckId, card) {
+            if (!card) return;
+            const printArea = document.getElementById('print-area');
+            const today = new Date().toLocaleDateString('pt-PT', { day: '2-digit', month: 'long', year: 'numeric' });
+            const year = new Date().getFullYear();
+
+            if (deckId === 'meiji') {
+                printArea.innerHTML = `
+                    <div class="w-[380px] rounded-3xl border-2 border-stone-400 p-7 bg-[#fbf8f1] text-stone-800 shadow-none flex flex-col justify-between space-y-4">
+                        <div class="flex items-center justify-between border-b border-stone-300 pb-2.5">
+                            <span class="text-xs font-bold uppercase tracking-widest text-rose-900">Poema Imperador Meiji • Nº ${card.n}</span>
+                            <span class="font-jp text-sm text-stone-600">明治天皇御製</span>
+                        </div>
+                        <div>${generateMeijiSVG(card.n)}</div>
+                        <h2 class="font-display text-xl font-bold text-stone-900 text-center">${card.t}</h2>
+                        <blockquote class="font-serif italic text-lg text-stone-800 text-center leading-relaxed p-4 border-y border-stone-300 bg-white/70 rounded-xl">
+                            “${card.p}”
+                        </blockquote>
+                        <div class="bg-stone-100 rounded-xl p-3.5 border border-stone-300">
+                            <div class="text-[10px] uppercase tracking-wider font-bold text-rose-900 mb-1">Significado & Reflexão Reiki</div>
+                            <p class="text-xs text-stone-700 leading-relaxed">${card.s}</p>
+                        </div>
+                        <div class="pt-2.5 border-t border-stone-200 flex items-center justify-between text-[10px] text-stone-600">
+                            <div class="flex items-center gap-1.5">
+                                ${getAtmayaCrescentSVG("w-4 h-4 text-stone-800", "3")}
+                                <span class="font-display font-bold tracking-widest">ĀTMĀYÂ</span>
+                            </div>
+                            <span>© ${year} António Almas • ${today}</span>
+                        </div>
+                    </div>
+                `;
+            } else if (deckId === 'tecnicas') {
+                printArea.innerHTML = `
+                    <div class="w-[380px] rounded-3xl border-2 border-emerald-800/40 p-7 bg-[#fbf8f1] text-emerald-950 shadow-none flex flex-col justify-between space-y-4">
+                        <div class="flex items-center justify-between border-b border-emerald-800/20 pb-2.5">
+                            <span class="text-xs font-bold uppercase tracking-widest text-emerald-800">Técnica de Reiki • Nº ${card.n}</span>
+                            <span class="font-jp text-xs font-semibold text-amber-900">${card.principle}</span>
+                        </div>
+                        <div class="rounded-xl overflow-hidden border border-emerald-800/25">${generateReikiSymbolArtSVG(card.symbol)}</div>
+                        <div class="text-center">
+                            <div class="font-jp text-lg text-emerald-800 font-bold">${card.jp}</div>
+                            <h2 class="font-display text-xl font-bold text-emerald-950 leading-tight">${card.name}</h2>
+                            <p class="font-serif italic text-sm text-emerald-700">${card.subtitle}</p>
+                        </div>
+                        <blockquote class="font-serif italic text-base text-stone-800 text-center leading-relaxed p-4 border-y border-emerald-800/20 bg-white/70 rounded-xl">
+                            ${card.desc}
+                        </blockquote>
+                        <div class="bg-[#eef5f0] rounded-xl p-3.5 border border-emerald-800/15">
+                            <div class="text-[10px] uppercase tracking-wider font-bold text-emerald-800 mb-1">Significado Terapêutico</div>
+                            <p class="text-xs text-stone-700 leading-relaxed">${card.meaning}</p>
+                        </div>
+                        <div class="pt-2.5 border-t border-emerald-800/15 flex items-center justify-between text-[10px] text-emerald-900/75">
+                            <div class="flex items-center gap-1.5">
+                                ${getAtmayaCrescentSVG("w-4 h-4 text-emerald-900", "3")}
+                                <span class="font-display font-bold tracking-widest">ĀTMĀYÂ</span>
+                            </div>
+                            <span>© ${year} António Almas • ${today}</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                printArea.innerHTML = `
+                    <div class="w-[380px] rounded-3xl border-2 border-amber-700/45 p-7 bg-[#fbf8f1] text-slate-900 shadow-none flex flex-col justify-between space-y-4">
+                        <div class="flex items-center justify-between border-b border-amber-700/25 pb-2.5">
+                            <span class="text-xs font-bold uppercase tracking-widest text-amber-900">Oráculo Místico • Arcano Nº ${card.n}</span>
+                            <span class="font-jp text-sm text-red-800 font-semibold">${card.jp}</span>
+                        </div>
+                        <div>${generateMysticSVG(card.icon, "w-full h-24 sm:h-28 rounded-xl bg-[#0b0e1a]/80 border border-amber-400/25")}</div>
+                        <h2 class="font-display text-xl font-bold text-slate-900 text-center">${card.name}</h2>
+                        <blockquote class="font-serif italic text-lg text-slate-800 text-center leading-relaxed p-4 border-y border-amber-700/25 bg-white/80 rounded-xl">
+                            “${card.thought}”
+                        </blockquote>
+                        <div class="bg-amber-500/10 rounded-xl p-3.5 border border-amber-700/25">
+                            <div class="text-[10px] uppercase tracking-wider font-bold text-red-800 mb-1">Mensagem & Significado</div>
+                            <p class="text-xs text-slate-800 leading-relaxed">${card.meaning}</p>
+                        </div>
+                        <div class="pt-2.5 border-t border-amber-700/20 flex items-center justify-between text-[10px] text-slate-600">
+                            <div class="flex items-center gap-1.5">
+                                ${getAtmayaCrescentSVG("w-4 h-4 text-slate-900", "3")}
+                                <span class="font-display font-bold tracking-widest">ĀTMĀYÂ</span>
+                            </div>
+                            <span>© ${year} António Almas • ${today}</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            window.print();
+        }
+
+        function printCurrentCard() {
+            if (!isFlipped || !currentCard) return;
+            printCardData(currentDeckId, currentCard);
+        }
+
+        function printHistoryCard(historyIndex) {
+            const item = deckStates[currentDeckId].history[historyIndex];
+            if (!item) return;
+            printCardData(item.deckId, item.card);
+        }
+
+        function shuffleAndResetDeck() {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const stage = document.getElementById('card-stage');
+            const wasFlipped = isFlipped;
+
+            // Garante que a carta volta para as costas antes de baralhar
+            resetCardToBack(!wasFlipped);
+
+            deckStates[currentDeckId].drawnIndices.clear();
+            updateProgressUI();
+            document.getElementById('card-below-prompt').textContent = 'Baralho misturado • Clica para tirar';
+
+            const startShuffleMotion = () => {
+                playPaperSound();
+                stage.classList.add('animate-shuffle');
+
+                setTimeout(() => {
+                    stage.classList.remove('animate-shuffle');
+                    isAnimating = false;
+                }, 600);
+            };
+
+            if (wasFlipped) {
+                // Aguarda a carta virar de volta para as costas e depois baralha
+                setTimeout(startShuffleMotion, 420);
+            } else {
+                startShuffleMotion();
+            }
+        }
+
+        function updateProgressUI() {
+            const total = deckMeta[currentDeckId].total;
+            const drawnCount = deckStates[currentDeckId].drawnIndices.size;
+            const pct = Math.round((drawnCount / total) * 100);
+
+            document.getElementById('deck-progress-text').textContent = `${drawnCount} / ${total}`;
+            document.getElementById('deck-progress-bar').style.width = `${pct}%`;
+        }
+
+        function renderHistoryUI() {
+            const listEl = document.getElementById('history-list');
+            const history = deckStates[currentDeckId].history;
+
+            if (history.length === 0) {
+                listEl.innerHTML = `
+                    <p class="text-xs italic font-serif opacity-60 py-4 text-center">
+                        Ainda nenhuma carta foi tirada neste baralho.
+                    </p>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = history.map((item, idx) => {
+                const title = item.card.t || item.card.name;
+                return `
+                    <button onclick="openHistoryModal(${idx})" class="w-full text-left p-2.5 rounded-xl border border-current/15 bg-current/[0.03] hover:bg-current/[0.08] transition flex items-center justify-between gap-2 group">
+                        <div class="min-w-0">
+                            <div class="text-[10px] uppercase tracking-wider opacity-65 font-semibold">Carta Nº ${item.card.n} • ${item.timestamp}</div>
+                            <div class="font-serif font-bold text-sm leading-snug line-clamp-2 break-words group-hover:underline">${title}</div>
+                        </div>
+                        <span class="text-xs opacity-50 group-hover:opacity-100 shrink-0">Ver →</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function clearHistory() {
+            deckStates[currentDeckId].history = [];
+            renderHistoryUI();
+        }
+
+        // Modal para rever uma carta do histórico
+        function openHistoryModal(historyIndex) {
+            const item = deckStates[currentDeckId].history[historyIndex];
+            if (!item) return;
+
+            const modal = document.getElementById('history-modal');
+            const content = document.getElementById('modal-content');
+            const card = item.card;
+
+            let modalBg = 'bg-[#fbf8f1] text-stone-800 border-stone-300';
+            if (currentDeckId === 'tecnicas') modalBg = 'bg-[#f4f9f5] text-emerald-950 border-emerald-800/30';
+            if (currentDeckId === 'mistico') modalBg = 'bg-[#141a30] text-amber-50 border-amber-400/40';
+
+            content.className = `w-full max-w-md rounded-2xl p-6 shadow-2xl border relative transition-all ${modalBg}`;
+
+            if (currentDeckId === 'meiji') {
+                content.innerHTML = `
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="text-xs uppercase tracking-widest opacity-70 font-bold">Poema Imperador Meiji Nº ${card.n}</div>
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="printHistoryCard(${historyIndex})" class="px-2.5 py-1 rounded-full border border-current/20 text-xs font-medium flex items-center gap-1 hover:bg-current/10" title="Imprimir esta carta">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                                <span>Imprimir</span>
+                            </button>
+                            <button onclick="closeModal()" class="w-8 h-8 rounded-full border border-current/20 flex items-center justify-center hover:bg-current/10">✕</button>
+                        </div>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mt-1 mb-3">${card.t}</h3>
+                    <blockquote class="font-serif italic text-lg leading-relaxed p-3.5 rounded-xl bg-current/5 border border-current/10 mb-3">“${card.p}”</blockquote>
+                    <div class="text-xs uppercase tracking-wider font-bold opacity-75 mb-1">Reflexão Reiki</div>
+                    <p class="text-sm leading-relaxed opacity-90">${card.s}</p>
+                `;
+            } else if (currentDeckId === 'tecnicas') {
+                content.innerHTML = `
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="text-xs uppercase tracking-widest opacity-70 font-bold">Técnica Nº ${card.n} • ${card.jp}</div>
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="printHistoryCard(${historyIndex})" class="px-2.5 py-1 rounded-full border border-current/20 text-xs font-medium flex items-center gap-1 hover:bg-current/10" title="Imprimir esta carta">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                                <span>Imprimir</span>
+                            </button>
+                            <button onclick="closeModal()" class="w-8 h-8 rounded-full border border-current/20 flex items-center justify-center hover:bg-current/10">✕</button>
+                        </div>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mt-1">${card.name}</h3>
+                    <p class="font-serif italic text-base opacity-80 mb-3">${card.subtitle}</p>
+                    <div class="space-y-3">
+                        <div class="p-3 rounded-xl bg-current/5 border border-current/10">
+                            <div class="text-xs uppercase tracking-wider font-bold opacity-75 mb-1">Como Praticar</div>
+                            <p class="text-sm leading-relaxed">${card.desc}</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-600/20">
+                            <div class="text-xs uppercase tracking-wider font-bold opacity-80 mb-1">Significado Terapêutico</div>
+                            <p class="text-sm leading-relaxed">${card.meaning}</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="text-xs uppercase tracking-widest text-amber-300/80 font-bold">Oráculo Místico Nº ${card.n} • ${card.jp}</div>
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="printHistoryCard(${historyIndex})" class="px-2.5 py-1 rounded-full border border-amber-400/30 text-xs font-medium text-amber-200 flex items-center gap-1 hover:bg-white/10" title="Imprimir esta carta">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                                <span>Imprimir</span>
+                            </button>
+                            <button onclick="closeModal()" class="w-8 h-8 rounded-full border border-current/20 flex items-center justify-center hover:bg-current/10">✕</button>
+                        </div>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-amber-300 mt-1 mb-3">${card.name}</h3>
+                    <blockquote class="font-serif italic text-lg leading-relaxed p-3.5 rounded-xl bg-white/5 border border-amber-400/20 mb-3">“${card.thought}”</blockquote>
+                    <div class="text-xs uppercase tracking-wider font-bold text-red-400 mb-1">Mensagem & Significado</div>
+                    <p class="text-sm leading-relaxed opacity-90">${card.meaning}</p>
+                `;
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('history-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Suporte de teclado (Barra de espaço ou Enter vira a carta)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+            if ((e.key === ' ' || e.key === 'Enter') && document.activeElement === document.getElementById('card-inner')) {
+                e.preventDefault();
+                handleCardClick();
+            }
+        });
+
+        // Inicialização ao carregar a página
+        window.addEventListener('DOMContentLoaded', () => {
+            const yearEl = document.getElementById('copyright-year');
+            if (yearEl) yearEl.textContent = new Date().getFullYear();
+            selectDeck('meiji');
+        });
+    </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" nonce="7EZU8u7LpGiJyb5Wj59sXw==" data-cf-beacon='{"version":"2024.11.0","token":"36b4216ae2dc4d5488c249161e71fe1e","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>

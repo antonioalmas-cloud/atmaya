@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ĀTMÁYÂ — Oráculo Sagrado dos 64 Portais</title>
+    <meta name="author" content="António Almas">
+    <meta name="copyright" content="© 2026 António Almas — ĀTMÁYÂ Yoga & Therapy Studio. Todos os direitos reservados.">
+
+    <!-- Favicon: logótipo vetorial ĀTMÁYÂ (ondas do Mapa Astral), embutido -->
+    <link rel="icon" id="favicon-link" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='200 10 310 310'%3E%3Crect x='200' y='10' width='310' height='310' rx='40' fill='%23000000'/%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-width='4.4' stroke-linecap='round'%3E%3Cpath d='M 300 38 C 280 100 313 151 370 160 C 427 169 463 128 450 70'/%3E%3Cpath d='M 270 63 C 246 133 285 194 354 207 C 423 220 477 169 463 99'/%3E%3Cpath d='M 240 87 C 210 166 260 237 341 251 C 422 265 490 205 475 126'/%3E%3C/g%3E%3C/svg%3E">
+    <script>
+        // Logótipo vetorial ĀTMÁYÂ (o mesmo do Mapa Astral): ondas brancas sobre fundo negro
+        const LOGO_WAVES = "<g fill='none' stroke='#FFFFFF' stroke-width='4.4' stroke-linecap='round'><path d='M 300 38 C 280 100 313 151 370 160 C 427 169 463 128 450 70'/><path d='M 270 63 C 246 133 285 194 354 207 C 423 220 477 169 463 99'/><path d='M 240 87 C 210 166 260 237 341 251 C 422 265 490 205 475 126'/></g>";
+        // Versão para fundos escuros: fundo negro arredondado com ondas brancas
+        const LOGO_BADGE = 'data:image/svg+xml;utf8,' + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='200 10 310 310'><rect x='200' y='10' width='310' height='310' rx='40' fill='#000000'/>" + LOGO_WAVES + "</svg>");
+        // Versão para impressão (papel branco): ondas pretas sobre fundo transparente
+        const LOGO_PRINT = 'data:image/svg+xml;utf8,' + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='200 10 310 310'><g fill='none' stroke='#000000' stroke-width='4.4' stroke-linecap='round'><path d='M 300 38 C 280 100 313 151 370 160 C 427 169 463 128 450 70'/><path d='M 270 63 C 246 133 285 194 354 207 C 423 220 477 169 463 99'/><path d='M 240 87 C 210 166 260 237 341 251 C 422 265 490 205 475 126'/></g></svg>");
+        const LOGO_URI = LOGO_BADGE;
+        function applyLogo() {
+            document.querySelectorAll('img[data-logo]').forEach(function (img) {
+                img.classList.remove('hidden');
+                img.src = LOGO_URI;
+            });
+            const link = document.getElementById('favicon-link');
+            if (link) { link.href = LOGO_URI; link.type = 'image/svg+xml'; }
+        }
+        function logoPlaceholderError(img) { img.classList.add('hidden'); }
+        document.addEventListener('DOMContentLoaded', applyLogo);
+    </script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            100: '#FFF7D6',
+                            300: '#FCE893',
+                            400: '#F5D061',
+                            500: '#D4AF37',
+                            600: '#AA8825',
+                            700: '#7F6416',
+                        },
+                        cosmic: {
+                            950: '#05030A',
+                            900: '#0B091A',
+                            800: '#14112B',
+                            700: '#1F1B3E',
+                            600: '#2D2759',
+                        }
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        cormorant: ['Cormorant Garamond', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #05030A;
+            color: #E2E8F0;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 15%, rgba(65, 58, 120, 0.35) 0%, transparent 60%),
+                radial-gradient(circle at 85% 85%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 15% 85%, rgba(16, 42, 38, 0.25) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF7D6 0%, #F5D061 40%, #D4AF37 70%, #AA8825 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 3D Card Flip mechanics */
+        .perspective-1000 {
+            perspective: 1200px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .card-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute !important;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1.25rem;
+            overflow: hidden;
+        }
+
+        .card-back {
+            background-color: #0b091a;
+            border: 2px solid rgba(212, 175, 55, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(212, 175, 55, 0.2);
+        }
+
+        .card-front {
+            transform: rotateY(180deg);
+            background: linear-gradient(165deg, #130f29 0%, #070512 100%);
+            border: 2px solid rgba(212, 175, 55, 0.7);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 30px rgba(212, 175, 55, 0.25);
+        }
+
+        /* Inline Interpretation Panel Animation */
+        #inline-interpretation-panel {
+            transition: all 0.6s ease-in-out;
+        }
+
+        /* Modal custom scrollbar */
+        .modal-scroll {
+            max-height: calc(85vh - 4rem);
+            overflow-y: auto;
+        }
+
+        .modal-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .modal-scroll::-webkit-scrollbar-track {
+            background: #0B091A;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 3px;
+        }
+
+        /* Shuffling Cards animations */
+        @keyframes shuffleLeft {
+            0% { transform: translateX(0) rotate(0deg); }
+            50% { transform: translateX(-65px) rotate(-12deg) scale(0.96); }
+            100% { transform: translateX(0) rotate(0deg); }
+        }
+        @keyframes shuffleRight {
+            0% { transform: translateX(0) rotate(0deg); }
+            50% { transform: translateX(65px) rotate(12deg) scale(0.96); }
+            100% { transform: translateX(0) rotate(0deg); }
+        }
+
+        .shuffling-left { animation: shuffleLeft 0.45s ease-in-out infinite; }
+        .shuffling-right { animation: shuffleRight 0.45s ease-in-out infinite; }
+
+        /* ===== Mystical & Fantasy card enhancements ===== */
+        @keyframes auraPulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.07); }
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.25; }
+            50% { opacity: 0.9; }
+        }
+        @keyframes shimmerSweep {
+            0% { left: -40%; }
+            55%, 100% { left: 110%; }
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .card-front {
+            background: linear-gradient(165deg, #1B1443 0%, #0A0720 55%, #070512 100%) !important;
+            border: 2px solid rgba(212, 175, 55, 0.7);
+        }
+        .card-back {
+            background: radial-gradient(circle at 50% 32%, #1E1650 0%, #0B091A 62%, #05030A 100%) !important;
+        }
+
+        .card-front, .card-back {
+            box-shadow: 0 14px 34px rgba(0,0,0,0.8), 0 0 26px rgba(212,175,55,0.25), inset 0 0 40px rgba(65,58,120,0.25) !important;
+        }
+
+        .mystical-aura {
+            position: absolute; inset: -25%; z-index: 0; pointer-events: none;
+            background:
+                radial-gradient(circle at 28% 22%, rgba(168, 85, 247, 0.30) 0%, transparent 46%),
+                radial-gradient(circle at 78% 72%, rgba(212, 175, 55, 0.24) 0%, transparent 46%),
+                radial-gradient(circle at 62% 12%, rgba(56, 189, 248, 0.14) 0%, transparent 42%);
+            filter: blur(18px);
+            animation: auraPulse 7s ease-in-out infinite;
+        }
+        .mystical-stars {
+            position: absolute; inset: 0; z-index: 0; pointer-events: none;
+            background-image:
+                radial-gradient(1.2px 1.2px at 18% 28%, rgba(255,247,214,0.95) 50%, transparent 51%),
+                radial-gradient(1.6px 1.6px at 72% 18%, rgba(252,232,147,0.85) 50%, transparent 51%),
+                radial-gradient(1px 1px at 46% 68%, rgba(255,255,255,0.75) 50%, transparent 51%),
+                radial-gradient(1.2px 1.2px at 86% 58%, rgba(255,247,214,0.85) 50%, transparent 51%),
+                radial-gradient(1.4px 1.4px at 12% 82%, rgba(252,232,147,0.65) 50%, transparent 51%),
+                radial-gradient(1px 1px at 92% 36%, rgba(255,255,255,0.65) 50%, transparent 51%),
+                radial-gradient(1px 1px at 32% 50%, rgba(255,255,255,0.5) 50%, transparent 51%),
+                radial-gradient(1.2px 1.2px at 58% 88%, rgba(255,247,214,0.7) 50%, transparent 51%);
+            animation: twinkle 4.5s ease-in-out infinite;
+        }
+        .mystical-shimmer {
+            position: absolute; top: -20%; bottom: -20%; width: 34%; left: -40%;
+            z-index: 6; pointer-events: none; mix-blend-mode: screen;
+            background: linear-gradient(100deg, transparent 0%, rgba(255,247,214,0.14) 42%, rgba(212,175,55,0.24) 55%, transparent 100%);
+            animation: shimmerSweep 6s ease-in-out infinite;
+        }
+        .back-photo-tint {
+            position: absolute; inset: 0; pointer-events: none;
+            background: linear-gradient(180deg, rgba(11,9,26,0.30) 0%, rgba(5,3,10,0.55) 100%);
+            mix-blend-mode: multiply;
+        }
+
+        .gold-corner {
+            position: absolute; width: 26px; height: 26px; pointer-events: none; z-index: 4;
+            border-color: rgba(212,175,55,0.8); border-style: solid;
+            filter: drop-shadow(0 0 4px rgba(212,175,55,0.4));
+        }
+        .gold-corner.tl { top: 9px; left: 9px; border-width: 2px 0 0 2px; border-top-left-radius: 10px; }
+        .gold-corner.tr { top: 9px; right: 9px; border-width: 2px 2px 0 0; border-top-right-radius: 10px; }
+        .gold-corner.bl { bottom: 9px; left: 9px; border-width: 0 0 2px 2px; border-bottom-left-radius: 10px; }
+        .gold-corner.br { bottom: 9px; right: 9px; border-width: 0 2px 2px 0; border-bottom-right-radius: 10px; }
+        .gold-corner::after {
+            content: "✦"; position: absolute; font-size: 8px; color: rgba(252,232,147,0.9);
+        }
+        .gold-corner.tl::after { top: -11px; left: -12px; }
+        .gold-corner.tr::after { top: -11px; right: -12px; }
+        .gold-corner.bl::after { bottom: -11px; left: -12px; }
+        .gold-corner.br::after { bottom: -11px; right: -12px; }
+
+        .float-slow { animation: floatSlow 6s ease-in-out infinite; }
+    </style>
+<script src="users.js?v=22"></script>
+  <script src="auth.js?v=22"></script>
+<script>/* Protecção: exige sessão com acesso a esta app */
+  if (!AUTH.requireApp('oraculo64')) document.documentElement.innerHTML = "";
+</script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-gold-500 selection:text-cosmic-950">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="relative z-30 border-b border-gold-500/25 bg-cosmic-950/90 backdrop-blur-md sticky top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
+            
+            <!-- Brand Logo using exact JPG image -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('tirar')">
+                <div class="w-11 h-11 rounded-full overflow-hidden border border-gold-500/60 p-0.5 bg-white shadow-lg shadow-gold-500/15 flex items-center justify-center shrink-0">
+                    <img data-logo src="logo%20melhorado%20e%20com%20funda%C3%A7%C3%A3o.png" alt="ĀTMÁYÂ Logo" class="w-full h-full object-contain" onerror="logoPlaceholderError(this)">
+                </div>
+                <div>
+                    <h1 class="font-cinzel text-xl sm:text-2xl font-bold tracking-widest gold-gradient-text">ĀTMÁYÂ</h1>
+                    <p class="text-[9px] tracking-[0.2em] text-gold-300 uppercase -mt-0.5 font-montserrat">Yoga & Therapy Studio</p>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <nav class="flex items-center space-x-2 sm:space-x-3 text-xs sm:text-sm font-cinzel">
+                <button id="nav-tirar" onclick="switchTab('tirar')" class="px-3.5 py-2 rounded-lg transition-all duration-300 text-gold-400 border border-gold-500/40 bg-gold-500/10 shadow-sm flex items-center gap-2">
+                    <i class="fa-solid fa-sparkles text-xs"></i> Tirar Carta
+                </button>
+                <button id="nav-galeria" onclick="switchTab('galeria')" class="px-3.5 py-2 rounded-lg transition-all duration-300 text-slate-300 hover:text-gold-300 hover:bg-cosmic-800 flex items-center gap-2">
+                    <i class="fa-solid fa-book-open text-xs"></i> As 64 Cartas
+                </button>
+                <button id="nav-diario" onclick="switchTab('diario')" class="px-3.5 py-2 rounded-lg transition-all duration-300 text-slate-300 hover:text-gold-300 hover:bg-cosmic-800 flex items-center gap-2">
+                    <i class="fa-solid fa-bookmark text-xs"></i> Guardadas (<span id="saved-count">0</span>)
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN APP CONTENT -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+
+        <!-- TAB 1: ORACLE DRAW (TIRAR CARTA) -->
+        <section id="tab-tirar" class="tab-content transition-all duration-500">
+            
+            <div class="text-center max-w-2xl mx-auto mb-6">
+                <span class="text-[11px] uppercase tracking-[0.35em] text-gold-400 font-semibold">Oráculo Sagrado</span>
+                <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-slate-100 mt-1 mb-2">Portal da Orientação Diária</h2>
+                <p class="font-cormorant text-lg sm:text-xl text-slate-300 italic leading-relaxed">
+                    Respire fundo, sintonize a sua intenção com o Universo e tire uma carta para iluminar o seu caminho hoje.
+                </p>
+            </div>
+
+            <!-- Card Visual Container -->
+            <div class="flex flex-col items-center justify-center my-4">
+                
+                <!-- 3D Interactive Card Slot (Fixed position in-place flip) -->
+                <div class="perspective-1000 w-72 h-[430px] sm:w-80 sm:h-[480px] relative cursor-pointer group shrink-0" id="main-card-container" onclick="handleCardClick()">
+                    
+                    <div id="card-inner" class="card-inner">
+                        
+                        <!-- CARD BACK (Mystical design; uses watermarked_img_1007360476975618592.jpg when present) -->
+                        <div class="card-back flex flex-col items-center justify-center rounded-2xl overflow-hidden">
+                            <img src="watermarked_img_1007360476975618592.jpg" alt="Costas do Baralho ĀTMÁYÂ" class="absolute inset-0 w-full h-full object-cover object-center opacity-70" onerror="this.remove()">
+                            <div class="back-photo-tint"></div>
+                            <div class="mystical-stars"></div>
+
+                            <div class="relative z-10 flex flex-col items-center gap-3 px-6 pointer-events-none text-center">
+                                <div class="font-cinzel text-[11px] tracking-[0.55em] text-gold-300/80">☾&nbsp;&nbsp;✦&nbsp;&nbsp;☽</div>
+
+                                <div class="float-slow w-40 h-40 sm:w-48 sm:h-48">
+                                    <svg viewBox="0 0 120 120" class="w-full h-full">
+                                        <defs>
+                                            <radialGradient id="backGlow" cx="50%" cy="50%" r="50%">
+                                                <stop offset="0%" stop-color="#A855F7" stop-opacity="0.35"/>
+                                                <stop offset="55%" stop-color="#D4AF37" stop-opacity="0.12"/>
+                                                <stop offset="100%" stop-color="#0B091A" stop-opacity="0"/>
+                                            </radialGradient>
+                                        </defs>
+                                        <circle cx="60" cy="60" r="56" fill="url(#backGlow)"/>
+                                        <circle cx="60" cy="60" r="55" fill="none" stroke="#D4AF37" stroke-width="0.8" stroke-dasharray="2 3" opacity="0.7"/>
+                                        <circle cx="60" cy="60" r="49" fill="none" stroke="#D4AF37" stroke-width="0.6" opacity="0.5"/>
+                                        <g fill="none" stroke="#F5D061" stroke-width="0.7" opacity="0.75">
+                                            <circle cx="60" cy="60" r="14"/>
+                                            <circle cx="60" cy="46" r="14"/><circle cx="60" cy="74" r="14"/>
+                                            <circle cx="48" cy="53" r="14"/><circle cx="72" cy="53" r="14"/>
+                                            <circle cx="48" cy="67" r="14"/><circle cx="72" cy="67" r="14"/>
+                                            <circle cx="60" cy="32" r="14"/><circle cx="60" cy="88" r="14"/>
+                                            <circle cx="39.6" cy="38.6" r="14"/><circle cx="80.4" cy="38.6" r="14"/>
+                                            <circle cx="39.6" cy="81.4" r="14"/><circle cx="80.4" cy="81.4" r="14"/>
+                                        </g>
+                                        <circle cx="60" cy="60" r="26" fill="none" stroke="#FCE893" stroke-width="0.9" opacity="0.9"/>
+                                        <text x="60" y="66" font-size="18" text-anchor="middle" fill="#FCE893" font-family="serif">🜔</text>
+                                    </svg>
+                                </div>
+
+                                <h3 class="font-cinzel text-2xl sm:text-3xl font-black tracking-[0.28em] gold-gradient-text">ĀTMÁYÂ</h3>
+                                <p class="text-[9px] uppercase tracking-[0.42em] text-gold-300/80 font-montserrat">Oráculo dos 64 Portais</p>
+                            </div>
+
+                            <div class="absolute inset-2.5 border border-gold-500/45 rounded-xl pointer-events-none"></div>
+                            <div class="absolute inset-4 border border-gold-500/20 rounded-lg pointer-events-none"></div>
+                            <div class="gold-corner tl"></div><div class="gold-corner tr"></div>
+                            <div class="gold-corner bl"></div><div class="gold-corner br"></div>
+                            <div class="mystical-shimmer"></div>
+                        </div>
+
+                        <!-- CARD FRONT (Dynamic Sacred SVG Generated Art) -->
+                        <div class="card-front p-5 flex flex-col justify-between rounded-2xl">
+                            <div class="mystical-aura"></div>
+                            <div class="mystical-stars"></div>
+                            <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+                            <div class="gold-corner tl"></div><div class="gold-corner tr"></div>
+                            <div class="gold-corner bl"></div><div class="gold-corner br"></div>
+                            <div class="mystical-shimmer"></div>
+                            
+                            <!-- Header Info -->
+                            <div class="relative z-10 flex justify-between items-center border-b border-gold-500/30 pb-2">
+                                <div>
+                                    <span id="card-front-id" class="text-xs font-cinzel text-gold-400 tracking-widest uppercase">Portal #00</span>
+                                    <span id="card-front-domain" class="block text-[10px] text-slate-400 font-montserrat uppercase tracking-wider">Domínio</span>
+                                </div>
+                                <div class="w-7 h-7 rounded-full border border-gold-500/40 flex items-center justify-center text-gold-300 bg-cosmic-900/80">
+                                    <i id="card-front-icon" class="fa-solid fa-sun text-xs"></i>
+                                </div>
+                            </div>
+
+                            <!-- Sacred Geometry SVG Graphic -->
+                            <div class="relative z-10 text-center my-auto py-2 flex flex-col items-center">
+                                <div id="card-front-svg-container" class="w-36 h-36 sm:w-40 sm:h-40 my-2 rounded-full border-2 border-gold-500/60 flex items-center justify-center bg-cosmic-950/80 shadow-inner shadow-gold-500/30 p-2">
+                                </div>
+                                <h3 id="card-front-title" class="font-cinzel text-xl font-bold gold-gradient-text tracking-wide mt-2">Nome da Carta</h3>
+                                <p id="card-front-archetype" class="font-cormorant italic text-sm text-slate-300 mt-0.5">"O Arquétipo da Alma"</p>
+                            </div>
+
+                            <!-- Footer Quote -->
+                            <div class="relative z-10 border-t border-gold-500/30 pt-2 text-center">
+                                <span class="text-[10px] font-cinzel text-gold-300 tracking-widest uppercase block mb-1">Toque para ver a interpretação</span>
+                                <p id="card-front-mantra-short" class="text-xs font-cormorant italic text-gold-200/90 truncate">
+                                    "Mantra de conexão cósmica..."
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Control Buttons -->
+                <div class="mt-6 flex flex-wrap justify-center items-center gap-4">
+                    <button id="btn-draw" onclick="drawDailyCard()" class="px-8 py-3.5 rounded-full font-cinzel font-semibold text-sm tracking-wider bg-gradient-to-r from-gold-600 via-gold-500 to-gold-400 text-cosmic-950 hover:brightness-110 transition-all duration-300 shadow-xl shadow-gold-500/20 flex items-center gap-3 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+                        <i class="fa-solid fa-hands-sparkles"></i> Tirar Carta do Dia
+                    </button>
+                    
+                    <button id="btn-shuffle" onclick="shuffleDeckAnimation()" class="px-5 py-3.5 rounded-full font-cinzel text-xs tracking-wider border border-gold-500/40 text-gold-300 hover:bg-gold-500/10 transition-all duration-300 flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-shuffle"></i> Baralhar
+                    </button>
+                </div>
+
+                <!-- INLINE INTERPRETATION PANEL (Expands under flipped card in the same page view) -->
+                <div id="inline-interpretation-panel" class="hidden opacity-0 w-full max-w-3xl mt-8 bg-cosmic-900 border-2 border-gold-500/40 rounded-2xl p-6 sm:p-8 shadow-2xl relative">
+                    
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gold-500/30 pb-4 mb-6 gap-3">
+                        <div>
+                            <div class="flex items-center gap-3">
+                                <span id="inline-id" class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/40 text-gold-400 text-xs font-cinzel">Portal #00</span>
+                                <span id="inline-domain" class="text-xs text-gold-300 uppercase tracking-widest font-montserrat">Alquimia & Sagrado</span>
+                            </div>
+                            <h3 id="inline-title" class="font-cinzel text-2xl sm:text-3xl font-bold gold-gradient-text mt-2">Nome da Carta</h3>
+                        </div>
+                        
+                        <div class="flex items-center gap-2">
+                            <button id="btn-favorite-inline" onclick="toggleFavoriteCurrent()" class="px-4 py-2 rounded-lg border border-gold-500/40 text-gold-300 hover:bg-gold-500/10 text-xs font-montserrat flex items-center gap-2 transition-colors cursor-pointer">
+                                <i id="fav-icon-inline" class="fa-regular fa-bookmark"></i>
+                                <span id="fav-text-inline">Guardar Carta</span>
+                            </button>
+                            <button onclick="printCurrentCard()" class="px-4 py-2 rounded-lg border border-gold-500/40 text-gold-300 hover:bg-gold-500/10 text-xs font-montserrat flex items-center gap-2 transition-colors cursor-pointer">
+                                <i class="fa-solid fa-print"></i> Imprimir
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Details Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2 text-gold-400 font-cinzel text-sm border-b border-gold-500/20 pb-1.5">
+                                <i class="fa-solid fa-compass"></i>
+                                <h4 class="font-bold">Orientação de Energia</h4>
+                            </div>
+                            <p id="inline-interpretation" class="font-cormorant text-slate-200 text-base sm:text-lg leading-relaxed">
+                                Interpretação detalhada...
+                            </p>
+                        </div>
+
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2 text-gold-400 font-cinzel text-sm border-b border-gold-500/20 pb-1.5">
+                                <i class="fa-solid fa-seedling"></i>
+                                <h4 class="font-bold">Conselho Prático e Simples</h4>
+                            </div>
+                            <p id="inline-advice" class="text-slate-300 text-xs sm:text-sm leading-relaxed bg-cosmic-950/70 p-4 rounded-xl border border-gold-500/20">
+                                Conselho prático...
+                            </p>
+                        </div>
+
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2 text-gold-400 font-cinzel text-sm border-b border-gold-500/20 pb-1.5">
+                                <i class="fa-solid fa-quote-left"></i>
+                                <h4 class="font-bold">Mantra de Afirmação</h4>
+                            </div>
+                            <div class="bg-gradient-to-r from-cosmic-950 via-cosmic-800 to-cosmic-950 p-4 rounded-xl border-l-4 border-gold-500">
+                                <p id="inline-mantra" class="font-cormorant italic text-base sm:text-lg text-gold-200 text-center">
+                                    "Mantra de afirmação..."
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2 text-gold-400 font-cinzel text-sm border-b border-gold-500/20 pb-1.5">
+                                <i class="fa-solid fa-hands-praying"></i>
+                                <h4 class="font-bold">Oração Cósmica</h4>
+                            </div>
+                            <p id="inline-prayer" class="font-cormorant italic text-slate-300 text-sm leading-relaxed bg-cosmic-950/70 p-4 rounded-xl border border-gold-500/20">
+                                Oração de sintonização...
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <!-- Reflection Box -->
+                    <div class="mt-6 pt-5 border-t border-gold-500/20">
+                        <label for="journal-note-inline" class="block font-cinzel text-xs text-gold-300 uppercase tracking-wider mb-2">
+                            <i class="fa-solid fa-pen-nib me-1"></i> Escreva a sua reflexão pessoal para hoje:
+                        </label>
+                        <textarea id="journal-note-inline" rows="3" class="w-full bg-cosmic-950 border border-gold-500/30 rounded-xl p-3 text-slate-200 text-sm focus:outline-none focus:border-gold-400 transition-colors placeholder:text-slate-500" placeholder="O que sente ao ler esta mensagem? Como ela se aplica à sua vida agora?"></textarea>
+                        <div class="flex justify-end mt-2">
+                            <button onclick="saveJournalNoteInline()" class="px-4 py-2 bg-gold-500/20 text-gold-300 hover:bg-gold-500/30 rounded-lg text-xs font-montserrat transition-colors border border-gold-500/40 cursor-pointer">
+                                Guardar Reflexão
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+        <!-- TAB 2: LIBRARY / GALLERY OF ALL 64 CARDS -->
+        <section id="tab-galeria" class="tab-content hidden transition-all duration-500">
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <span class="text-xs uppercase tracking-[0.3em] text-gold-400 font-semibold">Biblioteca da Sabedoria</span>
+                <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-slate-100 mt-1 mb-3">Os 64 Portais Revelados</h2>
+                <p class="font-cormorant text-lg text-slate-300 italic">
+                    Explore a totalidade dos 64 ensinamentos herméticos, alquímicos, cabalísticos e astrológicos.
+                </p>
+            </div>
+
+            <!-- Filter & Search Controls -->
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8 bg-cosmic-900/80 p-4 rounded-xl border border-gold-500/20">
+                <div class="relative w-full md:w-72">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="search-input" oninput="renderGallery()" placeholder="Pesquisar carta ou tema..." class="w-full bg-cosmic-950 border border-gold-500/30 rounded-lg pl-9 pr-4 py-2 text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-gold-400">
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-center">
+                    <button onclick="setFilter('todos')" class="filter-btn active-filter px-3 py-1.5 rounded-lg text-xs font-cinzel transition-all bg-gold-500/20 border border-gold-500/50 text-gold-300" data-domain="todos">Todos</button>
+                    <button onclick="setFilter('Alquimia')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-cinzel transition-all bg-cosmic-950 border border-gold-500/20 text-slate-300 hover:text-gold-300" data-domain="Alquimia">Alquimia</button>
+                    <button onclick="setFilter('Hermetismo')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-cinzel transition-all bg-cosmic-950 border border-gold-500/20 text-slate-300 hover:text-gold-300" data-domain="Hermetismo">Hermetismo</button>
+                    <button onclick="setFilter('Cabala')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-cinzel transition-all bg-cosmic-950 border border-gold-500/20 text-slate-300 hover:text-gold-300" data-domain="Cabala">Cabala</button>
+                    <button onclick="setFilter('Astrologia')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-cinzel transition-all bg-cosmic-950 border border-gold-500/20 text-slate-300 hover:text-gold-300" data-domain="Astrologia">Astrologia</button>
+                    <button onclick="setFilter('Geometria Sagrada')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-cinzel transition-all bg-cosmic-950 border border-gold-500/20 text-slate-300 hover:text-gold-300" data-domain="Geometria Sagrada">Geometria</button>
+                </div>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Dynamically Rendered -->
+            </div>
+        </section>
+
+        <!-- TAB 3: SAVED CARDS / JOURNAL -->
+        <section id="tab-diario" class="tab-content hidden transition-all duration-500">
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <span class="text-xs uppercase tracking-[0.3em] text-gold-400 font-semibold">Memória da Alma</span>
+                <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-slate-100 mt-1 mb-3">Cartas & Reflexões Guardadas</h2>
+                <p class="font-cormorant text-lg text-slate-300 italic">
+                    Reveja as mensagens que mais ressoaram com o seu caminho e os seus registos pessoais.
+                </p>
+            </div>
+
+            <div id="saved-cards-list" class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                <!-- Dynamically Rendered -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CENTERED MODAL FOR CARD INTERPRETATION -->
+    <div id="interpretation-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-cosmic-900 border-2 border-gold-500/50 rounded-2xl max-w-3xl w-full p-6 sm:p-8 relative shadow-2xl flex flex-col my-auto">
+            
+            <!-- Close Button -->
+            <button onclick="closeInterpretationModal()" class="absolute top-4 right-4 text-slate-400 hover:text-gold-300 w-9 h-9 rounded-full border border-gold-500/40 bg-cosmic-950 flex items-center justify-center transition-colors z-20 cursor-pointer">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Scrollable Content -->
+            <div class="modal-scroll pr-2">
+                
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gold-500/30 pb-4 mb-6 gap-3">
+                    <div>
+                        <div class="flex items-center gap-3">
+                            <span id="detail-id" class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/40 text-gold-400 text-xs font-cinzel">Portal #00</span>
+                            <span id="detail-domain" class="text-xs text-gold-300 uppercase tracking-widest font-montserrat">Alquimia & Sagrado</span>
+                        </div>
+                        <h3 id="detail-title" class="font-cinzel text-2xl sm:text-3xl font-bold gold-gradient-text mt-2">Nome da Carta</h3>
+                    </div>
+                    
+                    <div class="flex items-center gap-2">
+                        <button id="btn-favorite" onclick="toggleFavoriteCurrent()" class="px-4 py-2 rounded-lg border border-gold-500/40 text-gold-300 hover:bg-gold-500/10 text-xs font-montserrat flex items-center gap-2 transition-colors cursor-pointer">
+                            <i id="fav-icon" class="fa-regular fa-bookmark"></i>
+                            <span id="fav-text">Guardar Carta</span>
+                        </button>
+                        <button onclick="printCurrentCard()" class="px-4 py-2 rounded-lg border border-gold-500/40 text-gold-300 hover:bg-gold-500/10 text-xs font-montserrat flex items-center gap-2 transition-colors cursor-pointer">
+                            <i class="fa-solid fa-print"></i> Imprimir
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Interpretation Details -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 text-gold-400 font-cinzel text-sm border-b border-gold-500/20 pb-1.5">
+                            <i class="fa-solid fa-compass"></i>
+                            <h4 class="font-bold">Orientação de Energia</h4>
+                        </div>
+                        <p id="detail-interpretation" class="font-cormorant text-slate-200 text-base sm:text-lg leading-relaxed">
+                            Interpretação detalhada...
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 text-gold-400 font-cinzel text-sm border-b border-gold-500/20 pb-1.5">
+                            <i class="fa-solid fa-seedling"></i>
+                            <h4 class="font-bold">Conselho Prático e Simples</h4>
+                        </div>
+                        <p id="detail-advice" class="text-slate-300 text-xs sm:text-sm leading-relaxed bg-cosmic-950/70 p-4 rounded-xl border border-gold-500/20">
+                            Conselho prático...
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 text-gold-400 font-cinzel text-sm border-b border-gold-500/20 pb-1.5">
+                            <i class="fa-solid fa-quote-left"></i>
+                            <h4 class="font-bold">Mantra de Afirmação</h4>
+                        </div>
+                        <div class="bg-gradient-to-r from-cosmic-950 via-cosmic-800 to-cosmic-950 p-4 rounded-xl border-l-4 border-gold-500">
+                            <p id="detail-mantra" class="font-cormorant italic text-base sm:text-lg text-gold-200 text-center">
+                                "Mantra de afirmação..."
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 text-gold-400 font-cinzel text-sm border-b border-gold-500/20 pb-1.5">
+                            <i class="fa-solid fa-hands-praying"></i>
+                            <h4 class="font-bold">Oração Cósmica</h4>
+                        </div>
+                        <p id="detail-prayer" class="font-cormorant italic text-slate-300 text-sm leading-relaxed bg-cosmic-950/70 p-4 rounded-xl border border-gold-500/20">
+                            Oração de sintonização...
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Reflection Box -->
+                <div class="mt-6 pt-5 border-t border-gold-500/20">
+                    <label for="journal-note" class="block font-cinzel text-xs text-gold-300 uppercase tracking-wider mb-2">
+                        <i class="fa-solid fa-pen-nib me-1"></i> Escreva a sua reflexão pessoal para hoje:
+                    </label>
+                    <textarea id="journal-note" rows="3" class="w-full bg-cosmic-950 border border-gold-500/30 rounded-xl p-3 text-slate-200 text-sm focus:outline-none focus:border-gold-400 transition-colors placeholder:text-slate-500" placeholder="O que sente ao ler esta mensagem? Como ela se aplica à sua vida agora?"></textarea>
+                    <div class="flex justify-end mt-2">
+                        <button onclick="saveJournalNote()" class="px-4 py-2 bg-gold-500/20 text-gold-300 hover:bg-gold-500/30 rounded-lg text-xs font-montserrat transition-colors border border-gold-500/40 cursor-pointer">
+                            Guardar Reflexão
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gold-500/20 bg-cosmic-950 py-6 relative z-20 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-3">
+            <div class="flex justify-center items-center gap-3">
+                <img data-logo src="logo%20melhorado%20e%20com%20funda%C3%A7%C3%A3o.png" alt="Logo" class="w-7 h-7 rounded-full border border-gold-500/40 object-contain bg-white" onerror="logoPlaceholderError(this)">
+                <span class="font-cinzel text-base font-bold gold-gradient-text tracking-widest">ĀTMÁYÂ</span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-montserrat tracking-wider max-w-md mx-auto">
+                Yoga & Therapy Studio — Oráculo Transdimensional de Sabedoria Espiritual & Luz Interior.
+            </p>
+            <p class="text-[10px] text-gold-500/60 font-cinzel">
+                Desde 13 OUT 25 • 64 Portais de Transmutação e Esperança
+            </p>
+            <p class="text-[10px] text-slate-400/80 font-montserrat tracking-wider border-t border-gold-500/15 pt-3 max-w-md mx-auto">
+                © 2026 <span class="text-gold-300 font-semibold">António Almas</span> — ĀTMÁYÂ, Oráculo Sagrado dos 64 Portais e todos os conteúdos deste baralho. Todos os direitos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <!-- COMPLETE DATASET & JS LOGIC -->
+    <script>
+        // FULL 64 ORACLE CARDS DATASET
+        const oracleDeck = [
+            { id: 1, title: "A Tábua de Esmeralda", archetype: "O Princípio da Correspondência", domain: "Hermetismo", symbol: "🜔", icon: "fa-gem", interpretation: "Como é em cima, é embaixo; como é dentro, é fora. A sua realidade externa é um reflexo direto do seu estado de espírito interno.", advice: "Simplifique os seus pensamentos hoje. Organize a sua mente e a sua casa para criar ordem na sua vida.", mantra: "O meu mundo interior reflete-se em harmonia, paz e abundância exterior.", prayer: "Divino Arquiteto, alinha o meu coração com as leis sagradas do Universo para que eu caminhe em verdade." },
+            { id: 2, title: "O Alquimista", archetype: "Transmutação Pessoal", domain: "Alquimia", symbol: "🜂", icon: "fa-fire", interpretation: "Possui o poder de transformar qualquer dor ou dificuldade em sabedoria de ouro. Os momentos difíceis são o crisol onde a sua alma se fortalece.", advice: "Diante de um problema hoje, pergunte a si próprio: 'Que lição valiosa posso extrair desta situação?'", mantra: "Eu transmuto todo o medo em coragem e toda a dúvida em fé inabalável.", prayer: "Chama Divina da Transmutação, purifica as minhas emoções e renova o meu espírito." },
+            { id: 3, title: "Kether - A Coroa", archetype: "Conexão com a Fonte", domain: "Cabala", symbol: "👑", icon: "fa-crown", interpretation: "A luz pura da Fonte flui diretamente para a sua consciência. Nunca esteve separado do Divino; a sua essência é luz sagrada e eterna.", advice: "Faça uma pausa de 5 minutos, feche os olhos e sinta a luz divina a entrar pelo topo da sua cabeça.", mantra: "Eu sou um canal puro da luz divina; estou permanentemente ligado à Fonte.", prayer: "Fonte Infinita de Toda a Vida, abençoa a minha jornada e guia os meus pensamentos no amor supremo." },
+            { id: 4, title: "O Sol Central", archetype: "Clareza e Vitalidade", domain: "Astrologia", symbol: "☉", icon: "fa-sun", interpretation: "O Sol nasce para dissolver qualquer escuridão. Uma grande clareza mental e renovação de energia física estão a chegar à sua vida.", advice: "Tome alguns minutos de sol pela manhã e expire qualquer cansaço ou negatividade acumulada.", mantra: "A minha energia é radiante, a minha visão é clara e a minha alegria é contagiante.", prayer: "Luz Solis Cósmica, aquece o meu ser e ilumina todos os caminhos que vou percorrer." },
+            { id: 5, title: "O Sal da Terra", archetype: "Preservação e Verdade", domain: "Alquimia", symbol: "🜔", icon: "fa-cube", interpretation: "O Sal representa a essência imutável e a preservação do que é sagrado. Permaneça fiel aos seus valores e não se desvie da sua verdade por pressões externas.", advice: "Defenda as suas convicções com doçura, mas com firmeza inabalável.", mantra: "Eu honro a minha verdade interior e permaneço firme no meu propósito.", prayer: "Espírito da Verdade, concede-me a firmeza necessária para honrar a minha essência divina." },
+            { id: 6, title: "Chokmah - Sabedoria", archetype: "Visão Intuitiva", domain: "Cabala", symbol: "👁", icon: "fa-eye", interpretation: "A sabedoria não vem do intelecto, mas do silêncio da alma. Siga a sua intuição primeira, sem tentar racionalizar excessivamente tudo.", advice: "Preste atenção aos flashes de inspiração e às sincronicidades que surgirem hoje.", mantra: "A sabedoria do Universo guia cada decisão e escolha que eu faço.", prayer: "Luz Primordial da Sabedoria, abre os meus olhos espirituais para ver além das aparências." },
+            { id: 7, title: "O Mercúrio Alquímico", archetype: "Fluidez e Adaptabilidade", domain: "Alquimia", symbol: "☿", icon: "fa-wand-magic-sparkles", interpretation: "O Mercúrio ensina a arte de fluir como a água. Adaptar-se às mudanças não é desistir; é a maior demonstração de inteligência espiritual.", advice: "Se os seus planos mudarem hoje, aceite o novo rumo com um sorriso e curiosidade.", mantra: "Adapto-me com graciosidade e confiança às mudanças da vida.", prayer: "Espírito do Movimento, ensina-me a fluir com os eventos da vida sem resistência nem dor." },
+            { id: 8, title: "O Pentagrama Sagrado", archetype: "Equilíbrio dos 5 Elementos", domain: "Geometria Sagrada", symbol: "⛧", icon: "fa-star", interpretation: "Terra, Ar, Fogo, Água e Espírito em perfeita sintonia. A sua vida está a entrar num ciclo de grande proteção e equilíbrio energético.", advice: "Beba água, caminhe descalço na terra e respire ar puro para equilibrar o seu corpo físico.", mantra: "Estou em perfeito equilíbrio com as forças da natureza e do cosmos.", prayer: "Forças Sagradas dos Elementos, protejam o meu corpo, a minha mente e a minha alma." },
+            { id: 9, title: "O Portal 999", archetype: "Conclusão e Renascimento", domain: "Numerologia", symbol: "999", icon: "fa-infinity", interpretation: "Um ciclo importante da sua vida chegou ao fim. Deixe ir o passado com gratidão para dar espaço aos milagres que já estão a caminho.", advice: "Desapegue-se de um hábito ou mágoa antiga hoje. Perdoe e siga leve.", mantra: "Eu encerro o passado com amor e me abro com alegria ao novo ciclo divino.", prayer: "Senhor do Tempo e dos Ciclos, liberta-me do que já cumpriu o seu papel na minha evolução." },
+            { id: 10, title: "Binah - Entendimento", archetype: "O Colaborador Amoroso", domain: "Cabala", symbol: "🌙", icon: "fa-moon", interpretation: "Binah é a Mãe Cósmica que acolhe e compreende. Seja profundamente amoroso e compreensivo consigo próprio e com as falhas alheias.", advice: "Trate-se a si próprio hoje com o mesmo carinho com que trataria uma criança querida.", mantra: "Eu acolho a mim mesmo com amor incondicional e compreensão profunda.", prayer: "Mãe Cósmica de Infinita Compaixão, abraça a minha alma e acalma o meu coração." },
+            { id: 11, title: "A Chama Trina", archetype: "Poder, Sabedoria e Amor", domain: "Hermetismo", symbol: "🔱", icon: "fa-fire-flame-curved", interpretation: "No seu coração arde a Chama Trina: o Fogo Azul do Poder, o Amarelo da Sabedoria e o Rosa do Amor. Tem todas as ferramentas divinas para triunfar.", advice: "Aja com a combinação perfeita de amor nas palavras e firmeza nos atos.", mantra: "A Chama Trina do meu coração ilumina, protege e guia o meu caminho.", prayer: "Chama Divina do Meu Coração, expande a tua luz e purifica todo o meu ambiente." },
+            { id: 12, title: "O Enxofre Alquímico", archetype: "A Vontade Criadora", domain: "Alquimia", symbol: "🜍", icon: "fa-bolt", interpretation: "O Enxofre é a centelha da paixão e da vontade espiritual. Reacenda o entusiasmo pelos seus sonhos e coloque energia ativa nos seus objetivos.", advice: "Tome uma iniciativa concreta hoje relativamente a um projeto que tem adiado.", mantra: "A minha vontade é forte, o meu entusiasmo é verdadeiro e a minha ação é eficaz.", prayer: "Fogo Sagrado da Criação, desperta no meu peito a paixão pela vida e pelo bem." },
+            { id: 13, title: "A Flor da Vida", archetype: "Matriz Cósmica", domain: "Geometria Sagrada", symbol: "💮", icon: "fa-atom", interpretation: "Todos os seres e eventos estão profundamente interligados por uma teia divina. Nada acontece por acaso; há um plano maior de beleza a desenrolar-se.", advice: "Confie na sincronicidade do Universo. O que é seu encontrará o caminho até si.", mantra: "Eu faço parte da teia sagrada da vida; estou seguro e conectado ao Todo.", prayer: "Arquiteto do Universo, ajuda-me a ver a beleza divina em cada detalhe da criação." },
+            { id: 14, title: "Chesed - Misericórdia", archetype: "Abundância e Graça", domain: "Cabala", symbol: "🕳", icon: "fa-hand-holding-heart", interpretation: "Chesed traz o fluxo incondicional de bênçãos e generosidade. Abra os seus braços para receber a prosperidade e ajude quem precisa.", advice: "Pratique um ato de generosidade anónimo hoje.", mantra: "A minha vida é uma fonte inesgotável de bênçãos, prosperidade e graça.", prayer: "Deus de Infinita Misericórdia, faz de mim um canal de bênçãos para o mundo." },
+            { id: 15, title: "O Ritmo Cósmico", archetype: "A Lei do Pêndulo", domain: "Hermetismo", symbol: "⏳", icon: "fa-hourglass-half", interpretation: "Tudo avança e recua; tudo tem as suas marés. Se hoje se sente num momento de baixa energia, saiba que a maré alta de alegria voltará em breve.", advice: "Respeite os momentos de descanso sem se culpar. O repouso prepara a vitória.", mantra: "Harmonizo-me com os ritmos da vida e confio no tempo divino.", prayer: "Senhor dos Ritmos da Vida, ensina-me a ter paciência nos momentos de recolhimento." },
+            { id: 16, title: "A Estrela Sirius", archetype: "Inspiração Superior", domain: "Astronomia", symbol: "✦", icon: "fa-sparkles", interpretation: "Sirius é o Sol Espiritual que traz alta inspiração e iluminação à mente humana. Grandes ideias e visões de futuro estão disponíveis para si.", advice: "Anote num caderno os pensamentos inspirados que tiver durante o dia.", mantra: "A minha mente está sintonizada com as frequências mais elevadas de inspiração.", prayer: "Luz Sagrada de Sirius, derrama sobre a minha mente a clareza e a inovação divina." },
+            { id: 17, title: "O Cubo de Metatron", archetype: "Proteção Dimensional", domain: "Geometria Sagrada", symbol: "⬡", icon: "fa-cubes", interpretation: "Uma geometria sagrada de altíssima proteção envolve o seu campo áurico. Nenhuma energia negativa pode penetrar o seu espaço de luz.", advice: "Visualize o Cubo de Metatron em redor do seu corpo antes de sair de casa.", mantra: "Estou completamente protegido e selado na luz inabalável do Criador.", prayer: "Arcanjo Metatron, envolve o meu ser com a tua geometria sagrada de luz e proteção." },
+            { id: 18, title: "A Azoth Alquímica", archetype: "O Solvente Universal", domain: "Alquimia", symbol: "🜀", icon: "fa-droplet", interpretation: "Azoth representa o princípio de transformação que dissolve rigidez e cura feridas antigas. É tempo de curar ressentimentos e fluir em paz.", advice: "Pratique o perdão sincero a alguém que o tenha magoado no passado.", mantra: "Liberto-me de todas as mágoas; o amor puro cura o meu coração.", prayer: "Fonte da Água Viva, lava a minha alma e purifica as minhas emoções passadas." },
+            { id: 19, title: "O Portal 1111", archetype: "Despertar Cósmico", domain: "Numerologia", symbol: "1111", icon: "fa-door-open", interpretation: "Um portal direto de manifestação está aberto. Os seus pensamentos estão a materializar-se muito rapidamente agora, mantenha o foco no positivo.", advice: "Concentre a sua atenção apenas no que deseja construir, nunca nos seus medos.", mantra: "Os meus pensamentos criam uma realidade de luz, amor, saúde e prosperidade.", prayer: "Guia Divino, alinha os meus desejos com a vontade suprema do meu espírito." },
+            { id: 20, title: "Tiphereth - A Beleza", archetype: "O Centro do Coração", domain: "Cabala", symbol: "✡", icon: "fa-heart", interpretation: "Tiphereth é o coração da Árvore da Vida, o ponto de equilíbrio perfeito entre a força e a misericórdia. O amor é a sua maior força de cura hoje.", advice: "Coloque amor e dedicação consciente em tudo o que fizer, mesmo nas tarefas simples.", mantra: "O meu coração arde com amor divino; eu sou a harmonia em ação.", prayer: "Sol do Coração Tiphereth, ilumina as minhas emoções e traz paz às minhas relações." },
+            { id: 21, title: "A Árvore da Vida", archetype: "Crescimento e Enraizamento", domain: "Cabala", symbol: "🌳", icon: "fa-tree", interpretation: "Para tocar os céus, as raízes devem ser profundas na terra. Cultive hábitos saudáveis no seu corpo físico para sustentar a sua expansão espiritual.", advice: "Caminhe na natureza, coma alimentos naturais e sinta a terra sob os seus pés.", mantra: "Estou profundamente enraizado na Terra e conectado aos Céus.", prayer: "Eterno Criador, faz da minha vida uma árvore de bons frutos que serve ao mundo." },
+            { id: 22, title: "O Princípio da Polaridade", archetype: "Superação dos Opostos", domain: "Hermetismo", symbol: "☯", icon: "fa-yin-yang", interpretation: "O medo e a coragem são apenas dois polos da mesma vibração. Pode transmutar o medo em coragem simplesmente elevando a sua frequência.", advice: "Sempre que sentir ansiedade, mude o foco e repita palavras de gratidão e fé.", mantra: "Eu elevo a minha frequência e transmuto o medo em coragem e gratidão.", prayer: "Senhor de Toda a Luz, ajuda-me a ver a oportunidade por trás do desafio." },
+            { id: 23, title: "A Conjunção Cósmica", archetype: "União Sagrada", domain: "Astrologia", symbol: "☌", icon: "fa-hands-clasping", interpretation: "A união de duas forças gera uma terceira energia infinitamente mais poderosa. É um momento propício para parcerias, casamentos e trabalho em equipa.", advice: "Busque o consenso e a cooperação amorosa nas suas relações hoje.", mantra: "As minhas relações são baseadas no respeito mútuo, paz e cooperação sagrada.", prayer: "Deus da União, abençoa as minhas parcerias para que deem frutos de paz." },
+            { id: 24, title: "O Tetraedro de Fogo", archetype: "Ação e Vigor", domain: "Geometria Sagrada", symbol: "🔺", icon: "fa-fire", interpretation: "O sólido platónico do Fogo traz impulso, determinação e clareza de propósito. Vença a procrastinação e dê o primeiro passo sem hesitar.", advice: "Realize hoje a tarefa mais importante da sua lista logo pela manhã.", mantra: "A minha ação é focada, corajosa e produz resultados abençoados.", prayer: "Espírito do Fogo Sagrado, acende em mim a determinação inabalável." },
+            { id: 25, title: "A Nigredo Alquímica", archetype: "A Noite Escura da Alma", domain: "Alquimia", symbol: "🜎", icon: "fa-moon-stars", interpretation: "Nigredo é a fase da decomposição que antecede a iluminação. Se sente tristeza ou confusão, saiba que o seu velho Eu está a morrer para o novo nascer.", advice: "Não lute contra as suas sombras. Acolha-as com compaixão e deixe o passado ir.", mantra: "A escuridão temporária é apenas o berço onde nasce a minha maior luz.", prayer: "Pai das Misericórdias, ampara a minha alma durante a noite até ao amanhecer." },
+            { id: 26, title: "O Portal 888", archetype: "Infinito de Abundância", domain: "Numerologia", symbol: "888", icon: "fa-infinity", interpretation: "O número 888 representa o fluxo ininterrupto de prosperidade divina. O Universo é abundante e deseja suprir todas as suas necessidades materiais e espirituais.", advice: "Agradeça com alegria por tudo o que já possui e pela abundância que está a chegar.", mantra: "O Universo supremo supre abundantemente todas as minhas necessidades.", prayer: "Senhor da Abundância Infinita, abre as portas da prosperidade divina na minha vida." },
+            { id: 27, title: "O Ouroboros", archetype: "Eternidade e Renovação", domain: "Alquimia", symbol: "🐍", icon: "fa-rotate-right", interpretation: "A serpente que morde a própria cauda lembra que o fim de uma etapa é o começo de outra. A vida é um continuum eterno de evolução e aprendizado.", advice: "Celebre as conclusões com a certeza de que portas maiores estão a abrir-se.", mantra: "Eu abraço a eternidade do meu ser e a renovação constante da vida.", prayer: "Senhor do Tempo Sem Fim, concede-me serenidade em todas as transições da vida." },
+            { id: 28, title: "Geburah - A Força", archetype: "Disciplina Sagrada", domain: "Cabala", symbol: "🗡", icon: "fa-shield-halved", interpretation: "Geburah traz o rigor amoroso e a disciplina necessários para estabelecer limites saudáveis. Diga 'não' ao que consome a sua energia e 'sim' ao seu propósito.", advice: "Corte dependências e hábitos tóxicos com clareza e determinação.", mantra: "Eu tenho a força necessária para proteger a minha paz e honrar a minha verdade.", prayer: "Espada da Justiça Divina, dá-me coragem para cortar o que impede o meu avanço." },
+            { id: 29, title: "O Alinhamento Planetário", archetype: "Sincronia Perfeita", domain: "Astrologia", symbol: "🪐", icon: "fa-globe", interpretation: "As forças do cosmos estão a alinhar-se a seu favor. Aquilo que parecia bloqueado começa a fluir com facilidade natural.", advice: "Aproveite a maré favorável para agir nos seus objetivos prioritários.", mantra: "O Universo conspira continuamente a meu favor e tudo se alinha com facilidade.", prayer: "Que a ordem perfeita dos astros se refleta na minha vida prática." },
+            { id: 30, title: "Vesica Piscis", archetype: "O Portal da Criação", domain: "Geometria Sagrada", symbol: "⟁", icon: "fa-dharmachakra", interpretation: "A intersecção de dois círculos cria o espaço sagrado do nascimento de novas ideias e relacionamentos. Uma parceria harmoniosa trará grandes frutos.", advice: "Busque a cooperação e o trabalho em equipa baseado no respeito mútuo.", mantra: "Na união com os outros, multiplico a luz e a alegria no mundo.", prayer: "Abençoa as minhas conexões humanas para que sejam fontes de amor e elevação." },
+            { id: 31, title: "O Sol Invicto", archetype: "Vitória sobre a Escuridão", domain: "Hermetismo", symbol: "🔆", icon: "fa-sun", interpretation: "Por mais longa que seja a noite, o Sol sempre volta a nascer. Este portal garante que qualquer fase sombria está a chegar ao fim.", advice: "Mantenha a firmeza de espírito. A sua perseverança será recompensada em breve.", mantra: "A minha luz interior é invencível; eu prevaleço com graciosidade.", prayer: "Luz Invicta da Verdade, dissipa todas as sombras do meu caminho." },
+            { id: 32, title: "Netzach - A Vitória", archetype: "Perseverança Afetuosa", domain: "Cabala", symbol: "🏆", icon: "fa-trophy", interpretation: "Netzach representa o triunfo da paixão, da arte e do espírito sobre as adversidades da matéria. Ponha a sua alma em tudo o que faz.", advice: "Expresse a sua criatividade sem medo através da arte, escrita ou música.", mantra: "A minha paixão pela vida supera qualquer obstáculo temporário.", prayer: "Deus das Vitórias, preenche o meu coração com alegria e determinação constante." },
+            { id: 33, title: "O Portal Siriano 33", archetype: "O Mestre Compassivo", domain: "Numerologia", symbol: "33", icon: "fa-hands-holding-circle", interpretation: "O número mestre 33 representa o amor abnegado e a compaixão espiritual elevada. É chamado a ser um farol de consolo para os outros.", advice: "Escute com empatia quem procura a sua ajuda hoje, sem julgar.", mantra: "Eu sou um canal de compaixão, paz e cura para todos os seres.", prayer: "Mestres de Luz e Compaixão, usem a minha vida como instrumento do Vosso amor." },
+            { id: 34, title: "A Pedra Filosofal", archetype: "A Realização Suprema", domain: "Alquimia", symbol: "💎", icon: "fa-gem", interpretation: "O objetivo supremo da grande obra foi alcançado. Este portal traz a bênção da iluminação interior e paz inabalável.", advice: "Reconheça a sua própria riqueza espiritual e o valor inestimável da sua jornada.", mantra: "Encontrei a Pedra Filosofal no meu interior: a paz firme do meu próprio ser.", prayer: "Eterno Arquiteto, agradeço pela Pedra Preciosa da sabedoria que habitas em mim." },
+            { id: 35, title: "Hod - A Glória", archetype: "Mente Intelectiva", domain: "Cabala", symbol: "📚", icon: "fa-book", interpretation: "Hod traz a clareza da razão, o discernimento intelectual e a boa comunicação. É um dia excelente para estudar e planear.", advice: "Organize as suas ideias por escrito antes de reuniões ou conversas importantes.", mantra: "As minhas palavras são claras, verdadeiras e construtivas.", prayer: "Luz do Entendimento, clarifica os meus pensamentos e a minha comunicação." },
+            { id: 36, title: "O Princípio da Mente", archetype: "O Universo é Mental", domain: "Hermetismo", symbol: "🧠", icon: "fa-brain", interpretation: "O Todo é Mente; o Universo é Mental. A forma como interpreta os eventos determina o seu sofrimento ou a sua paz.", advice: "Observe os seus pensamentos como um espectador calmo e escolha apenas pensamentos elevados.", mantra: "Eu domino a minha mente e crio uma realidade de luz e harmonia.", prayer: "Mente Suprema, ajuda-me a manter os meus pensamentos alinhados com a Tua Verdade." },
+            { id: 37, title: "A Constelação de Plêiades", archetype: "Harmonia das Esferas", domain: "Astronomia", symbol: "✨", icon: "fa-wand-magic-sparkles", interpretation: "As sete irmãs cósmicas trazem uma vibração de delicadeza, beleza e sensibilidade artística. Permita que a beleza cure o seu espírito.", advice: "Rodeie-se de arte, flores, música suave e ambientes limpos e bonitos.", mantra: "A beleza divina manifesta-se em mim e ao meu redor.", prayer: "Anjos das Plêiades, derramem harmonia e doçura sobre a minha vida." },
+            { id: 38, title: "Yesod - O Fundamento", archetype: "O Espelho Subconsciente", domain: "Cabala", symbol: "🪞", icon: "fa-water", interpretation: "Yesod governa as águas do subconsciente. Limpe memórias antigas e desintoxique a sua mente de crenças limitantes sobre si.", advice: "Pratique afirmações positivas diante do espelho logo pela manhã.", mantra: "O meu subconsciente é purificado e alinhado com a minha verdade divina.", prayer: "Fonte das Águas Vivas, limpa as memórias do meu passado e renova a minha visão." },
+            { id: 39, title: "A Calcinação Alquímica", archetype: "Purificação pelo Fogo", domain: "Alquimia", symbol: "🜂", icon: "fa-fire-flame-curved", interpretation: "A calcinação queima as ilusões do ego para revelar a essência imortal. Se algo desmoronou, era apenas a ilusão a dar lugar à verdade.", advice: "Solte o apego ao controlo e à imagem que tentava manter perante os outros.", mantra: "Desfaço-me do ego falso e revelo a luz autêntica do meu ser.", prayer: "Fogo Purificador, consome as minhas ilusões e deixa brilhar apenas a minha verdade." },
+            { id: 40, title: "O Merkabah", archetype: "Veículo de Luz", domain: "Geometria Sagrada", symbol: "🔯", icon: "fa-star-of-david", interpretation: "O Merkabah é o veículo de luz tetraédrico que permite à consciência viajar por dimensões superiores. Sentirá uma expansão de paz.", advice: "Medite focando na sua respiração e sinta o seu corpo leve como a luz.", mantra: "Eu viajo em paz protegido pelo meu veículo de luz divina.", prayer: "Senhor dos Carros de Luz, ativa o meu Merkabah para que eu caminhe seguro na Terra." },
+            { id: 41, title: "Malkuth - O Reino", archetype: "A Ancoragem na Terra", domain: "Cabala", symbol: "🌍", icon: "fa-earth-americas", interpretation: "Malkuth traz a espiritualidade para a manifestação concreta no plano físico. É tempo de agir, trabalhar com dedicação e colher frutos.", advice: "Concretize uma ideia pendente com ações práticas e organizadas hoje.", mantra: "Eu manifesto a sabedoria divina no meu trabalho e no meu dia a dia.", prayer: "Mãe Terra Malkuth, abençoa as minhas mãos para que construam o bem na matéria." },
+            { id: 42, title: "O Princípio do Gênero", archetype: "Equilíbrio Anima e Animus", domain: "Hermetismo", symbol: "⚧", icon: "fa-venus-mars", interpretation: "Tudo possui princípios Masculino (ação, foco) e Feminino (recepção, intuição). O sucesso hoje depende da união destas forças.", advice: "Combine a intuição (feminina) com a ação decidida (masculina).", mantra: "As forças sagradas do masculino e feminino dançam em perfeita união no meu ser.", prayer: "Pai e Mãe Celestiais, equilibrem a força e a doçura na minha alma." },
+            { id: 43, title: "A Dissolução Alquímica", archetype: "Solve et Coagula", domain: "Alquimia", symbol: "🜄", icon: "fa-droplet", interpretation: "Dissolver as estruturas rígidas para depois recristalizar em forma mais elevada. Permita-se sentir e desapegar-se de tensões.", advice: "Tome um banho de imersão ou banho de ervas para libertar a tensão.", mantra: "Dissolvo-me no oceano do Amor Divino e recomponho-me renovado.", prayer: "Águas Purificadoras da Vida, lavem o meu coração de todas as amarguras." },
+            { id: 44, title: "O Portal 44", archetype: "A Presença dos Anjos", domain: "Numerologia", symbol: "44", icon: "fa-feather-pointed", interpretation: "O número 44 indica uma presença poderosa da legião angélica à sua volta. Sinta o aconchego e a proteção que o ampara.", advice: "Peça ajuda aos seus anjos da guarda para as questões práticas da sua rotina.", mantra: "Estou cercado, amado e protegido por anjos de luz em cada momento.", prayer: "Anjos de Deus, guardem a minha saída e a minha entrada, hoje e para sempre." },
+            { id: 45, title: "O Portal de Arcturus", archetype: "Tecnologia da Cura", domain: "Astronomia", symbol: "💠", icon: "fa-diamond", interpretation: "Frequências vibracionais elevadas de Arcturus ajudam a harmonizar os chakras e a acelerar os processos de cura energética.", advice: "Dedique tempo para descansar o seu corpo e meditar com frequências sonoras elevadas.", mantra: "A minha frequência vibracional eleva-se para a cura e a harmonia perfeitas.", prayer: "Luzes de Arcturus, alinhem os meus centros de energia com o plano divino." },
+            { id: 46, title: "Daath - O Conhecimento", archetype: "A Ponte sobre o Abismo", domain: "Cabala", symbol: "🌁", icon: "fa-bridge", interpretation: "Daath é o portal invisível que cruza o abismo entre o intelecto e a iluminação. Requer fé para dar o passo no desconhecido.", advice: "Confie na sua intuição profunda mesmo quando não houver provas lógicas.", mantra: "Eu cruzo o abismo com fé, sabendo que o Universo me sustenta.", prayer: "Guia Divino, sê a minha ponte e a minha luz na travessia das incertezas." },
+            { id: 47, title: "A Coagulação Alquímica", archetype: "A Materialização", domain: "Alquimia", symbol: "🜔", icon: "fa-cube", interpretation: "Depois da dissolução vem a solidificação da nova realidade. Os seus sonhos e orações começam a tomar forma física.", advice: "Assuma compromissos práticos com os seus projetos com disciplina diária.", mantra: "As minhas intenções mais elevadas materializam-se em bênçãos concretas.", prayer: "Senhor da Criação, firma os frutos do meu trabalho na matéria com bênçãos duradouras." },
+            { id: 48, title: "O Espelho Hermético", archetype: "Reflexo da Alma", domain: "Hermetismo", symbol: "🔍", icon: "fa-magnifying-glass", interpretation: "O mundo ao seu redor funciona como um espelho sagrado. O que irrita ou encanta nos outros revela aspetos a integrar dentro de si.", advice: "Pratique a autorreflexão honesta sem se julgar duramente.", mantra: "Reconheço-me em toda a criação e cultivo a empatia por todos.", prayer: "Que o espelho da vida me mostre com clareza o caminho da autoevolução." },
+            { id: 49, title: "O Nodo Norte Lunar", archetype: "O Destino da Alma", domain: "Astrologia", symbol: "☊", icon: "fa-compass", interpretation: "O Nodo Norte aponta para o rumo de evolução da sua alma. Saia da zona de conforto e caminhe em direção ao seu propósito.", advice: "Experimente algo novo hoje que o aproxime da vida que sempre sonhou ter.", mantra: "Eu abraço o meu destino de luz e me liberto dos apegos do passado.", prayer: "Guia do Destino, orienta os meus passos para o meu propósito mais elevado." },
+            { id: 50, title: "O Ankh Sagrado", archetype: "A Chave da Vida", domain: "Geometria Sagrada", symbol: "☥", icon: "fa-key", interpretation: "O Ankh egípcio é o símbolo da imortalidade da alma e do sopro divino de vida. A sua essência é livre de qualquer limitação temporária.", advice: "Respire profundamente inspirando vida e expirando qualquer cansaço.", mantra: "O sopro da vida eterna renova a minha força a cada respiração.", prayer: "Sopro Divino da Vida, enche o meu peito de entusiasmo e alegria ilimitados." },
+            { id: 51, title: "A Fermentação Alquímica", archetype: "Despertar Espiritual", domain: "Alquimia", symbol: "🍷", icon: "fa-wine-glass", interpretation: "A fermentação traz o 'espírito' à matéria bruta. Uma nova paixão espiritual traz um sabor sagrado e renovado à sua rotina.", advice: "Dedique-se a uma atividade que desperte a sua paixão genuína.", mantra: "A alegria sagrada de viver preenche cada segundo do meu dia.", prayer: "Que o vinho da alegria espiritual embriague a minha alma de gratidão." },
+            { id: 52, title: "Ein Sof - O Infinito", archetype: "A Fonte Inmanifesta", domain: "Cabala", symbol: "🌌", icon: "fa-border-none", interpretation: "Ein Sof é o Mistério Insondável antes da criação. Permita-se descansar no não-saber e confie que o mistério da vida trabalha por si.", advice: "Solte a necessidade de ter resposta para tudo e desfrute do mistério.", mantra: "Eu repouso no silêncio infinito de onde emana toda a paz.", prayer: "Mistério Divino e Inefável, entrego o meu destino nas Tuas mãos amorosas." },
+            { id: 53, title: "A Conjunção Júpiter-Sol", archetype: "Expansão e Graça", domain: "Astrologia", symbol: "♃☉", icon: "fa-dharmachakra", interpretation: "Júpiter junta-se ao Sol para trazer sorte, expansão e proteção generosa. Os seus caminhos encontram abertura.", advice: "Pense grande e faça pedidos com fé genuína no futuro.", mantra: "A expansão, a prosperidade e a boa sorte fluem abundantemente na minha vida.", prayer: "Deus da Abundância, amplia a minha visão e abençoa os meus empreendimentos." },
+            { id: 54, title: "O Portal 555", archetype: "Mudança Positiva", domain: "Numerologia", symbol: "555", icon: "fa-wind", interpretation: "Ventos de transformação positiva estão a soprar. As mudanças prestes a ocorrer são respostas às suas orações por evolução.", advice: "Abra-se ao novo sem resistência e adapte-se com flexibilidade e alegria.", mantra: "Eu acolho as mudanças da vida com entusiasmo e confiança no bem supremo.", prayer: "Senhor das Transformaçoes, guia-me com suavidade através dos ventos de mudança." },
+            { id: 55, title: "A Destilação Alquímica", archetype: "Refinamento Espiritual", domain: "Alquimia", symbol: "💧", icon: "fa-filter", interpretation: "A destilação purifica os vapores para extrair a essência mais concentrada. Filtre o barulho do mundo e guarde o essencial.", advice: "Reduza o uso de redes sociais e ruído externo durante o dia de hoje.", mantra: "Mantenho-me focado no que é essencial, puro e verdadeiro.", prayer: "Que a minha mente seja purificada de todas as distrações fúteis do mundo." },
+            { id: 56, title: "A Galáxia de Andrômeda", archetype: "Visão Cósmica", domain: "Astronomia", symbol: "🌀", icon: "fa-hurricane", interpretation: "Eleve a sua perspectiva para além do tempo e do espaço imediatos. Lembre-se da grandeza da sua alma imortal.", advice: "Olhe para o céu noturno e recorde-se da vastidão reconfortante do Universo.", mantra: "Eu sou uma alma livre e cósmica a viver uma experiência terrestre sublime.", prayer: "Criador das Galáxias, concede-me a visão ampla para compreender o Teu plano." },
+            { id: 57, title: "O Oitavo Raio Violeta", archetype: "Transmutação do Karma", domain: "Hermetismo", symbol: "🔮", icon: "fa-wand-magic", interpretation: "A Chama Violeta purifica energias estagnadas e consome registos negativos do passado. Sinta um alívio imediato.", advice: "Visualize uma chama brilhante cor de violeta a envolver o seu corpo.", mantra: "A Chama Violeta transmuta agora qualquer limitação em pura luz.", prayer: "Anjos da Chama Violeta, purifiquem a minha vida e restaurem a minha paz." },
+            { id: 58, title: "Tiphereth Solar", archetype: "O Eu Superior", domain: "Cabala", symbol: "🌞", icon: "fa-sun", interpretation: "O seu Eu Superior assume o comando. Alinhe os desejos da sua personalidade com a vontade da sua alma e sentirá força inabalável.", advice: "Aja de acordo com os seus valores mais elevados, sem ceder a impulsos mesquinhos.", mantra: "Eu sou governado pela sabedoria e amor do meu Eu Superior.", prayer: "Meu Eu Divino, assume o comando da minha mente, das minhas palavras e ações." },
+            { id: 59, title: "A Semente da Vida", archetype: "A Origem dos Milagres", domain: "Geometria Sagrada", symbol: "⚛", icon: "fa-atom", interpretation: "Sete círculos entrelaçados formam a semente de toda a criação. Uma pequena semente plantada hoje com amor crescerá fortemente.", advice: "Dê um pequeno passo prático hoje em direção a um grande objetivo de vida.", mantra: "As minhas sementes de intenção desabrocham sob a proteção divina.", prayer: "Abençoa as pequenas sementes do meu esforço para que deem frutos abundantes." },
+            { id: 60, title: "A Rubefação Alquímica", archetype: "A Aurora Vermelha", domain: "Alquimia", symbol: "🔴", icon: "fa-heart-pulse", interpretation: "A etapa final da obra alquímica (Rubedo), onde a vida retorna plenamente. Sentirá coragem, paixão e vitalidade renovada.", advice: "Movimente o seu corpo com alegria e celebre a dádiva da vida física.", mantra: "A força vital divina pulsa com paixão e vigor em todas as minhas veias.", prayer: "Fogo da Vida, ilumina o meu ser e enche o meu caminhar de entusiasmo." },
+            { id: 61, title: "O Portal 777", archetype: "Bênção Espiritual Suprema", domain: "Numerologia", symbol: "777", icon: "fa-star", interpretation: "O 777 é o sinal definitivo de confirmação dos céus. Está no caminho certo e os seus esforços estão a ser abençoados.", advice: "Continue firme no seu caminho de luz com gratidão e profunda humildade.", mantra: "Alegro-me na bênção e na orientação perfeita do Universo.", prayer: "Divino Mestre, agradeço do fundo da alma por guiares os meus passos." },
+            { id: 62, title: "A Lua Cheia em Leão", archetype: "A Revelação do Coração", domain: "Astrologia", symbol: "🌕", icon: "fa-moon", interpretation: "Culminação de projetos e transbordar de amor e criatividade. O seu brilho pessoal não pode mais ser escondido.", advice: "Expresse a sua gratidão publicamente e celebre as vitórias alcançadas.", mantra: "Eu brilho com a nobreza e a generosidade de um coração desperto.", prayer: "Que a luz radiante da Lua Cheia ilumine os triunfos do meu espírito." },
+            { id: 63, title: "O Selo de Salomão", archetype: "Proteção e Domínio", domain: "Hermetismo", symbol: "🔯", icon: "fa-shield-cat", interpretation: "A união do triângulo do fogo com o triângulo da água concede autoridade espiritual sobre tempestades emocionais.", advice: "Mantenha a calma e o equilíbrio emocional perante qualquer imprevisto.", mantra: "Eu domino as minhas emoções e habito na fortaleza da minha paz.", prayer: "Selo de Proteção Divina, guarda a minha alma de toda a ilusão." },
+            { id: 64, title: "A Unidade Cósmica", archetype: "O Retorno ao Todo", domain: "Alquimia & Cabala", symbol: "🕳️", icon: "fa-infinity", interpretation: "O Portal 64 representa o encerramento do circuito e a unificação de todas as mensagens. É um com a Fonte Divina. Tudo está em paz.", advice: "Sinta a profunda conexão de amor que o une a todos os seres do Universo.", mantra: "Eu sou Um com a Fonte Divina. Eu sou Luz, Amor e Eternidade.", prayer: "Ó Fonte Suprema de Tudo o que É, na Tua Unidade sagrada entrego a minha vida com infinita gratidão. Amém." }
+        ];
+
+        // DYNAMIC SACRED GEOMETRY ARTWORK GENERATOR
+        function generateCardSVG(card) {
+            const seed = card.id;
+            const primaryGold = "#D4AF37";
+            const secondaryGold = "#FCE893";
+            const accentEmerald = "#10B981";
+            const accentPurple = "#A855F7";
+            const accentBlue = "#38BDF8";
+
+            let themeColor = primaryGold;
+            if (card.domain === "Alquimia") themeColor = accentPurple;
+            else if (card.domain === "Hermetismo") themeColor = secondaryGold;
+            else if (card.domain === "Cabala") themeColor = accentEmerald;
+            else if (card.domain === "Astrologia") themeColor = accentBlue;
+
+            const numPoints = 3 + (seed % 8);
+            let polygonPoints = "";
+            const radius = 38;
+            for (let i = 0; i < numPoints; i++) {
+                const angle = (i * 2 * Math.PI) / numPoints - Math.PI / 2;
+                const x = 50 + radius * Math.cos(angle);
+                const y = 50 + radius * Math.sin(angle);
+                polygonPoints += `${x.toFixed(1)},${y.toFixed(1)} `;
+            }
+
+            return `
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
+                    <defs>
+                        <radialGradient id="grad-${seed}" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="${themeColor}" stop-opacity="0.35"/>
+                            <stop offset="100%" stop-color="#0B091A" stop-opacity="0"/>
+                        </radialGradient>
+                    </defs>
+                    <circle cx="50" cy="50" r="46" fill="url(#grad-${seed})" stroke="${primaryGold}" stroke-width="0.75" stroke-dasharray="1 2"/>
+                    <circle cx="50" cy="50" r="42" fill="none" stroke="${themeColor}" stroke-width="0.5" opacity="0.6"/>
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="${primaryGold}" stroke-width="0.8"/>
+                    <polygon points="${polygonPoints}" fill="none" stroke="${themeColor}" stroke-width="0.8" opacity="0.85"/>
+                    <polygon points="${polygonPoints}" fill="none" stroke="${primaryGold}" stroke-width="0.4" transform="rotate(${180/numPoints} 50 50)" opacity="0.6"/>
+                    <circle cx="50" cy="50" r="22" fill="none" stroke="${secondaryGold}" stroke-width="0.5" stroke-dasharray="3 1.5"/>
+                    <circle cx="50" cy="50" r="14" fill="none" stroke="${primaryGold}" stroke-width="0.6"/>
+                    <text x="50" y="55" font-size="16" text-anchor="middle" fill="${secondaryGold}" font-family="serif">${card.symbol}</text>
+                    <circle cx="50" cy="12" r="2.5" fill="${primaryGold}"/>
+                    <circle cx="50" cy="88" r="2.5" fill="${primaryGold}"/>
+                    <circle cx="12" cy="50" r="2.5" fill="${themeColor}"/>
+                    <circle cx="88" cy="50" r="2.5" fill="${themeColor}"/>
+                </svg>
+            `;
+        }
+
+        // APP STATE MANAGEMENT
+        let currentCard = null;
+        let activeFilter = 'todos';
+        let isFlipped = false;
+        let isShuffling = false;
+
+        function getSavedCards() {
+            try {
+                return JSON.parse(localStorage.getItem('atmaya_saved_cards')) || {};
+            } catch(e) {
+                return {};
+            }
+        }
+
+        function saveSavedCards(data) {
+            localStorage.setItem('atmaya_saved_cards', JSON.stringify(data));
+            updateSavedCount();
+        }
+
+        function updateSavedCount() {
+            const saved = getSavedCards();
+            const count = Object.keys(saved).length;
+            document.getElementById('saved-count').innerText = count;
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+            ['tirar', 'galeria', 'diario'].forEach(tab => {
+                const btn = document.getElementById(`nav-${tab}`);
+                if (tab === tabId) {
+                    btn.className = "px-3.5 py-2 rounded-lg transition-all duration-300 text-gold-400 border border-gold-500/40 bg-gold-500/10 shadow-sm flex items-center gap-2 font-semibold";
+                } else {
+                    btn.className = "px-3.5 py-2 rounded-lg transition-all duration-300 text-slate-300 hover:text-gold-300 hover:bg-cosmic-800 flex items-center gap-2";
+                }
+            });
+
+            if (tabId === 'galeria') {
+                renderGallery();
+            } else if (tabId === 'diario') {
+                renderSavedCards();
+            }
+        }
+
+        function handleCardClick() {
+            if (!currentCard && !isShuffling) {
+                drawDailyCard();
+            } else if (currentCard && !isShuffling) {
+                showInlineInterpretation();
+            }
+        }
+
+        function drawDailyCard() {
+            if (isShuffling) return;
+
+            const cardInner = document.getElementById('card-inner');
+            hideInlineInterpretation();
+
+            if (isFlipped) {
+                cardInner.classList.remove('is-flipped');
+                isFlipped = false;
+                setTimeout(() => executeDraw(), 400);
+            } else {
+                executeDraw();
+            }
+        }
+
+        function executeDraw() {
+            const randomIndex = Math.floor(Math.random() * oracleDeck.length);
+            currentCard = oracleDeck[randomIndex];
+
+            document.getElementById('card-front-svg-container').innerHTML = generateCardSVG(currentCard);
+
+            document.getElementById('card-front-id').innerText = `Portal #${String(currentCard.id).padStart(2, '0')}`;
+            document.getElementById('card-front-domain').innerText = currentCard.domain;
+            document.getElementById('card-front-title').innerText = currentCard.title;
+            document.getElementById('card-front-archetype').innerText = `"${currentCard.archetype}"`;
+            document.getElementById('card-front-icon').className = `fa-solid ${currentCard.icon} text-xs`;
+            document.getElementById('card-front-mantra-short').innerText = `"${currentCard.mantra}"`;
+
+            // Populate inline panel elements
+            document.getElementById('inline-id').innerText = `Portal #${String(currentCard.id).padStart(2, '0')}`;
+            document.getElementById('inline-domain').innerText = `${currentCard.domain} • ${currentCard.archetype}`;
+            document.getElementById('inline-title').innerText = currentCard.title;
+            document.getElementById('inline-interpretation').innerText = currentCard.interpretation;
+            document.getElementById('inline-advice').innerText = currentCard.advice;
+            document.getElementById('inline-mantra').innerText = `"${currentCard.mantra}"`;
+            document.getElementById('inline-prayer').innerText = currentCard.prayer;
+
+            // Populate modal elements (for gallery views)
+            document.getElementById('detail-id').innerText = `Portal #${String(currentCard.id).padStart(2, '0')}`;
+            document.getElementById('detail-domain').innerText = `${currentCard.domain} • ${currentCard.archetype}`;
+            document.getElementById('detail-title').innerText = currentCard.title;
+            document.getElementById('detail-interpretation').innerText = currentCard.interpretation;
+            document.getElementById('detail-advice').innerText = currentCard.advice;
+            document.getElementById('detail-mantra').innerText = `"${currentCard.mantra}"`;
+            document.getElementById('detail-prayer').innerText = currentCard.prayer;
+
+            const saved = getSavedCards();
+            const cardData = saved[currentCard.id];
+            const savedNote = cardData ? cardData.note || '' : '';
+            document.getElementById('journal-note').value = savedNote;
+            document.getElementById('journal-note-inline').value = savedNote;
+            updateFavoriteButtonState();
+
+            setTimeout(() => {
+                const cardInner = document.getElementById('card-inner');
+                cardInner.classList.add('is-flipped');
+                isFlipped = true;
+
+                setTimeout(() => {
+                    showInlineInterpretation();
+                }, 600);
+
+            }, 100);
+        }
+
+        function showInlineInterpretation() {
+            const panel = document.getElementById('inline-interpretation-panel');
+            panel.classList.remove('hidden');
+            setTimeout(() => {
+                panel.classList.remove('opacity-0');
+                panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 50);
+        }
+
+        function hideInlineInterpretation() {
+            const panel = document.getElementById('inline-interpretation-panel');
+            panel.classList.add('opacity-0');
+            setTimeout(() => {
+                panel.classList.add('hidden');
+            }, 300);
+        }
+
+        function shuffleDeckAnimation() {
+            if (isShuffling) return;
+            isShuffling = true;
+
+            const cardContainer = document.getElementById('main-card-container');
+            const cardInner = document.getElementById('card-inner');
+            
+            hideInlineInterpretation();
+            closeInterpretationModal();
+            cardInner.classList.remove('is-flipped');
+            isFlipped = false;
+            currentCard = null;
+
+            cardContainer.classList.add('shuffling-left');
+            setTimeout(() => {
+                cardContainer.classList.remove('shuffling-left');
+                cardContainer.classList.add('shuffling-right');
+            }, 300);
+
+            setTimeout(() => {
+                cardContainer.classList.remove('shuffling-right');
+                isShuffling = false;
+            }, 600);
+        }
+
+        function saveJournalNoteInline() {
+            if (!currentCard) return;
+            const saved = getSavedCards();
+            const id = currentCard.id;
+            const noteVal = document.getElementById('journal-note-inline').value;
+
+            saved[id] = {
+                card: currentCard,
+                date: saved[id]?.date || new Date().toLocaleDateString('pt-PT'),
+                note: noteVal
+            };
+
+            saveSavedCards(saved);
+            updateFavoriteButtonState();
+            
+            const btn = event.target;
+            const orig = btn.innerText;
+            btn.innerText = "Guardado ✓";
+            btn.classList.add('bg-gold-500/40');
+            setTimeout(() => {
+                btn.innerText = orig;
+                btn.classList.remove('bg-gold-500/40');
+            }, 2000);
+        }
+
+        function updateFavoriteButtonState() {
+            if (!currentCard) return;
+            const saved = getSavedCards();
+            const isSaved = !!saved[currentCard.id];
+
+            // Update modal state
+            const icon = document.getElementById('fav-icon');
+            const text = document.getElementById('fav-text');
+            const btn = document.getElementById('btn-favorite');
+
+            // Update inline panel state
+            const iconInline = document.getElementById('fav-icon-inline');
+            const textInline = document.getElementById('fav-text-inline');
+            const btnInline = document.getElementById('btn-favorite-inline');
+
+            if (isSaved) {
+                if (icon) icon.className = "fa-solid fa-bookmark text-gold-400";
+                if (text) text.innerText = "Guardada no Diário";
+                if (btn) btn.className = "px-4 py-2 rounded-lg border border-gold-500 bg-gold-500/20 text-gold-300 text-xs font-montserrat flex items-center gap-2 transition-colors cursor-pointer";
+
+                if (iconInline) iconInline.className = "fa-solid fa-bookmark text-gold-400";
+                if (textInline) textInline.innerText = "Guardada no Diário";
+                if (btnInline) btnInline.className = "px-4 py-2 rounded-lg border border-gold-500 bg-gold-500/20 text-gold-300 text-xs font-montserrat flex items-center gap-2 transition-colors cursor-pointer";
+            } else {
+                if (icon) icon.className = "fa-regular fa-bookmark";
+                if (text) text.innerText = "Guardar Carta";
+                if (btn) btn.className = "px-4 py-2 rounded-lg border border-gold-500/40 text-gold-300 hover:bg-gold-500/10 text-xs font-montserrat flex items-center gap-2 transition-colors cursor-pointer";
+
+                if (iconInline) iconInline.className = "fa-regular fa-bookmark";
+                if (textInline) textInline.innerText = "Guardar Carta";
+                if (btnInline) btnInline.className = "px-4 py-2 rounded-lg border border-gold-500/40 text-gold-300 hover:bg-gold-500/10 text-xs font-montserrat flex items-center gap-2 transition-colors cursor-pointer";
+            }
+        }
+
+        function openInterpretationModal() {
+            if (!currentCard) return;
+            const modal = document.getElementById('interpretation-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+        }
+
+        function closeInterpretationModal() {
+            const modal = document.getElementById('interpretation-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        function toggleFavoriteCurrent() {
+            if (!currentCard) return;
+            const saved = getSavedCards();
+            const id = currentCard.id;
+
+            if (saved[id]) {
+                delete saved[id];
+            } else {
+                const noteVal = document.getElementById('journal-note').value || '';
+                saved[id] = {
+                    card: currentCard,
+                    date: new Date().toLocaleDateString('pt-PT'),
+                    note: noteVal
+                };
+            }
+
+            saveSavedCards(saved);
+            updateFavoriteButtonState();
+        }
+
+        function saveJournalNote() {
+            if (!currentCard) return;
+            const saved = getSavedCards();
+            const id = currentCard.id;
+            const noteVal = document.getElementById('journal-note').value;
+
+            saved[id] = {
+                card: currentCard,
+                date: saved[id]?.date || new Date().toLocaleDateString('pt-PT'),
+                note: noteVal
+            };
+
+            saveSavedCards(saved);
+            updateFavoriteButtonState();
+            
+            const btn = event.target;
+            const orig = btn.innerText;
+            btn.innerText = "Guardado ✓";
+            btn.classList.add('bg-gold-500/40');
+            setTimeout(() => {
+                btn.innerText = orig;
+                btn.classList.remove('bg-gold-500/40');
+            }, 2000);
+        }
+
+        function setFilter(domain) {
+            activeFilter = domain;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-domain') === domain) {
+                    btn.className = "filter-btn active-filter px-3 py-1.5 rounded-lg text-xs font-cinzel transition-all bg-gold-500/20 border border-gold-500/50 text-gold-300 font-semibold cursor-pointer";
+                } else {
+                    btn.className = "filter-btn px-3 py-1.5 rounded-lg text-xs font-cinzel transition-all bg-cosmic-950 border border-gold-500/20 text-slate-300 hover:text-gold-300 cursor-pointer";
+                }
+            });
+            renderGallery();
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            const searchQuery = (document.getElementById('search-input')?.value || '').toLowerCase();
+
+            grid.innerHTML = '';
+
+            const filteredCards = oracleDeck.filter(card => {
+                const matchesDomain = activeFilter === 'todos' || card.domain.toLowerCase() === activeFilter.toLowerCase();
+                const matchesSearch = card.title.toLowerCase().includes(searchQuery) ||
+                                      card.archetype.toLowerCase().includes(searchQuery) ||
+                                      card.domain.toLowerCase().includes(searchQuery) ||
+                                      String(card.id).includes(searchQuery);
+                return matchesDomain && matchesSearch;
+            });
+
+            if (filteredCards.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-slate-400 font-cormorant text-lg">
+                        Nenhum portal encontrado com esse critério de pesquisa.
+                    </div>
+                `;
+                return;
+            }
+
+            filteredCards.forEach(card => {
+                const cardEl = document.createElement('div');
+                cardEl.className = "bg-cosmic-900/80 border border-gold-500/30 hover:border-gold-400 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gold-500/10 flex flex-col justify-between group";
+                cardEl.onclick = () => openGalleryCardModal(card);
+
+                const svgArtwork = generateCardSVG(card);
+
+                cardEl.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center text-xs font-cinzel text-gold-400 mb-2">
+                            <span>#${String(card.id).padStart(2, '0')}</span>
+                            <span class="text-[10px] text-slate-400 uppercase tracking-widest font-montserrat">${card.domain}</span>
+                        </div>
+                        <div class="w-24 h-24 mx-auto my-2 rounded-full border border-gold-500/40 flex items-center justify-center bg-cosmic-950/80 p-1 group-hover:border-gold-400 transition-colors">
+                            ${svgArtwork}
+                        </div>
+                        <h4 class="font-cinzel text-center font-bold text-slate-100 group-hover:text-gold-300 transition-colors text-base mt-2">${card.title}</h4>
+                        <p class="font-cormorant italic text-center text-slate-400 text-xs mt-0.5">"${card.archetype}"</p>
+                    </div>
+                    <div class="mt-4 pt-2.5 border-t border-gold-500/10 text-center">
+                        <span class="text-[11px] font-cinzel text-gold-400/80 group-hover:text-gold-300">Ver Interpretação →</span>
+                    </div>
+                `;
+
+                grid.appendChild(cardEl);
+            });
+        }
+
+        function openGalleryCardModal(card) {
+            currentCard = card;
+            document.getElementById('detail-id').innerText = `Portal #${String(card.id).padStart(2, '0')}`;
+            document.getElementById('detail-domain').innerText = `${card.domain} • ${card.archetype}`;
+            document.getElementById('detail-title').innerText = card.title;
+            document.getElementById('detail-interpretation').innerText = card.interpretation;
+            document.getElementById('detail-advice').innerText = card.advice;
+            document.getElementById('detail-mantra').innerText = `"${card.mantra}"`;
+            document.getElementById('detail-prayer').innerText = card.prayer;
+
+            const saved = getSavedCards();
+            const cardData = saved[card.id];
+            document.getElementById('journal-note').value = cardData ? cardData.note || '' : '';
+            updateFavoriteButtonState();
+
+            openInterpretationModal();
+        }
+
+        function renderSavedCards() {
+            const container = document.getElementById('saved-cards-list');
+            const saved = getSavedCards();
+            const keys = Object.keys(saved);
+
+            container.innerHTML = '';
+
+            if (keys.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-16 bg-cosmic-900/40 border border-gold-500/20 rounded-2xl p-8">
+                        <i class="fa-regular fa-bookmark text-4xl text-gold-500/40 mb-3"></i>
+                        <h4 class="font-cinzel text-lg text-slate-200">Nenhuma carta guardada ainda</h4>
+                        <p class="font-cormorant text-slate-400 text-base mt-1">Tire a sua carta diária e clique em "Guardar Carta" para registar a sua jornada espiritual.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            keys.forEach(id => {
+                const item = saved[id];
+                const card = item.card;
+                const date = item.date;
+                const note = item.note;
+
+                const cardEl = document.createElement('div');
+                cardEl.className = "bg-cosmic-900/80 border border-gold-500/30 rounded-xl p-6 relative shadow-lg flex flex-col justify-between";
+
+                cardEl.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start border-b border-gold-500/20 pb-3 mb-3">
+                            <div>
+                                <span class="text-xs font-cinzel text-gold-400">Portal #${String(card.id).padStart(2, '0')} • ${card.domain}</span>
+                                <h4 class="font-cinzel text-xl font-bold gold-gradient-text mt-0.5">${card.title}</h4>
+                            </div>
+                            <button onclick="removeSaved(${card.id})" class="text-slate-500 hover:text-red-400 text-xs p-1 cursor-pointer">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                        <p class="font-cormorant italic text-slate-300 text-sm mb-3">"${card.mantra}"</p>
+                        ${note ? `
+                            <div class="bg-cosmic-950/70 p-3 rounded-lg border border-gold-500/10 text-xs text-slate-300 mt-2">
+                                <span class="text-[10px] text-gold-400 font-cinzel block mb-1"><i class="fa-solid fa-pen-nib me-1"></i> Sua Reflexão (${date}):</span>
+                                ${note}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gold-500/10 flex justify-between items-center">
+                        <span class="text-[10px] text-slate-500">Guardado a ${date}</span>
+                        <button onclick="openGalleryCardModal(oracleDeck[${card.id - 1}])" class="text-xs font-cinzel text-gold-400 hover:underline cursor-pointer">Ler Completo →</button>
+                    </div>
+                `;
+
+                container.appendChild(cardEl);
+            });
+        }
+
+        function removeSaved(id) {
+            const saved = getSavedCards();
+            delete saved[id];
+            saveSavedCards(saved);
+            renderSavedCards();
+            if (currentCard && currentCard.id === id) {
+                updateFavoriteButtonState();
+            }
+        }
+
+        // ===== Impressão da carta com todos os detalhes =====
+        function printCurrentCard() {
+            if (!currentCard) return;
+            const c = currentCard;
+            const noteInline = document.getElementById('journal-note-inline').value;
+            const noteModal = document.getElementById('journal-note').value;
+            const note = (noteInline && noteInline.trim()) ? noteInline : ((noteModal && noteModal.trim()) ? noteModal : '');
+            const today = new Date().toLocaleDateString('pt-PT', { day: '2-digit', month: 'long', year: 'numeric' });
+            const emblem = generateCardSVG(c).replace('class="w-full h-full drop-shadow-md"', 'class="emblem"');
+
+            const doc = `<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>ĀTMÁYÂ — ${c.title}</title>
+<style>
+    @page { size: A4; margin: 16mm; }
+    * { box-sizing: border-box; }
+    body { font-family: Georgia, 'Times New Roman', serif; color: #2A2410; margin: 0; }
+    .sheet { max-width: 170mm; margin: 0 auto; }
+    .print-header { display: flex; align-items: center; justify-content: center; gap: 10px; border-bottom: 2px solid #B8962E; padding-bottom: 12px; }
+    .print-header img { width: 44px; height: 44px; object-fit: contain; border-radius: 50%; border: 1.5px solid #B8962E; padding: 2px; }
+    .brand { text-align: center; }
+    .brand h1 { font-size: 22px; letter-spacing: 5px; color: #8A6D1C; margin: 0; }
+    .brand p { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #8A6D1C; margin: 2px 0 0; }
+    .date { text-align: right; font-size: 11px; color: #6B5B24; margin: 14px 0 18px; }
+    .card-head { text-align: center; margin-bottom: 6px; }
+    .emblem { width: 92px; height: 92px; margin: 0 auto 4px; display: block; }
+    .card-head h2 { font-size: 26px; margin: 6px 0 2px; color: #2A2410; letter-spacing: 1px; }
+    .card-head .meta { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: #8A6D1C; margin: 0; }
+    .archetype { text-align: center; font-style: italic; font-size: 15px; color: #55491C; margin: 4px 0 18px; }
+    .divider { border: none; border-top: 1.5px solid #B8962E; width: 60%; margin: 0 auto 18px; }
+    .section { margin-bottom: 14px; page-break-inside: avoid; }
+    .section h3 { font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase; color: #8A6D1C; border-bottom: 1px solid #D9C77E; padding-bottom: 4px; margin: 0 0 7px; }
+    .section p { font-size: 13.5px; line-height: 1.65; margin: 0; }
+    .mantra-box { border-left: 4px solid #B8962E; background: #FBF6E3; padding: 10px 14px; font-style: italic; font-size: 14.5px; text-align: center; }
+    .advice-box, .prayer-box { background: #FBF9F1; border: 1px solid #E5DAA8; border-radius: 8px; padding: 10px 14px; }
+    .prayer-box { font-style: italic; }
+    .note-box { margin-top: 16px; }
+    .note-box .section p { min-height: 30mm; }
+    .print-footer { margin-top: 24px; border-top: 1.5px solid #B8962E; padding-top: 10px; text-align: center; font-size: 9.5px; letter-spacing: 2px; color: #8A6D1C; text-transform: uppercase; }
+</style>
+</head>
+<body>
+    <div class="sheet">
+        <div class="print-header">
+            <img src="${LOGO_PRINT}" alt="ĀTMÁYÂ">
+            <div class="brand">
+                <h1>ĀTMÁYÂ</h1>
+                <p>Yoga &amp; Therapy Studio — Oráculo Sagrado dos 64 Portais</p>
+            </div>
+        </div>
+        <p class="date">${today}</p>
+        <div class="card-head">
+            ${emblem}
+            <h2>${c.title}</h2>
+            <p class="meta">Portal #${String(c.id).padStart(2, '0')} • ${c.domain}</p>
+        </div>
+        <p class="archetype">"${c.archetype}"</p>
+        <hr class="divider">
+        <div class="section"><h3>Orientação de Energia</h3><p>${c.interpretation}</p></div>
+        <div class="section"><h3>Conselho Prático e Simples</h3><div class="advice-box"><p>${c.advice}</p></div></div>
+        <div class="section"><h3>Mantra de Afirmação</h3><div class="mantra-box">"${c.mantra}"</div></div>
+        <div class="section"><h3>Oração Cósmica</h3><div class="prayer-box"><p>${c.prayer}</p></div></div>
+        <div class="note-box section"><h3>Minha Reflexão Pessoal</h3><p>${note ? note.replace(/\\n/g, '<br>') : '&nbsp;'}</p></div>
+        <div class="print-footer">© 2026 António Almas — ĀTMÁYÂ, Yoga &amp; Therapy Studio. Todos os direitos reservados.</div>
+    </div>
+</body>
+</html>`;
+
+            const iframe = document.createElement('iframe');
+            iframe.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden;';
+            document.body.appendChild(iframe);
+            iframe.contentDocument.open();
+            iframe.contentDocument.write(doc);
+            iframe.contentDocument.close();
+            setTimeout(() => {
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+                setTimeout(() => iframe.remove(), 2000);
+            }, 400);
+        }
+
+        document.getElementById('interpretation-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeInterpretationModal();
+        });
+
+        window.onload = function() {
+            updateSavedCount();
+            if (typeof LOGO_URI !== 'undefined' && LOGO_URI) {
+                try { applyLogo(); } catch (e) {}
+            }
+        };
+    </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" nonce="u0bQCKXrkYYJM2NzRPXJZg==" data-cf-beacon='{"version":"2024.11.0","token":"36b4216ae2dc4d5488c249161e71fe1e","spa":2}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" nonce="+LpkVR/JQndQJQddxGMQ4g==" data-cf-beacon='{"version":"2024.11.0","token":"36b4216ae2dc4d5488c249161e71fe1e","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
