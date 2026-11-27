@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ĀTMĀYÂ — Yoga & Therapy Studio</title>
-  <script src="users.js?v=25"></script>
-  <script src="auth.js?v=25"></script>
+  <script src="users.js?v=26"></script>
+  <script src="auth.js?v=26"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -229,7 +229,7 @@
 
   <footer>Ātmāyā • Yoga &amp; Therapy Studio<br>
     <span style="letter-spacing:0.12em">© 2025–2026 Ātmāyā • Desde 13 Out 25</span><br>
-    <span style="letter-spacing:0.12em">Versão do site: <strong>v2.5</strong></span></footer>
+    <span style="letter-spacing:0.12em">Versão do site: <strong>v2.6</strong></span></footer>
 
   <script>
     function logoutAndReload() { AUTH.logout(); location.reload(); }
@@ -259,7 +259,7 @@
 
       const nav = document.getElementById('apps');
       nav.innerHTML = '';
-      AUTH.APPS.forEach(a => {
+      AUTH.getApps().forEach(a => {
         if (s.admin || (s.apps || []).includes(a.id)) {
           const link = document.createElement('a');
           link.href = a.file;
