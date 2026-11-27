@@ -71,6 +71,36 @@ export default {
       return json({ ok: true, msg: 'Base de dados atualizada (' + data.users.length + ' utilizadores, ' + data.apps.length + ' apps).' });
     }
 
+    // ---- /api/appdata : dados das aplicacoes (ex.: Gestao) ----
+    if (url.pathname === '/api/appdata' && request.method === 'GET') {
+      try {
+        const bruto = await env.SITE_DB.get('appdata-gestao');
+        if (!bruto) return json({ ok: true, v: 0, data: null });
+        const registo = JSON.parse(bruto);
+        return json({ ok: true, v: registo.v, data: registo.data });
+      } catch (e) {
+        return json({ ok: false });
+      }
+    }
+
+    if (url.pathname === '/api/appdata' && request.method === 'POST') {
+      let corpo;
+      try {
+        corpo = await request.json();
+      } catch (e) {
+        return json({ ok: false, msg: 'Corpo do pedido inválido.' }, 400);
+      }
+      if (!corpo || corpo.key !== CHAVE_SECRETA || !corpo.data) {
+        return json({ ok: false, msg: 'Pedido recusado.' }, 403);
+      }
+      try {
+        await env.SITE_DB.put('appdata-gestao', JSON.stringify({ v: Date.now(), data: corpo.data }));
+      } catch (e) {
+        return json({ ok: false, msg: 'Falha ao escrever no KV.' }, 500);
+      }
+      return json({ ok: true, msg: 'Dados guardados no servidor.' });
+    }
+
     return new Response('Não encontrado.', { status: 404 });
   }
 };
