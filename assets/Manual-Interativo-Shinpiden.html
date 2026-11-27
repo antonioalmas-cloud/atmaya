@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Só por hoje... Sou Reiki — Shinpiden (Nível 3A) | António Almas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #FBF8F3;
+      --bg-secondary: #FFFFFF;
+      --bg-card: #FFFFFF;
+      --bg-tint: #F6EFE6;
+      --bg-champagne: #F4E7D7;
+      --bg-sage: #F2EFE9;
+      --text-primary: #3D2E1E;
+      --text-secondary: #6E5A44;
+      --accent-gold: #B8860B;
+      --accent-amber: #8C6218;
+      --accent-soft-gold: #D4AF37;
+      --border-soft: #E8DEC8;
+      --shadow-zen: 0 10px 28px -6px rgba(140, 98, 24, 0.08);
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .font-serif-zen {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+
+    .zen-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-zen);
+    }
+
+    .zen-card:hover {
+      border-color: var(--accent-soft-gold);
+    }
+
+    .nav-btn {
+      transition: all 0.25s ease;
+      color: var(--text-primary);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(135deg, #8C6218 0%, #B8860B 100%);
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 14px rgba(184, 134, 11, 0.28);
+    }
+
+    .symbol-stroke {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @keyframes wavePulse {
+      0%, 100% { transform: scaleY(0.45); }
+      50% { transform: scaleY(1); }
+    }
+    .sound-bar {
+      animation: wavePulse 1.1s ease-in-out infinite;
+    }
+
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: #F6EFE6; }
+    ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 9999px; }
+
+    canvas {
+      touch-action: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col lg:flex-row">
+
+  <!-- Template reutilizável do Logótipo Oficial ÃTMÁYÂ -->
+  <template id="atmaya-logo-template">
+    <svg viewBox="0 0 360 340" class="w-full h-auto select-none" aria-label="ÃTMÁYÂ Yoga & Therapy Studio">
+      <g fill="none" stroke="currentColor" stroke-width="2.4">
+        <path d="M 118 42 A 76 76 0 1 0 242 42 A 64 64 0 1 1 118 42 Z" />
+        <path d="M 134 42 A 58 58 0 1 0 226 42 A 48 48 0 1 1 134 42 Z" />
+        <path d="M 148 42 A 42 42 0 1 0 212 42 A 34 34 0 1 1 148 42 Z" />
+      </g>
+      <text x="180" y="238" text-anchor="middle" fill="currentColor" font-family="'Cormorant Garamond', Georgia, serif" font-size="54" font-weight="600" letter-spacing="8">ÃTMÁYÂ</text>
+      <text x="180" y="278" text-anchor="middle" fill="currentColor" font-family="'Plus Jakarta Sans', sans-serif" font-size="14.5" font-weight="400" letter-spacing="5.5" opacity="0.88">YOGA &amp; THERAPY STUDIO</text>
+      <text x="180" y="312" text-anchor="middle" fill="currentColor" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="500" letter-spacing="5" opacity="0.72">DESDE 13OUT25</text>
+    </svg>
+  </template>
+
+  <!-- Cabeçalho Mobile -->
+  <header class="lg:hidden sticky top-0 z-40 px-4 py-3 flex items-center justify-between border-b shadow-sm" style="background: #FFFFFF; border-color: var(--border-soft);">
+    <div class="flex items-center gap-3">
+      <div class="w-12 logo-mount" style="color: var(--accent-amber);"></div>
+      <div>
+        <p class="text-[11px] uppercase tracking-widest font-bold" style="color: var(--accent-gold);">Shinpiden • Nível 3A</p>
+        <h1 class="font-serif-zen text-lg font-bold leading-tight" style="color: var(--accent-amber);">Só por hoje... Sou Reiki</h1>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="playZenBell()" title="Sino Zen" class="p-2 rounded-full border text-sm" style="border-color: var(--border-soft); color: var(--accent-amber); background: var(--bg-tint);">🔔</button>
+      <button onclick="toggleMobileMenu()" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-white shadow" style="background: #8C6218;">Menu</button>
+    </div>
+  </header>
+
+  <!-- Menu Mobile Drawer -->
+  <div id="mobile-drawer" class="fixed inset-0 z-50 hidden lg:hidden bg-amber-950/30 backdrop-blur-xs" onclick="toggleMobileMenu()">
+    <aside class="w-72 h-full p-6 overflow-y-auto flex flex-col justify-between shadow-xl" style="background: #FFFFFF;" onclick="event.stopPropagation()">
+      <div>
+        <div class="w-36 mx-auto mb-5 logo-mount" style="color: var(--accent-amber);"></div>
+        <nav class="space-y-1.5 text-sm" id="mobile-nav-list"></nav>
+      </div>
+      <div class="pt-6 border-t mt-6 space-y-3" style="border-color: var(--border-soft);">
+        <a href="https://www.amazon.es/dp/1105314383?ref_=ast_author_dp_rw&th=1&psc=1&dib=eyJ2IjoiMSJ9.tkDI9QHGpw46mngVvsQfwOhrfL_nyBNtOWd4iUTBuEXGjHj071QN20LucGBJIEps.HjAj-PGgmNNktPv4JckkAyvpy6LDK5zsX8wToFwjVgc&dib_tag=AUTHOR"
+           target="_blank" rel="noopener noreferrer"
+           class="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-white shadow-md transition hover:opacity-95"
+           style="background: linear-gradient(135deg, #8C6218 0%, #B8860B 100%);">
+          <span>✨</span> Comprar Livro na Amazon
+        </a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Barra Lateral Desktop -->
+  <aside class="hidden lg:flex lg:fixed lg:inset-y-0 flex-col justify-between p-6 border-r overflow-y-auto shadow-sm" style="background: #FFFFFF; border-color: var(--border-soft); width: 19rem;">
+    <div>
+      <div class="w-40 mx-auto mb-3 logo-mount" style="color: var(--accent-amber);"></div>
+      <div class="text-center mb-5 pb-4 border-b" style="border-color: var(--border-soft);">
+        <span class="inline-block px-3 py-0.5 rounded-full text-[11px] font-bold tracking-wider uppercase mb-1.5" style="background: var(--bg-champagne); color: var(--accent-amber);">
+          Shinpiden • Nível 3A
+        </span>
+        <h2 class="font-serif-zen text-xl font-bold leading-snug" style="color: var(--accent-amber);">Só por hoje... Sou Reiki</h2>
+        <p class="text-xs italic mt-0.5" style="color: var(--text-secondary);">A Arte Secreta de Convidar a Felicidade</p>
+      </div>
+
+      <nav class="space-y-1 text-[13.5px]" id="desktop-nav-list"></nav>
+    </div>
+
+    <div class="pt-5 mt-5 border-t space-y-3" style="border-color: var(--border-soft);">
+      <button onclick="playZenBell()" class="w-full py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition hover:opacity-90" style="border-color: var(--border-soft); background: var(--bg-tint); color: var(--accent-amber);">
+        <span>🔔</span> Sino Zen (528 Hz)
+      </button>
+
+      <a href="https://www.amazon.es/dp/1105314383?ref_=ast_author_dp_rw&th=1&psc=1&dib=eyJ2IjoiMSJ9.tkDI9QHGpw46mngVvsQfwOhrfL_nyBNtOWd4iUTBuEXGjHj071QN20LucGBJIEps.HjAj-PGgmNNktPv4JckkAyvpy6LDK5zsX8wToFwjVgc&dib_tag=AUTHOR"
+         target="_blank" rel="noopener noreferrer"
+         class="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-white shadow-md transition hover:scale-[1.01]"
+         style="background: linear-gradient(135deg, #8C6218 0%, #B8860B 100%);">
+        <span>✨</span> Comprar Livro na Amazon
+      </a>
+
+      <p class="text-[11px] text-center leading-relaxed" style="color: var(--text-secondary);">
+        © António Almas • Todos os direitos reservados
+      </p>
+    </div>
+  </aside>
+
+  <!-- Área Principal de Conteúdo -->
+  <main class="flex-1 p-5 sm:p-8 lg:p-12 max-w-5xl mx-auto w-full">
+    <div class="lg:pl-72">
+      <div id="section-container" class="space-y-8"></div>
+
+      <!-- Rodapé Oficial com Copyrights e Link Amazon -->
+      <footer class="mt-16 pt-8 pb-10 border-t text-center space-y-5" style="border-color: var(--border-soft);">
+        <div class="w-32 mx-auto opacity-85 logo-mount" style="color: var(--accent-amber);"></div>
+
+        <div class="max-w-xl mx-auto space-y-2">
+          <h3 class="font-serif-zen text-2xl font-bold" style="color: var(--accent-amber);">Só por hoje... Sou Reiki — Shinpiden (Nível 3A)</h3>
+          <p class="text-sm" style="color: var(--text-secondary);">A Arte Secreta de Convidar a Felicidade • Compilação, Design e Paginação de <strong>António Almas</strong></p>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <a href="https://www.amazon.es/dp/1105314383?ref_=ast_author_dp_rw&th=1&psc=1&dib=eyJ2IjoiMSJ9.tkDI9QHGpw46mngVvsQfwOhrfL_nyBNtOWd4iUTBuEXGjHj071QN20LucGBJIEps.HjAj-PGgmNNktPv4JckkAyvpy6LDK5zsX8wToFwjVgc&dib_tag=AUTHOR"
+             target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-sm font-semibold text-white shadow-lg transition transform hover:-translate-y-0.5"
+             style="background: linear-gradient(135deg, #8C6218 0%, #B8860B 100%);">
+            <span>✨</span> Adquirir o Livro na Amazon
+          </a>
+        </div>
+
+        <div class="text-xs space-y-1 pt-2" style="color: var(--text-secondary);">
+          <p class="font-bold" style="color: var(--text-primary);">© António Almas — Todos os direitos reservados de acordo com a legislação em vigor.</p>
+          <p>Editora: Quinta Dimensão, Unipessoal, Lda. • Rua José Emídio Amaro, 9, 7160-213 Vila Viçosa • NIF: PT503683450</p>
+          <p>ISBN: 978-1-105-31438-4 • Depósito Legal: 565125/26 • Vila Viçosa, 30 de Maio de 2026</p>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    const AMAZON_URL = "https://www.amazon.es/dp/1105314383?ref_=ast_author_dp_rw&th=1&psc=1&dib=eyJ2IjoiMSJ9.tkDI9QHGpw46mngVvsQfwOhrfL_nyBNtOWd4iUTBuEXGjHj071QN20LucGBJIEps.HjAj-PGgmNNktPv4JckkAyvpy6LDK5zsX8wToFwjVgc&dib_tag=AUTHOR";
+
+    const SECTIONS = [
+      { id: 'intro', icon: '☀️', title: 'Introdução & Missão' },
+      { id: 'gokai', icon: '🙏', title: 'Os Pilares & Gokai' },
+      { id: 'daikomyo', icon: '✨', title: 'Dai Ko Myo (Símbolo Mestre)' },
+      { id: 'meditacao', icon: '🧘', title: 'Meditação da Luz Interior' },
+      { id: 'linhagem', icon: '🌿', title: 'Cura da Linhagem' },
+      { id: 'aplicacoes', icon: '💫', title: 'Aplicações Avançadas' },
+      { id: 'socorros', icon: '🛡️', title: 'Primeiros Socorros' },
+      { id: 'anshin', icon: '🕊️', title: 'Anshin Ritsumei' },
+      { id: 'apontamentos', icon: '✍️', title: 'Apontamentos & Conclusão' }
+    ];
+
+    let currentSection = 'intro';
+    let medInterval = null;
+    let medSecondsLeft = 600; // 10 min por defeito
+    let medSelectedDuration = 600;
+    let socorroFilter = 'all';
+
+    // ==========================================
+    // MOTOR DE ÁUDIO LIMPO (HARPA / TAÇAS TIBETANAS)
+    // ==========================================
+    let sharedAudioCtx = null;
+    let medMasterGain = null;
+    let medMusicLoop = null;
+    let isMedMusicPlaying = false;
+    let isMedMuted = false;
+    let medVolume = 0.75;
+
+    function ensureAudioContext() {
+      if (!sharedAudioCtx) {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        sharedAudioCtx = new AudioCtx();
+      }
+      if (sharedAudioCtx.state === 'suspended') {
+        sharedAudioCtx.resume();
+      }
+      return sharedAudioCtx;
+    }
+
+    function playZenBell() {
+      try {
+        const ctx = ensureAudioContext();
+        const now = ctx.currentTime;
+        [528, 1056].forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now);
+          gain.gain.setValueAtTime(0.001, now);
+          gain.gain.exponentialRampToValueAtTime(0.2 / (i + 1), now + 0.03);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 3.8);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 3.9);
+        });
+      } catch (e) {}
+    }
+
+    function playHarpaNote(freq, duration = 3.5) {
+      if (!sharedAudioCtx || !medMasterGain || isMedMuted) return;
+      try {
+        const now = sharedAudioCtx.currentTime;
+        const osc = sharedAudioCtx.createOscillator();
+        const gain = sharedAudioCtx.createGain();
+
+        osc.type = 'sine'; // Onda senoidal pura limpa sem zumbido
+        osc.frequency.setValueAtTime(freq, now);
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.linearRampToValueAtTime(0.22, now + 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+        osc.connect(gain);
+        gain.connect(medMasterGain);
+
+        osc.start(now);
+        osc.stop(now + duration + 0.05);
+      } catch (e) {}
+    }
+
+    function startMeditationMusic() {
+      const ctx = ensureAudioContext();
+      if (isMedMusicPlaying) return;
+
+      medMasterGain = ctx.createGain();
+      medMasterGain.gain.setValueAtTime(0.001, ctx.currentTime);
+      medMasterGain.gain.linearRampToValueAtTime(isMedMuted ? 0.0001 : medVolume * 0.5, ctx.currentTime + 1.0);
+      medMasterGain.connect(ctx.destination);
+
+      // Sequência melódica estilo arpejo de harpa (Fá Maior / 528 Hz)
+      const arpeggio = [528.00, 659.25, 783.99, 1056.00, 783.99, 659.25];
+      let index = 0;
+
+      playHarpaNote(arpeggio[0], 4.0);
+
+      medMusicLoop = setInterval(() => {
+        index = (index + 1) % arpeggio.length;
+        playHarpaNote(arpeggio[index], 4.0);
+      }, 4200);
+
+      isMedMusicPlaying = true;
+      updateAudioUI();
+    }
+
+    function stopMeditationMusic() {
+      if (medMusicLoop) {
+        clearInterval(medMusicLoop);
+        medMusicLoop = null;
+      }
+      if (sharedAudioCtx && medMasterGain) {
+        try {
+          const now = sharedAudioCtx.currentTime;
+          medMasterGain.gain.cancelScheduledValues(now);
+          medMasterGain.gain.setValueAtTime(medMasterGain.gain.value, now);
+          medMasterGain.gain.linearRampToValueAtTime(0.0001, now + 0.6);
+        } catch (e) {}
+      }
+      isMedMusicPlaying = false;
+      updateAudioUI();
+    }
+
+    function toggleMedMute() {
+      ensureAudioContext();
+      isMedMuted = !isMedMuted;
+      if (sharedAudioCtx && medMasterGain) {
+        medMasterGain.gain.setTargetAtTime(isMedMuted ? 0.0001 : medVolume * 0.5, sharedAudioCtx.currentTime, 0.15);
+      }
+      updateAudioUI();
+    }
+
+    function setMedVolume(val) {
+      ensureAudioContext();
+      medVolume = parseFloat(val);
+      if (medVolume > 0 && isMedMuted) isMedMuted = false;
+      if (sharedAudioCtx && medMasterGain && !isMedMuted) {
+        medMasterGain.gain.setTargetAtTime(medVolume * 0.5, sharedAudioCtx.currentTime, 0.1);
+      }
+      updateAudioUI();
+    }
+
+    function testMedSound() {
+      ensureAudioContext();
+      playZenBell();
+    }
+
+    function updateAudioUI() {
+      const waveEl = document.getElementById('med-audio-indicator');
+      if (waveEl) {
+        waveEl.classList.toggle('hidden', !isMedMusicPlaying || isMedMuted);
+      }
+      const muteBtn = document.getElementById('med-mute-btn');
+      if (muteBtn) {
+        muteBtn.textContent = isMedMuted ? '🔇 Ativar Som' : '🔊 Silenciar';
+      }
+    }
+
+    // ==========================================
+    // NAVEGAÇÃO & LOGÓTIPOS
+    // ==========================================
+    function mountLogos() {
+      const tpl = document.getElementById('atmaya-logo-template');
+      document.querySelectorAll('.logo-mount').forEach(el => {
+        if (!el.hasChildNodes()) {
+          el.appendChild(tpl.content.cloneNode(true));
+        }
+      });
+    }
+
+    function renderNavigation() {
+      const html = SECTIONS.map(s => `
+        <button onclick="navigateTo('${s.id}')"
+          class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-left font-medium ${currentSection === s.id ? 'active' : 'hover:bg-amber-50'}">
+          <span class="text-base">${s.icon}</span>
+          <span>${s.title}</span>
+        </button>
+      `).join('');
+      document.getElementById('desktop-nav-list').innerHTML = html;
+      document.getElementById('mobile-nav-list').innerHTML = html;
+    }
+
+    function navigateTo(id) {
+      if (currentSection === 'meditacao' && id !== 'meditacao') {
+        stopMedTimer();
+      }
+      currentSection = id;
+      renderNavigation();
+      renderSection();
+      mountLogos();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const drawer = document.getElementById('mobile-drawer');
+      if (!drawer.classList.contains('hidden')) drawer.classList.add('hidden');
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobile-drawer').classList.toggle('hidden');
+    }
+
+    // ==========================================
+    // RENDERIZAÇÃO DAS SECÇÕES DO MANUAL 3A
+    // ==========================================
+    function renderSection() {
+      const container = document.getElementById('section-container');
+
+      if (currentSection === 'intro') {
+        container.innerHTML = `
+          <div class="zen-card rounded-3xl p-8 sm:p-12 relative overflow-hidden bg-white">
+            <div class="absolute -right-12 -top-12 w-64 opacity-[0.05] pointer-events-none logo-mount" style="color: var(--accent-amber);"></div>
+            <div class="relative z-10 flex flex-col md:flex-row items-center gap-8">
+              <div class="w-44 sm:w-52 shrink-0 logo-mount" style="color: var(--accent-amber);"></div>
+              <div class="text-center md:text-left space-y-3">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest" style="background: var(--bg-champagne); color: var(--accent-amber);">
+                  <span>神秘伝</span> • Shinpiden — Nível 3A
+                </div>
+                <h1 class="font-serif-zen text-4xl sm:text-5xl font-bold leading-tight" style="color: var(--accent-amber);">
+                  Só por hoje... Sou Reiki
+                </h1>
+                <p class="font-serif-zen text-xl italic" style="color: var(--accent-gold);">
+                  A Arte Secreta de Convidar a Felicidade • O Mestrado Interior e a Grande Luz Brilhante
+                </p>
+                <p class="text-sm leading-relaxed max-w-xl" style="color: var(--text-secondary);">
+                  Compilação de <strong>António Almas</strong> • Ao chegares ao Nível 3A, atravessas um portal que te leva para além da técnica: o foco deixa de ser o <em>"fazer"</em> e passa a ser o <em>"ser"</em>.
+                </p>
+                <div class="pt-2 flex flex-wrap justify-center md:justify-start gap-3">
+                  <button onclick="navigateTo('daikomyo')" class="px-5 py-2.5 rounded-full text-xs font-semibold text-white shadow transition hover:opacity-95" style="background: linear-gradient(135deg, #8C6218, #B8860B);">
+                    Explorar o Dai Ko Myo ✨
+                  </button>
+                  <a href="${AMAZON_URL}" target="_blank" rel="noopener noreferrer"
+                     class="px-5 py-2.5 rounded-full text-xs font-semibold border transition hover:opacity-85 inline-flex items-center gap-1.5"
+                     style="border-color: #B8860B; color: #8C6218; background: var(--bg-tint);">
+                    <span>📘</span> Comprar Livro na Amazon
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="zen-card rounded-3xl p-7 sm:p-9 space-y-4 bg-white">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">☀️</span>
+              <h2 class="font-serif-zen text-3xl font-bold" style="color: var(--accent-amber);">Introdução & O Despertar do Mestre Interior</h2>
+            </div>
+            <div class="space-y-4 text-[15px] leading-relaxed" style="color: var(--text-primary);">
+              <p>
+                Neste novo momento do caminho, o praticante torna-se a sua prática e a prática a sua filosofia de vida. Mais que uma terapia, somos agora convidados a deixar-nos levar conscientemente pelo fluxo da energia. Somos Luz, centelha do mesmo brilho, energia da mesma fonte que flui não apenas através das mãos, mas sobretudo através da essência.
+              </p>
+              <p>
+                Este mestrado interior é um mundo único, contudo conectado com outros tantos que num universo multidimensional transborda a compaixão e o sentido de unidade. <strong>Todos somos Um, cada um somos todos.</strong>
+              </p>
+              <blockquote class="p-4 rounded-2xl border-l-4 italic font-serif-zen text-lg" style="background: var(--bg-tint); border-color: #B8860B; color: #8C6218;">
+                “Nesta etapa, o Reiki é o caminho e o caminhante, o discípulo e o Mestre. Desejo-te um bom caminho.”
+                <footer class="not-italic font-sans text-xs font-semibold mt-1" style="color: var(--text-secondary);">— António Almas</footer>
+              </blockquote>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="zen-card rounded-2xl p-6 space-y-2" style="background: var(--bg-sage);">
+              <h3 class="font-serif-zen text-2xl font-bold" style="color: var(--accent-amber);">A Missão do Reiki</h3>
+              <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">
+                “A missão do Usui Reiki Ryoho é guiar para uma vida pacífica e feliz, curar os outros, melhorar a sua felicidade e a nossa.”
+              </p>
+            </div>
+            <div class="zen-card rounded-2xl p-6 space-y-2" style="background: var(--bg-champagne);">
+              <h3 class="font-serif-zen text-2xl font-bold" style="color: var(--accent-amber);">Foco no Desenvolvimento Pessoal</h3>
+              <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">
+                Este nível foca-se na prática para nós próprios. Antes de trabalhar com os outros, devemos aplicar os princípios em nós e nas nossas situações de vida.
+              </p>
+            </div>
+          </div>
+        `;
+      }
+
+      else if (currentSection === 'gokai') {
+        const gokaiChecks = JSON.parse(localStorage.getItem('shinpiden_gokai_checks') || '{}');
+        const principles = [
+          { id: 'g1', text: 'Só por hoje, sou calmo(a).', sub: 'Serenidade perante os desafios interiores e exteriores.' },
+          { id: 'g2', text: 'Só por hoje, confio.', sub: 'Entrega consciente ao fluxo da energia universal.' },
+          { id: 'g3', text: 'Só por hoje, sou grato(a).', sub: 'Reconhecimento da luz em cada experiência e linhagem.' },
+          { id: 'g4', text: 'Só por hoje, trabalho honestamente.', sub: 'Integridade no caminho espiritual e no serviço ao outro.' },
+          { id: 'g5', text: 'Só por hoje, sou bondoso(a) para com todos os seres.', sub: 'Compaixão e sentido de unidade: Todos somos Um.' }
+        ];
+
+        container.innerHTML = `
+          <div class="zen-card rounded-3xl p-7 sm:p-9 space-y-6 bg-white">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2" style="background: var(--bg-champagne); color: var(--accent-amber);">Os Pilares da Prática</span>
+              <h2 class="font-serif-zen text-3xl sm:text-4xl font-bold" style="color: var(--accent-amber);">Os Cinco Princípios (Gokai)</h2>
+              <p class="text-sm mt-1 leading-relaxed" style="color: var(--text-secondary);">
+                A "Arte Secreta de Convidar a Felicidade" é a base de todo o trabalho no Nível 3. Senta-te de manhã e à noite em <strong>Gassho</strong> (mãos juntas) e repete os princípios com o coração, se possível em voz alta.
+              </p>
+            </div>
+
+            <div class="space-y-3">
+              ${principles.map((p, idx) => `
+                <label class="flex items-center justify-between p-4 rounded-2xl border cursor-pointer transition hover:opacity-95" style="background: var(--bg-tint); border-color: var(--border-soft);">
+                  <div class="flex items-center gap-3.5">
+                    <input type="checkbox" ${gokaiChecks[p.id] ? 'checked' : ''} onchange="toggleGokaiCheck('${p.id}')" class="w-4 h-4 accent-amber-700" />
+                    <div>
+                      <p class="font-serif-zen text-xl font-bold" style="color: var(--accent-amber);">${idx + 1}. ${p.text}</p>
+                      <p class="text-xs" style="color: var(--text-secondary);">${p.sub}</p>
+                    </div>
+                  </div>
+                  <span class="text-xs font-semibold px-2.5 py-1 rounded-full" style="background: #FFFFFF; color: var(--accent-gold);">Gassho 🙏</span>
+                </label>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      else if (currentSection === 'daikomyo') {
+        container.innerHTML = `
+          <div class="zen-card rounded-3xl p-7 sm:p-9 space-y-6 bg-white">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2" style="background: var(--bg-champagne); color: var(--accent-amber);">O Quarto Símbolo • Grande Luz Brilhante</span>
+              <h2 class="font-serif-zen text-3xl sm:text-4xl font-bold" style="color: var(--accent-amber);">Dai Ko Myo (大光明)</h2>
+              <p class="text-sm mt-1 leading-relaxed" style="color: var(--text-secondary);">
+                O símbolo de vibração mais elevada do sistema Usui. Representa a "Grande Luz Brilhante" e a ligação profunda com a nossa essência espiritual.
+              </p>
+            </div>
+
+            <!-- Significado dos 3 Caracteres -->
+            <div class="grid sm:grid-cols-3 gap-4">
+              <div class="p-5 rounded-2xl border text-center space-y-1.5" style="background: var(--bg-tint); border-color: var(--border-soft);">
+                <div class="font-serif-zen text-4xl font-bold" style="color: var(--accent-gold);">大</div>
+                <h3 class="font-serif-zen text-xl font-bold" style="color: var(--accent-amber);">1. DAI (Grande)</h3>
+                <p class="text-xs" style="color: var(--text-secondary);">Representa a vastidão, a amplitude cósmica e a importância.</p>
+              </div>
+              <div class="p-5 rounded-2xl border text-center space-y-1.5" style="background: var(--bg-champagne); border-color: var(--border-soft);">
+                <div class="font-serif-zen text-4xl font-bold" style="color: var(--accent-gold);">光</div>
+                <h3 class="font-serif-zen text-xl font-bold" style="color: var(--accent-amber);">2. KO (Luz / Brilho)</h3>
+                <p class="text-xs" style="color: var(--text-secondary);">Representa a radiação luminosa e a sabedoria espiritual.</p>
+              </div>
+              <div class="p-5 rounded-2xl border text-center space-y-1.5" style="background: var(--bg-sage); border-color: var(--border-soft);">
+                <div class="font-serif-zen text-4xl font-bold" style="color: var(--accent-gold);">明</div>
+                <h3 class="font-serif-zen text-xl font-bold" style="color: var(--accent-amber);">3. MYO (Sol e Lua)</h3>
+                <p class="text-xs" style="color: var(--text-secondary);">Representa a iluminação e a clareza absoluta (união dos opostos).</p>
+              </div>
+            </div>
+
+            <!-- Esquema de Traçado + Quadro Interativo "O meu Dai Ko Myo" -->
+            <div class="grid lg:grid-cols-2 gap-6 items-start">
+              <div class="p-5 rounded-2xl border space-y-4" style="background: var(--bg-tint); border-color: var(--border-soft);">
+                <h3 class="font-serif-zen text-2xl font-bold" style="color: var(--accent-amber);">Como Desenhar (Passo a Passo)</h3>
+                <p class="text-xs italic" style="color: var(--text-secondary);">
+                  Imagina cada traço como um feixe de luz branca ou dourada que sai da ponta dos dedos ou do terceiro olho, de cima para baixo e da esquerda para a direita.
+                </p>
+                <div class="h-64 flex items-center justify-center rounded-2xl bg-white border p-3" style="border-color: var(--border-soft); color: var(--accent-amber);">
+                  <svg viewBox="0 0 220 300" class="h-full w-auto">
+                    <!-- DAI -->
+                    <path class="symbol-stroke" d="M 55 42 L 165 42" />
+                    <path class="symbol-stroke" d="M 110 18 L 110 48 C 110 74, 82 96, 52 108" />
+                    <path class="symbol-stroke" d="M 110 48 C 116 74, 142 96, 170 108" />
+                    <!-- KO -->
+                    <path class="symbol-stroke" d="M 110 112 L 110 144" />
+                    <path class="symbol-stroke" d="M 78 122 L 96 138" />
+                    <path class="symbol-stroke" d="M 142 122 L 124 138" />
+                    <path class="symbol-stroke" d="M 52 146 L 168 146" />
+                    <path class="symbol-stroke" d="M 96 146 C 96 172, 78 188, 54 196" />
+                    <path class="symbol-stroke" d="M 124 146 L 124 186 C 124 194, 132 194, 158 194" />
+                    <!-- MYO (Sol + Lua) -->
+                    <rect class="symbol-stroke" x="56" y="212" width="38" height="62" rx="2" />
+                    <path class="symbol-stroke" d="M 56 242 L 94 242" />
+                    <path class="symbol-stroke" d="M 118 212 L 158 212 L 158 278 C 158 286, 148 286, 142 280" />
+                    <path class="symbol-stroke" d="M 118 212 L 118 246 C 118 266, 108 280, 94 288" />
+                    <path class="symbol-stroke" d="M 118 234 L 158 234" />
+                    <path class="symbol-stroke" d="M 118 256 L 158 256" />
+                  </svg>
+                </div>
+                <ul class="text-xs space-y-1.5" style="color: var(--text-secondary);">
+                  <li><strong>Ativação:</strong> Desenha na palma dominante, bate 3 vezes suavemente e repete <em>"Dai Ko Myo"</em> 3 vezes.</li>
+                  <li><strong>Evitar:</strong> Pressa (é uma invocação, não apenas caligrafia) e falta de intenção de "ser a luz".</li>
+                </ul>
+              </div>
+
+              <div class="p-5 rounded-2xl border space-y-3 bg-white" style="border-color: var(--border-soft);">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="font-serif-zen text-2xl font-bold" style="color: var(--accent-amber);">O meu Dai Ko Myo</h3>
+                    <p class="text-[11px]" style="color: var(--text-secondary);">Traça em luz dourada para iluminar o teu caminho</p>
+                  </div>
+                  <button onclick="clearDkmCanvas()" class="px-3 py-1.5 rounded-lg text-xs font-semibold" style="background: var(--bg-tint); color: var(--accent-amber);">Limpar</button>
+                </div>
+                <canvas id="dkm-canvas" width="420" height="310" class="w-full h-72 rounded-2xl border cursor-crosshair" style="background: var(--bg-tint); border-color: var(--border-soft);"></canvas>
+              </div>
+            </div>
+          </div>
+        `;
+        initDkmCanvas();
+      }
+
+      else if (currentSection === 'meditacao') {
+        const mins = String(Math.floor(medSecondsLeft / 60)).padStart(2, '0');
+        const secs = String(medSecondsLeft % 60).padStart(2, '0');
+
+        container.innerHTML = `
+          <div class="zen-card rounded-3xl p-7 sm:p-9 space-y-6 bg-white">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2" style="background: var(--bg-champagne); color: var(--accent-amber);">Conexão com a Fonte</span>
+              <h2 class="font-serif-zen text-3xl sm:text-4xl font-bold" style="color: var(--accent-amber);">Meditação da Luz Interior</h2>
+              <p class="text-sm mt-1 leading-relaxed" style="color: var(--text-secondary);">
+                No Nível 3, a meditação torna-se um processo de iluminação da consciência. Escolhe <strong>10 ou 15 minutos</strong> — a melodia de harpa limpa sem zumbidos acompanhará toda a contagem regressiva.
+              </p>
+            </div>
+
+            <!-- Relógio + Controlos de Áudio Ambiente -->
+            <div class="p-6 sm:p-8 rounded-3xl border text-center space-y-4" style="background: linear-gradient(135deg, #FBF8F3 0%, #F4E7D7 100%); border-color: var(--border-soft);">
+              <div class="flex items-center justify-center gap-2">
+                <span class="text-xs font-bold uppercase tracking-widest" style="color: var(--accent-amber);">Permanência em "Ser Luz"</span>
+                <span id="med-audio-indicator" class="${isMedMusicPlaying && !isMedMuted ? '' : 'hidden'} inline-flex items-end gap-0.5 h-3.5 px-2 py-0.5 rounded-full bg-white/80">
+                  <span class="sound-bar w-0.5 h-3 bg-amber-600 rounded-full"></span>
+                  <span class="sound-bar w-0.5 h-2 bg-amber-600 rounded-full" style="animation-delay:0.2s"></span>
+                  <span class="sound-bar w-0.5 h-3 bg-amber-600 rounded-full" style="animation-delay:0.4s"></span>
+                </span>
+              </div>
+
+              <div id="med-timer-display" class="font-serif-zen text-5xl sm:text-6xl font-bold tracking-wider" style="color: var(--accent-amber);">${mins}:${secs}</div>
+
+              <div class="flex flex-wrap justify-center gap-2.5">
+                <button onclick="setMedDuration(600)" class="px-4 py-2 rounded-xl text-xs font-semibold border transition ${medSelectedDuration === 600 ? 'text-white shadow' : 'bg-white'}"
+                  style="${medSelectedDuration === 600 ? 'background: #8C6218; border-color: #8C6218;' : 'border-color: var(--border-soft); color: var(--accent-amber);'}">
+                  10 Minutos + Harpa
+                </button>
+                <button onclick="setMedDuration(900)" class="px-4 py-2 rounded-xl text-xs font-semibold border transition ${medSelectedDuration === 900 ? 'text-white shadow' : 'bg-white'}"
+                  style="${medSelectedDuration === 900 ? 'background: #8C6218; border-color: #8C6218;' : 'border-color: var(--border-soft); color: var(--accent-amber);'}">
+                  15 Minutos + Harpa
+                </button>
+              </div>
+
+              <div class="flex flex-wrap justify-center gap-2.5 pt-1">
+                <button onclick="startMedTimer()" class="px-6 py-2.5 rounded-full text-xs font-semibold text-white shadow-md transition hover:opacity-95" style="background: linear-gradient(135deg, #8C6218, #B8860B);">
+                  ▶ Iniciar Meditação
+                </button>
+                <button onclick="stopMedTimer()" class="px-4 py-2.5 rounded-full text-xs font-semibold bg-white border" style="border-color: var(--border-soft); color: var(--accent-amber);">
+                  ⏸ Pausar
+                </button>
+                <button onclick="resetMedTimer()" class="px-4 py-2.5 rounded-full text-xs font-semibold bg-white border" style="border-color: var(--border-soft); color: var(--text-secondary);">
+                  ↺ Reiniciar
+                </button>
+              </div>
+
+              <!-- Barra de Áudio e Volume -->
+              <div class="pt-3 border-t max-w-md mx-auto flex flex-wrap items-center justify-center gap-3 text-xs" style="border-color: rgba(184, 134, 11, 0.2);">
+                <button id="med-mute-btn" onclick="toggleMedMute()" class="px-3 py-1.5 rounded-lg bg-white border font-medium" style="border-color: var(--border-soft); color: var(--accent-amber);">
+                  ${isMedMuted ? '🔇 Ativar Som' : '🔊 Silenciar'}
+                </button>
+                <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg border" style="border-color: var(--border-soft);">
+                  <span style="color: var(--text-secondary);">Volume</span>
+                  <input type="range" min="0" max="1" step="0.05" value="${medVolume}" oninput="setMedVolume(this.value)" class="w-24 accent-amber-700" />
+                </div>
+                <button onclick="testMedSound()" class="px-3 py-1.5 rounded-lg bg-white border font-medium" style="border-color: var(--border-soft); color: var(--accent-gold);">
+                  🔔 Testar Áudio
+                </button>
+              </div>
+            </div>
+
+            <!-- Os 5 Passos da Meditação -->
+            <div class="grid sm:grid-cols-5 gap-3 text-xs">
+              ${[
+                { n: '1', t: 'Preparação', d: 'Costas direitas, mãos em Gassho e respiração abdominal.' },
+                { n: '2', t: 'Ativação', d: 'Visualiza ou desenha o Dai Ko Myo à tua frente.' },
+                { n: '3', t: 'Inspirar a Luz', d: 'Ao inspirar, entra pelo Chakra da Coroa até ao Coração.' },
+                { n: '4', t: 'Expansão', d: 'Ao expirar, preenche cada célula e projeta-se para o Universo.' },
+                { n: '5', t: 'Permanência', d: 'Permanece em "ser luz" por 10 a 15 minutos.' }
+              ].map(st => `
+                <div class="p-4 rounded-2xl border space-y-1" style="background: var(--bg-tint); border-color: var(--border-soft);">
+                  <span class="inline-block w-6 h-6 rounded-full text-center leading-6 font-bold text-white text-[11px]" style="background: #B8860B;">${st.n}</span>
+                  <h4 class="font-bold text-sm" style="color: var(--accent-amber);">${st.t}</h4>
+                  <p style="color: var(--text-secondary);">${st.d}</p>
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Visualização e Purificação -->
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="p-5 rounded-2xl border space-y-2" style="background: var(--bg-sage); border-color: var(--border-soft);">
+                <h3 class="font-serif-zen text-xl font-bold" style="color: var(--accent-amber);">7.2. Compreensão de Situações</h3>
+                <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">
+                  Projeta o Dai Ko Myo sobre um problema ou memória. Não peças uma solução lógica, mas pede que a "Grande Luz" ilumine os aspetos ocultos dessa questão.
+                </p>
+              </div>
+              <div class="p-5 rounded-2xl border space-y-2" style="background: var(--bg-champagne); border-color: var(--border-soft);">
+                <h3 class="font-serif-zen text-xl font-bold" style="color: var(--accent-amber);">7.3. Purificação dos Corpos Subtis</h3>
+                <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">
+                  <strong>Mental:</strong> Dai Ko Myo na 3ª visão para dissolver pensamentos repetitivos.<br/>
+                  <strong>Emocional:</strong> Mãos no plexo solar para transmutar emoções pesadas em serenidade.
+                </p>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      else if (currentSection === 'linhagem') {
+        container.innerHTML = `
+          <div class="zen-card rounded-3xl p-7 sm:p-9 space-y-6 bg-white">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2" style="background: var(--bg-champagne); color: var(--accent-amber);">Honrar o Passado e Libertar o Futuro</span>
+              <h2 class="font-serif-zen text-3xl sm:text-4xl font-bold" style="color: var(--accent-amber);">Cura da Linhagem: Ancestrais e Descendentes</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-5">
+              <div class="p-6 rounded-2xl border space-y-3" style="background: var(--bg-tint); border-color: var(--border-soft);">
+                <h3 class="font-serif-zen text-2xl font-bold" style="color: var(--accent-amber);">8.2. Envio para os Ancestrais</h3>
+                <ol class="list-decimal list-inside space-y-1.5 text-xs leading-relaxed" style="color: var(--text-secondary);">
+                  <li><strong>Conexão:</strong> Ativa os símbolos nas mãos (começando pelo Dai Ko Myo).</li>
+                  <li><strong>Ponte Temporal:</strong> Usa o Hon Sha Ze Sho Nen com a intenção "Para todos os meus antepassados".</li>
+                  <li><strong>Aplicação da Luz:</strong> Desenha Dai Ko Myo e Sei He Ki visualizando luz branca a iluminar a linha do tempo.</li>
+                </ol>
+                <blockquote class="p-3 rounded-xl bg-white border-l-4 italic text-xs" style="border-color: #B8860B; color: #8C6218;">
+                  “Eu liberto-vos de qualquer carga que não vos pertença e agradeço a vida que chegou até mim. Que a luz cure a nossa linhagem.”
+                </blockquote>
+              </div>
+
+              <div class="p-6 rounded-2xl border space-y-3" style="background: var(--bg-sage); border-color: var(--border-soft);">
+                <h3 class="font-serif-zen text-2xl font-bold" style="color: var(--accent-amber);">8.3. Proteção e Limpeza para os Filhos</h3>
+                <ol class="list-decimal list-inside space-y-1.5 text-xs leading-relaxed" style="color: var(--text-secondary);">
+                  <li><strong>Intenção:</strong> Foca-te na energia que possas ter transmitido (medos, ansiedades ou padrões).</li>
+                  <li><strong>Limpeza:</strong> Usa o Sei He Ki para dissolver qualquer densidade que tenha viajado de ti para eles.</li>
+                  <li><strong>Restauração:</strong> Visualiza o Dai Ko Myo a envolver os teus filhos numa bolha de luz pura para seguirem livres o seu próprio caminho.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      else if (currentSection === 'aplicacoes') {
+        container.innerHTML = `
+          <div class="zen-card rounded-3xl p-7 sm:p-9 space-y-6 bg-white">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2" style="background: var(--bg-champagne); color: var(--accent-amber);">Intervenção Energética Dirigida</span>
+              <h2 class="font-serif-zen text-3xl sm:text-4xl font-bold" style="color: var(--accent-amber);">Aplicações Práticas Avançadas do Nível 3A</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+              ${[
+                {
+                  title: '9.1. Tratamento Organizado por Órgãos',
+                  desc: 'Identifica o órgão (ex: fígado, rins, coração), desenha o Dai Ko Myo exatamente do tamanho do órgão e sela com Cho Ku Rei afirmando: "Que este órgão regresse ao seu estado original de saúde perfeita."'
+                },
+                {
+                  title: '9.2. Desprogramação de Maus Hábitos',
+                  desc: 'Aplica diretamente onde o bloqueio se manifesta (ex: vazio no estômago ou aperto no peito): traça Sei He Ki 3 vezes sobre a zona e usa uma afirmação positiva.'
+                },
+                {
+                  title: '9.3. Limpeza de "Bolas de Energia Densa"',
+                  desc: 'Quando há pulsação acelerada no abdómen ou sensação de peso, coloca as mãos na zona e projeta o Sei He Ki para transmutar a densidade em luz fluida.'
+                },
+                {
+                  title: '9.4 & 9.5. Crise & Proteção Empática',
+                  desc: 'Mãos nos ombros do paciente para aterrar. Se o terapeuta sentir náuseas ou sintomas do outro, retrai as pernas para a energia circular e faz Kenyoku-ho após a sessão.'
+                }
+              ].map(card => `
+                <div class="p-5 rounded-2xl border space-y-2" style="background: var(--bg-tint); border-color: var(--border-soft);">
+                  <h3 class="font-serif-zen text-xl font-bold" style="color: var(--accent-amber);">${card.title}</h3>
+                  <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">${card.desc}</p>
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="p-5 rounded-2xl border space-y-2" style="background: var(--bg-champagne); border-color: var(--border-soft);">
+              <h3 class="font-serif-zen text-xl font-bold" style="color: var(--accent-amber);">10. Sensibilidade Espiritual e Fenómenos Energéticos</h3>
+              <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">
+                O Reiki não é um ritual de exorcismo, mas uma ferramenta de harmonização e proteção: <strong>1) Aterramento</strong> com mãos nos ombros; <strong>2) Desbloqueio</strong> com Sei He Ki; <strong>3) Proteção</strong> envolvendo o recetor na Grande Luz Brilhante do Dai Ko Myo e fortalecendo o princípio <em>"Confio"</em>.
+              </p>
+            </div>
+          </div>
+        `;
+      }
+
+      else if (currentSection === 'socorros') {
+        const items = [
+          { cat: 'emocional', sit: 'Ansiedade Aguda', sym: 'Pulsação acelerada no abdómen ou peito.', act: 'Mãos no Plexo Solar; respiração profunda.', key: 'Sei He Ki (Limpeza)' },
+          { cat: 'emocional', sit: 'Ataque de Pânico', sym: 'Sensação de desmaio ou náusea.', act: 'Mestre coloca mãos nos ombros; Aluno retrai pernas.', key: 'Cho Ku Rei (Focar/Aterrar)' },
+          { cat: 'protecao', sit: 'Vampirização', sym: 'Terapeuta sente-se exausto após a sessão.', act: 'Fazer Kenyoku-ho (banho seco) e limpar os ombros.', key: 'Sei He Ki (Corte)' },
+          { cat: 'mental', sit: 'Confusão Mental', sym: 'Pensamentos caóticos, falta de clareza.', act: 'Aplicar na 3ª Visão e Coroa.', key: 'Dai Ko Myo (Luz/Clareza)' },
+          { cat: 'fisico', sit: 'Dor ou Desconforto Físico Súbito', sym: 'Mal-estar num órgão específico.', act: 'Mão sobre a zona; visualizar símbolo do tamanho do órgão.', key: 'Dai Ko Myo + Cho Ku Rei' },
+          { cat: 'protecao', sit: 'Ambiente Pesado', sym: 'Sensação de "ar carregado" na sala.', act: 'Desenhar o símbolo nos 4 cantos da sala e no centro.', key: 'Dai Ko Myo (Elevação)' }
+        ];
+
+        const filtered = socorroFilter === 'all' ? items : items.filter(i => i.cat === socorroFilter);
+
+        container.innerHTML = `
+          <div class="zen-card rounded-3xl p-7 sm:p-9 space-y-6 bg-white">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2" style="background: var(--bg-champagne); color: var(--accent-amber);">Consulta Rápida</span>
+              <h2 class="font-serif-zen text-3xl sm:text-4xl font-bold" style="color: var(--accent-amber);">11. Guia de Primeiros Socorros Energéticos</h2>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              ${[
+                { id: 'all', label: 'Todas as Situações' },
+                { id: 'emocional', label: 'Emocional' },
+                { id: 'mental', label: 'Mental' },
+                { id: 'fisico', label: 'Físico' },
+                { id: 'protecao', label: 'Proteção & Ambiente' }
+              ].map(f => `
+                <button onclick="setSocorroFilter('${f.id}')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition ${socorroFilter === f.id ? 'text-white shadow' : ''}"
+                  style="${socorroFilter === f.id ? 'background: #8C6218;' : 'background: var(--bg-tint); color: var(--accent-amber);'}">
+                  ${f.label}
+                </button>
+              `).join('')}
+            </div>
+
+            <div class="overflow-x-auto rounded-2xl border" style="border-color: var(--border-soft);">
+              <table class="w-full text-left text-xs">
+                <thead style="background: #8C6218; color: #FFFFFF;">
+                  <tr>
+                    <th class="p-3.5">Situação</th>
+                    <th class="p-3.5">Sintoma Físico / Energético</th>
+                    <th class="p-3.5">Ação Imediata</th>
+                    <th class="p-3.5">Símbolo Chave</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y" style="border-color: var(--border-soft);">
+                  ${filtered.map(r => `
+                    <tr class="hover:bg-amber-50/40">
+                      <td class="p-3.5 font-bold" style="color: var(--accent-amber);">${r.sit}</td>
+                      <td class="p-3.5">${r.sym}</td>
+                      <td class="p-3.5">${r.act}</td>
+                      <td class="p-3.5 font-semibold" style="color: var(--accent-gold);">${r.key}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="p-4 rounded-2xl border text-xs leading-relaxed" style="background: var(--bg-tint); border-color: var(--border-soft); color: var(--text-secondary);">
+              <strong>Aviso Médico:</strong> O Reiki é uma terapia complementar e espiritual e não substitui consultas médicas, diagnósticos ou tratamentos hospitalares convencionais.
+            </div>
+          </div>
+        `;
+      }
+
+      else if (currentSection === 'anshin') {
+        container.innerHTML = `
+          <div class="zen-card rounded-3xl p-7 sm:p-9 space-y-6 bg-white">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2" style="background: var(--bg-champagne); color: var(--accent-amber);">A Vertente Tradicional • Dento Reiki</span>
+              <h2 class="font-serif-zen text-3xl sm:text-4xl font-bold" style="color: var(--accent-amber);">Anshin Ritsumei: O Estado de Paz Absoluta</h2>
+              <p class="text-sm mt-2 leading-relaxed" style="color: var(--text-secondary);">
+                O objetivo último de Mikao Usui não era apenas a cura física, mas alcançar o <strong>Anshin Ritsumei</strong> — um estado de paz interior profunda e iluminação, independentemente das circunstâncias externas, compreendendo que o Reiki não é algo que <em>"fazemos"</em>, mas algo que <em>"somos"</em>.
+              </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4">
+              <div class="p-5 rounded-2xl border space-y-2" style="background: var(--bg-tint); border-color: var(--border-soft);">
+                <h3 class="font-serif-zen text-xl font-bold" style="color: var(--accent-amber);">1. Meditação com Dai Ko Myo</h3>
+                <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">Desenha o Dai Ko Myo nas palmas, leva as mãos em Gassho até à terceira visão e permanece em silêncio preenchido por luz cósmica.</p>
+              </div>
+              <div class="p-5 rounded-2xl border space-y-2" style="background: var(--bg-champagne); border-color: var(--border-soft);">
+                <h3 class="font-serif-zen text-xl font-bold" style="color: var(--accent-amber);">2. Gokai Sansho</h3>
+                <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">Entoação tripla dos Cinco Princípios focando no "Aqui e Agora", até se tornarem o teu estado natural de consciência.</p>
+              </div>
+              <div class="p-5 rounded-2xl border space-y-2" style="background: var(--bg-sage); border-color: var(--border-soft);">
+                <h3 class="font-serif-zen text-xl font-bold" style="color: var(--accent-amber);">3. Mente Limpa e Coração Aberto</h3>
+                <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">Realiza o autotratamento com desapego absoluto aos resultados, esvaziando-te de expectativas e confiando no teu propósito.</p>
+              </div>
+            </div>
+
+            <div class="p-5 rounded-2xl border space-y-2" style="background: var(--bg-tint); border-color: var(--border-soft);">
+              <h3 class="font-serif-zen text-xl font-bold" style="color: var(--accent-amber);">Técnicas Japonesas de Purificação (Dento Reiki)</h3>
+              <ul class="text-xs space-y-1.5" style="color: var(--text-secondary);">
+                <li>• <strong>Kenyoku-ho (Banho Seco):</strong> Para desconectar de energias externas e fortalecer o campo vibratório.</li>
+                <li>• <strong>Joshin Kokyu-ho:</strong> Respiração focada no Tanden para purificar o espírito, acumular energia vital e expandir a aura.</li>
+                <li>• <strong>Byosen Reikan-ho:</strong> Perceção aguçar da irradiação de desequilíbrios antes mesmo de tocar no corpo.</li>
+              </ul>
+            </div>
+          </div>
+        `;
+      }
+
+      else if (currentSection === 'apontamentos') {
+        const notes = localStorage.getItem('shinpiden_notes') || '';
+        container.innerHTML = `
+          <div class="zen-card rounded-3xl p-7 sm:p-9 space-y-6 bg-white">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2" style="background: var(--bg-champagne); color: var(--accent-amber);">O Caminho Continua na Prática</span>
+              <h2 class="font-serif-zen text-3xl sm:text-4xl font-bold" style="color: var(--accent-amber);">Conclusão & Apontamentos do Praticante</h2>
+            </div>
+
+            <div class="p-5 rounded-2xl border space-y-2" style="background: var(--bg-tint); border-color: var(--border-soft);">
+              <p class="text-xs leading-relaxed" style="color: var(--text-primary);">
+                • Trabalha primeiro em ti para poderes servir melhor os outros.<br/>
+                • Usa a luz para compreender, não apenas para curar.<br/>
+                • Honra os teus antepassados e limpa o caminho para os que virão.<br/>
+                • Mantém a humildade de quem está sempre a aprender, seguindo o exemplo do Mestre Usui.
+              </p>
+              <p class="font-serif-zen text-lg italic pt-1" style="color: var(--accent-amber);">“Só por hoje, somos gratos.”</p>
+            </div>
+
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-semibold uppercase tracking-wider" style="color: var(--accent-amber);">Apontamentos do Praticante (guardados automaticamente):</label>
+                <span id="notes-status" class="text-[11px]" style="color: var(--accent-gold);">Sincronizado ✓</span>
+              </div>
+              <textarea id="practitioner-notes" rows="9" oninput="saveNotes(this.value)"
+                placeholder="Regista aqui as tuas vivências com o Dai Ko Myo, meditações da Luz Interior e reflexões do Nível 3A..."
+                class="w-full p-4 rounded-2xl border text-sm leading-relaxed focus:outline-none"
+                style="background: var(--bg-tint); border-color: var(--border-soft); color: var(--text-primary);">${notes}</textarea>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // ==========================================
+    // CONTROLOS INTERATIVOS
+    // ==========================================
+    function toggleGokaiCheck(id) {
+      const checks = JSON.parse(localStorage.getItem('shinpiden_gokai_checks') || '{}');
+      checks[id] = !checks[id];
+      localStorage.setItem('shinpiden_gokai_checks', JSON.stringify(checks));
+      if (checks[id]) playZenBell();
+    }
+
+    function setSocorroFilter(cat) {
+      socorroFilter = cat;
+      renderSection();
+    }
+
+    function updateMedTimerDisplay() {
+      const el = document.getElementById('med-timer-display');
+      if (!el) return;
+      const m = String(Math.floor(medSecondsLeft / 60)).padStart(2, '0');
+      const s = String(medSecondsLeft % 60).padStart(2, '0');
+      el.textContent = `${m}:${s}`;
+    }
+
+    function setMedDuration(sec) {
+      stopMedTimer();
+      medSelectedDuration = sec;
+      medSecondsLeft = sec;
+      renderSection();
+    }
+
+    function startMedTimer() {
+      ensureAudioContext();
+      if (medInterval) return;
+      playZenBell();
+      startMeditationMusic();
+      medInterval = setInterval(() => {
+        if (medSecondsLeft > 0) {
+          medSecondsLeft--;
+          updateMedTimerDisplay();
+        } else {
+          stopMedTimer();
+          playZenBell();
+        }
+      }, 1000);
+    }
+
+    function stopMedTimer() {
+      if (medInterval) {
+        clearInterval(medInterval);
+        medInterval = null;
+      }
+      stopMeditationMusic();
+    }
+
+    function resetMedTimer() {
+      stopMedTimer();
+      medSecondsLeft = medSelectedDuration;
+      updateMedTimerDisplay();
+    }
+
+    function initDkmCanvas() {
+      const canvas = document.getElementById('dkm-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let drawing = false;
+
+      const getPos = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+          x: (clientX - rect.left) * (canvas.width / rect.width),
+          y: (clientY - rect.top) * (canvas.height / rect.height)
+        };
+      };
+
+      const start = (e) => {
+        drawing = true;
+        const p = getPos(e);
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+      };
+
+      const move = (e) => {
+        if (!drawing) return;
+        e.preventDefault();
+        const p = getPos(e);
+        ctx.lineWidth = 4.5;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#B8860B';
+        ctx.shadowColor = 'rgba(212, 175, 55, 0.55)';
+        ctx.shadowBlur = 8;
+        ctx.lineTo(p.x, p.y);
+        ctx.stroke();
+      };
+
+      const end = () => { drawing = false; };
+
+      canvas.addEventListener('mousedown', start);
+      canvas.addEventListener('mousemove', move);
+      window.addEventListener('mouseup', end);
+      canvas.addEventListener('touchstart', start, { passive: false });
+      canvas.addEventListener('touchmove', move, { passive: false });
+      canvas.addEventListener('touchend', end);
+    }
+
+    function clearDkmCanvas() {
+      const canvas = document.getElementById('dkm-canvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    function saveNotes(val) {
+      localStorage.setItem('shinpiden_notes', val);
+      const status = document.getElementById('notes-status');
+      if (status) status.textContent = 'Guardado ✓';
+    }
+
+    renderNavigation();
+    renderSection();
+    mountLogos();
+  </script>
+</body>
+</html>
