@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ĀTMĀYÂ — Painel de Administração</title>
-  <script src="users.js?v=27"></script>
-  <script src="auth.js?v=27"></script>
+  <script src="users.js?v=28"></script>
+  <script src="auth.js?v=28"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -352,6 +352,8 @@
       if (!confirm('Desinstalar "' + a.name + '"? Os utilizadores perderam o acesso, mas o ficheiro permanece no servidor.')) return;
       AUTH.removeApp(id);
       renderApps();
+      flash();
+    };
 
     // Estado da sincronização automática com o servidor
     function atualizaSyncBadge() {
@@ -361,20 +363,19 @@
       else if (s.ok) { el.textContent = '✓ Sincronizado com o servidor'; el.style.color = '#3a7a3a'; }
       else { el.textContent = '✗ Sem sincronização automática: ' + s.msg; el.style.color = '#a33'; }
     }
+
+    // DADOS FRESCOS DO SERVIDOR: redesenhar tudo (listas, apps e checkboxes)
     document.addEventListener('atmaya-data', function () {
       render(); renderApps();
-      // reconstruir as checkboxes de permissoes com as apps frescas,
-      // mantendo a selecao atual do formulario
       const sel = Array.from(document.querySelectorAll('#f-apps input:checked')).map(i => i.value);
       buildAppsCheckboxes(sel);
     });
+    // GRAVAÇÃO CONCLUÍDA: atualizar o aviso e redesenhar
     document.addEventListener('atmaya-sync', function () {
       atualizaSyncBadge();
-      // o servidor acabou de gravar o users.js novo: redesenhar listas
       render();
       renderApps();
-    }); flash();
-    };
+    });
 
     document.getElementById('app-form').addEventListener('submit', e => {
       e.preventDefault();
@@ -403,7 +404,7 @@
   </script>
 
 <footer style="text-align:center;padding:0.8rem 1rem 1.4rem;font-size:0.75rem;letter-spacing:0.2em;color:#8c8474;text-transform:uppercase">
-  Versão do site: <strong>v2.7</strong> • Ātmāyā • © 2025–2026
+  Versão do site: <strong>v2.8</strong> • Ātmāyā • © 2025–2026
 </footer>
 </body>
 </html>
