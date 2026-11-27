@@ -93,8 +93,17 @@ export default {
       if (!corpo || corpo.key !== CHAVE_SECRETA || !corpo.data) {
         return json({ ok: false, msg: 'Pedido recusado.' }, 403);
       }
+      const vNovo = corpo.data._v || 0;
       try {
-        await env.SITE_DB.put('appdata-gestao', JSON.stringify({ v: Date.now(), data: corpo.data }));
+        const bruto = await env.SITE_DB.get('appdata-gestao');
+        if (bruto) {
+          const atual = JSON.parse(bruto);
+          // defesa: nunca aceitar uma versao mais antiga do que a guardada
+          if ((atual.v || 0) >= vNovo) {
+            return json({ ok: false, msg: 'O servidor tem uma versão mais recente.' });
+          }
+        }
+        await env.SITE_DB.put('appdata-gestao', JSON.stringify({ v: vNovo, data: corpo.data }));
       } catch (e) {
         return json({ ok: false, msg: 'Falha ao escrever no KV.' }, 500);
       }
