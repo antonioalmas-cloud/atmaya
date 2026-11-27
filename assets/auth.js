@@ -86,6 +86,19 @@ const AUTH = (() => {
         window.ATMAYA_USERS = d.users;
         window.ATMAYA_APPS = d.apps && d.apps.length ? d.apps : window.ATMAYA_APPS;
         remoteDataLoaded = true;
+
+        // regrava a sessao atual com as permissoes frescas do servidor,
+        // para os botoes das apps novas aparecerem sem sair da conta
+        const s = session();
+        if (s && s.id) {
+          const u = d.users.find(x => x.id === s.id);
+          if (u) {
+            s.name = u.name;
+            s.admin = !!u.admin;
+            s.apps = Array.isArray(u.apps) ? u.apps : [];
+            sessionStorage.setItem(SESSION_KEY, JSON.stringify(s));
+          }
+        }
       }
     } catch (e) {
       // sem Functions (ex.: alojamento PHP puro): usa o users.js estatico
