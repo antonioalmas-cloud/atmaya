@@ -94,8 +94,8 @@ tr:hover td{background:#faf6ec}
 .pr-foot{position:absolute;bottom:10mm;left:14mm;right:14mm;border-top:1px solid #ddd;padding-top:3mm;font-size:10px;color:#777}
 .sig{margin-top:14mm;width:60mm;border-top:1px solid #333;padding-top:2mm;font-size:11px}
 </style>
-<script src="users.js?v=25"></script>
-  <script src="auth.js?v=25"></script>
+<script src="users.js?v=28"></script>
+  <script src="auth.js?v=28"></script>
 <script>/* Protecção: exige sessão com acesso a esta app */
   if (!AUTH.requireApp('gestao')) document.documentElement.innerHTML = "";
 </script>
@@ -240,7 +240,9 @@ tr:hover td{background:#faf6ec}
   <div class="grid2">
     <div class="panel">
       <h2>Backup</h2>
-      <p class="note">Todos os dados ficam guardados neste navegador (localStorage). Faça cópias de segurança regulares.</p>
+      <p class="note">Os dados ficam guardados neste navegador (localStorage) <strong>e sincronizados com o servidor do site</strong>.</p>
+      <p class="note" id="sync-gestao">Sincronização: a verificar…</p>
+      <p class="note">Gestão ĀTMĀYÂ v2.9 — com cópia de segurança automática no servidor.</p>
       <button class="primary" onclick="exportJSON()">⇩ Exportar backup (JSON)</button>
       <div style="height:10px"></div>
       <label>Restaurar backup</label>
@@ -301,7 +303,41 @@ function seedApply(d){
 let db;
 try{ db=JSON.parse(localStorage.getItem(DBKEY))||null; }catch(e){ db=null; }
 if(!db||!db.settings){ db=defaultDB(); seedApply(db); setTimeout(()=>save(),0); }
-const save=()=>localStorage.setItem(DBKEY,JSON.stringify(db));
+const save=()=>{db._v=Date.now();localStorage.setItem(DBKEY,JSON.stringify(db));pushServerDebounced();};
+
+/* ===== SINCRONIZAÇÃO COM O SERVIDOR (Cloudflare) ===== */
+const GESTAO_SYNC_KEY='6a33e1b1eb6d91383dc6a23caed8261b75133a3aa8fe99e9';
+let _pushT=null;
+function pushServerDebounced(){ clearTimeout(_pushT); _pushT=setTimeout(pushServerNow,1500); }
+async function pushServerNow(){
+  try{
+    const r=await fetch('api/appdata',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({key:GESTAO_SYNC_KEY,data:db})});
+    const d=await r.json();
+    const el=document.getElementById('sync-gestao');
+    if(el) el.textContent=d.ok?'✓ Dados guardados no servidor':'⚠ Sem ligação ao servidor (dados só neste navegador)';
+  }catch(e){}
+}
+(async function syncFromServer(){
+  try{
+    const r=await fetch('api/appdata',{cache:'no-store'});
+    const d=await r.json();
+    if(d&&d.ok&&d.data&&d.data.settings){
+      const localV=db._v||0;
+      if((d.v||0)>localV){
+        db=d.data;
+        localStorage.setItem(DBKEY,JSON.stringify(db));
+        if(typeof renderAll==='function') renderAll();
+        toast('Dados atualizados a partir do servidor.');
+      } else if(localV>(d.v||0)){
+        pushServerNow(); // os dados locais sao mais recentes: enviar
+      }
+    } else if(db&&db.settings){
+      pushServerNow(); // servidor vazio: guardar la os dados deste dispositivo
+    }
+  }catch(e){}
+})();
 const uid=()=>'id'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 const eur=v=>(Number(v)||0).toLocaleString('pt-PT',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
 const fmtDate=d=>d?d.split('-').reverse().join('/'):''; // espera AAAA-MM-DD
