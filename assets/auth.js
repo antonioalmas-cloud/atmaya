@@ -18,7 +18,7 @@ const AUTH = (() => {
   let APPS = DEFAULT_APPS.slice();
 
 
-  const app = id => APPS.find(a => a.id === id);
+  const app = id => getApps().find(a => a.id === id);
 
   /* ---------- SHA-256 puro em JavaScript (funciona também sem HTTPS) ---------- */
   function sha256(ascii) {
