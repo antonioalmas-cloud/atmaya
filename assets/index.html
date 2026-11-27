@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ĀTMĀYÂ — Yoga & Therapy Studio</title>
-  <script src="users.js?v=23"></script>
-  <script src="auth.js?v=23"></script>
+  <script src="users.js?v=25"></script>
+  <script src="auth.js?v=25"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -54,6 +54,17 @@
       text-transform: uppercase;
       color: #6b6257;
     }
+
+    /* ---------- Area reservada ---------- */
+    #landing-box { text-align: center; }
+    #btn-area {
+      background: #514a41; color: #f7f5f0;
+      border: 1px solid #514a41; border-radius: 10px;
+      padding: 0.7rem 2.2rem; font-family: inherit;
+      font-size: 1rem; letter-spacing: 0.18em; text-transform: uppercase;
+      cursor: pointer; box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+    }
+    #btn-area:hover { background: #8a6d3b; border-color: #8a6d3b; }
 
     /* ---------- Login ---------- */
     #login-box {
@@ -191,8 +202,13 @@
     <p class="subtitle">Desde 13 Out 25</p>
   </header>
 
+  <!-- Area reservada (visitantes) -->
+  <div id="landing-box" style="display:none">
+    <button id="btn-area">Área Reservada</button>
+  </div>
+
   <!-- Caixa de login -->
-  <div id="login-box">
+  <div id="login-box" style="display:none">
     <h2>ENTRAR</h2>
     <label for="username">Utilizador</label>
     <input id="username" autocomplete="username">
@@ -212,17 +228,28 @@
   </div>
 
   <footer>Ātmāyā • Yoga &amp; Therapy Studio<br>
-    <span style="letter-spacing:0.12em">© 2025–2026 Ātmāyā • Desde 13 Out 25 • v6</span></footer>
+    <span style="letter-spacing:0.12em">© 2025–2026 Ātmāyā • Desde 13 Out 25</span><br>
+    <span style="letter-spacing:0.12em">Versão do site: <strong>v2.5</strong></span></footer>
 
   <script>
     function logoutAndReload() { AUTH.logout(); location.reload(); }
 
     function render() {
       const s = AUTH.session();
+      const landingBox = document.getElementById('landing-box');
       const loginBox = document.getElementById('login-box');
       const appsBox = document.getElementById('apps-box');
 
-      if (!s) { loginBox.style.display = 'block'; appsBox.style.display = 'none'; return; }
+      if (!s) {
+        appsBox.style.display = 'none';
+        // se o visitante ainda nao pediu para entrar, mostra so o botao
+        if (loginBox.style.display !== 'block') {
+          landingBox.style.display = 'block';
+          loginBox.style.display = 'none';
+        }
+        return;
+      }
+      landingBox.style.display = 'none';
 
       // Sessão ativa: esconder login, mostrar apps permitidas
       loginBox.style.display = 'none';
@@ -258,6 +285,12 @@
     function escapeHtml(t) {
       return String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
+
+    document.getElementById('btn-area').addEventListener('click', () => {
+      document.getElementById('landing-box').style.display = 'none';
+      document.getElementById('login-box').style.display = 'block';
+      document.getElementById('username').focus();
+    });
 
     document.getElementById('btn-login').addEventListener('click', () => {
       const u = document.getElementById('username').value.trim();
